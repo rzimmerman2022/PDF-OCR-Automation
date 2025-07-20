@@ -1,0 +1,45 @@
+﻿# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Adobe Acrobat temp files
+*.bak
+
+# Test files
+test-*.pdf
+sample-*.pdf
+
+# Output directories (if you want to ignore processed files)
+Processed/
+Output/
+
+# Personal data folders (uncomment if needed)
+# 02_LabResults/
+# Invoices/
+# Documents/
+
+# PowerShell module cache
+.psm1
+
+# VS Code settings
+.vscode/
+
+# Git
+.git/
+
+# Node modules (if you add any Node.js tools)
+node_modules/
