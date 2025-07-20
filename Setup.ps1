@@ -14,8 +14,27 @@ Write-Host " PowerShell version OK: $($PSVersionTable.PSVersion)" -ForegroundCol
 # Check for Adobe Acrobat Pro
 $acroExe = (Get-Command acrobat.exe -ErrorAction SilentlyContinue).Source
 if (-not $acroExe) {
-    Write-Warning "Adobe Acrobat Pro not found on PATH"
-    Write-Host "Please install Adobe Acrobat Pro (not Reader) to use OCR features" -ForegroundColor Yellow
+    # Try to find Adobe in common locations
+    $adobePaths = @(
+        "C:\Program Files\Adobe\Acrobat DC\Acrobat\Acrobat.exe",
+        "C:\Program Files (x86)\Adobe\Acrobat DC\Acrobat\Acrobat.exe",
+        "C:\Program Files\Adobe\Acrobat 2020\Acrobat\Acrobat.exe"
+    )
+    
+    $found = $false
+    foreach ($path in $adobePaths) {
+        if (Test-Path $path) {
+            Write-Warning "Adobe Acrobat Pro found but not on PATH: $path"
+            Write-Host "Run .\Add-AdobeToPath.ps1 to add it to your PATH" -ForegroundColor Yellow
+            $found = $true
+            break
+        }
+    }
+    
+    if (-not $found) {
+        Write-Warning "Adobe Acrobat Pro not found"
+        Write-Host "Please install Adobe Acrobat Pro (not Reader) to use OCR features" -ForegroundColor Yellow
+    }
 } else {
     Write-Host " Found Adobe Acrobat at: $acroExe" -ForegroundColor Green
 }

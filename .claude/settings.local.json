@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell.exe:*)",
+      "Bash(Remove-Item -Path \"AUDIT_COMPLETION_REPORT.txt\", \"FINAL_AUDIT_COMPLETE.txt\", \"GITHUB_SETUP_COMMANDS.txt\", \"UNIVERSAL_TRANSFORMATION_LOG.txt\", \"commit-message.txt\", \"Documents\\test-document.txt\" -Force)",
+      "Bash(git add:*)"
+    ],
+    "deny": []
+  }
+}

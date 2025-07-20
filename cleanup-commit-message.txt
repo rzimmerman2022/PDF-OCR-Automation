@@ -1,0 +1,47 @@
+Repository Cleanup and Adobe PATH Helper Addition
+
+This commit performs a comprehensive cleanup of the PDF-OCR-Automation repository
+and adds a helper script to resolve Adobe Acrobat PATH configuration issues.
+
+REMOVED FILES (Development Artifacts):
+- AUDIT_COMPLETION_REPORT.txt: Development audit report tracking completion status
+- FINAL_AUDIT_COMPLETE.txt: Final audit confirmation, no longer needed
+- GITHUB_SETUP_COMMANDS.txt: One-time git setup instructions already executed
+- UNIVERSAL_TRANSFORMATION_LOG.txt: Historical log of medical-to-universal transformation
+- commit-message.txt: Temporary file from previous verbose commit
+- Documents/test-document.txt: Test file used to verify folder functionality
+
+NEW ADDITIONS:
+- Add-AdobeToPath.ps1: Helper script to automatically detect Adobe Acrobat Pro
+  installation and add it to PATH (resolves the "Adobe not on PATH" warning)
+- Enhanced Setup.ps1: Now detects Adobe installations and suggests running the
+  helper script when Adobe is installed but not accessible via PATH
+
+IMPROVEMENTS:
+- Setup.ps1 now provides better guidance when Adobe Acrobat is found but not on PATH
+- Automated detection of common Adobe Acrobat installation locations
+- Clear instructions for both temporary and permanent PATH configuration
+
+CURRENT STATE:
+✓ All PowerShell scripts validated and working
+✓ Folder structure properly organized
+✓ No syntax errors or build issues
+✓ Successfully tested in preview mode (-WhatIf)
+✓ Adobe Acrobat Pro detected at: C:\Program Files\Adobe\Acrobat DC\Acrobat
+✓ Ready for production use
+
+CLEAN REPOSITORY STRUCTURE:
+- Core Scripts: Universal-PDF-OCR-Processor.ps1, Setup.ps1, Add-AdobeToPath.ps1
+- Documentation: README.md, SUMMARY.md, LICENSE
+- Resources: Templates/, Examples/
+- Working Dirs: Documents/, Reports/, Technical/, Invoices/, Processed/
+
+The repository is now in a clean, production-ready state with only essential
+files remaining. Users can immediately begin processing PDFs by:
+1. Running .\Setup.ps1 to validate environment
+2. Running .\Add-AdobeToPath.ps1 if Adobe is installed but not on PATH
+3. Placing PDFs in any folder and running .\Universal-PDF-OCR-Processor.ps1
+
+🤖 Generated with Claude Code
+
+Co-Authored-By: Claude <noreply@anthropic.com>
