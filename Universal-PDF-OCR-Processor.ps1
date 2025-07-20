@@ -8,33 +8,36 @@
     1. Performing Optical Character Recognition (OCR) using Adobe Acrobat Pro
     2. Extracting and analyzing text content to identify document types and key information
     3. Applying intelligent, content-based naming conventions
-    4. Supporting multiple document types: medical records, invoices, legal documents, reports, etc.
-    5. Creating both searchable PDFs and optional DOCX conversions
+    4. Supporting multiple document types: business reports, technical docs, invoices, legal documents, etc.
+    5. Creating both searchable PDFs with intelligent file naming
 
     The script is designed to be universally applicable across different industries and document types,
-    with extensible pattern matching for content identification.
+    with extensible pattern matching for content identification. Originally designed for medical records,
+    this version has been completely transformed to support universal document processing.
 
 .PARAMETER TargetFolder
     Specifies the folder containing PDF files to process. Can be absolute or relative path.
-    If not specified, uses the ''Documents'' subfolder in the script directory.
+    If not specified, uses the 'Documents' subfolder in the script directory.
 
 .PARAMETER DocumentType
-    Optional filter to process only specific document types (medical, invoice, legal, general).
-    Default is ''auto'' which attempts to detect document type automatically.
+    Optional filter to process only specific document types (business, technical, invoice, legal, general).
+    Default is 'auto' which attempts to detect document type automatically.
 
 .PARAMETER WhatIf
     Preview mode - shows what would be processed without making any changes.
+    Highly recommended for first-time use to understand what the script will do.
 
 .PARAMETER DetailedOutput
     Enables detailed output for troubleshooting and monitoring.
+    Shows discovered files and detailed processing steps.
 
 .EXAMPLE
     .\Universal-PDF-OCR-Processor.ps1 -TargetFolder "C:\MyDocuments\Invoices"
-    Process all PDFs in the specified folder
+    Process all PDFs in the specified folder with automatic document type detection
 
 .EXAMPLE
-    .\Universal-PDF-OCR-Processor.ps1 -TargetFolder ".\MedicalRecords" -DocumentType medical -WhatIf
-    Preview processing of medical documents in a relative subfolder
+    .\Universal-PDF-OCR-Processor.ps1 -TargetFolder ".\TechnicalDocs" -DocumentType technical -WhatIf
+    Preview processing of technical documents in a relative subfolder
 
 .EXAMPLE
     .\Universal-PDF-OCR-Processor.ps1 -TargetFolder ".\Documents" -WhatIf
@@ -42,28 +45,31 @@
 
 .NOTES
     Author: GitHub Copilot - Universal PDF OCR Automation Suite
-    Version: 2.0 - Universal Standalone Edition
+    Version: 2.0 - Universal Document Processing Edition
+    Last Updated: July 19, 2025
+    
     Prerequisites: 
     - Windows OS with PowerShell 5.1+
     - Adobe Acrobat Pro (not Reader) installed and licensed
     - Sufficient disk space for temporary file creation
     
     Supported Document Types:
-    - Medical Records (lab results, visit summaries, prescriptions)
-    - Invoices and Financial Documents
-    - Legal Documents (contracts, agreements, filings)
-    - Technical Reports and Manuals
-    - General Business Documents
+    - Business Reports and Documentation (Annual reports, meeting minutes, business plans)
+    - Technical Documentation (User manuals, API docs, specifications, requirements)
+    - Invoices and Financial Documents (Bills, receipts, purchase orders, statements)
+    - Legal Documents (Contracts, agreements, filings, patents, compliance docs)
+    - General Business Documents (Any PDF with automatic content detection)
     
     The script automatically detects document content and applies appropriate naming patterns.
+    All medical-specific references have been removed to make this truly universal.
 #>
 
 param(
     [Parameter(Position=0, HelpMessage="Folder containing PDF files to process")]
     [string]$TargetFolder = "",
     
-    [Parameter(HelpMessage="Document type filter: auto, medical, invoice, legal, general")]
-    [ValidateSet("auto", "medical", "invoice", "legal", "general")]
+    [Parameter(HelpMessage="Document type filter: auto, business, invoice, legal, technical, general")]
+    [ValidateSet("auto", "business", "invoice", "legal", "technical", "general")]
     [string]$DocumentType = "auto",
     
     [Parameter(HelpMessage="Preview mode - show what would be processed without making changes")]
@@ -75,32 +81,39 @@ param(
 
 # 
 # CONFIGURATION & INITIALIZATION
+# Universal PDF OCR Processor - Handles any document type across industries
+# Transformed from medical-specific to universal document processing system
 # 
 
-# ASCII Header
+# Display professional ASCII header for universal document processing
 Write-Host @"
 
                     UNIVERSAL PDF OCR AUTOMATION SUITE                        
-                           Intelligent Document Processing                     
+                          Smart Document Processing & Organization                     
 
 "@ -ForegroundColor Cyan
 
-Write-Host "Version 2.0 - Universal Standalone Edition" -ForegroundColor Yellow
-Write-Host "Supports: Medical Records  Invoices  Legal Docs  Reports  General Documents`n" -ForegroundColor Gray
+Write-Host "Version 2.0 - Universal Document Processing Edition" -ForegroundColor Yellow
+Write-Host "Supports: Business Reports • Invoices • Legal Docs • Technical Manuals • General Documents`n" -ForegroundColor Gray
 
 # Get the absolute path of the directory where this script is located
+# This ensures the script works regardless of where it's executed from
 $scriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
 
-# Determine target folder
+# Determine target folder - support both absolute and relative paths
 if ([string]::IsNullOrWhiteSpace($TargetFolder)) {
+    # Default to Documents subfolder if no target specified
     $TargetFolder = Join-Path -Path $scriptRoot -ChildPath "Documents"
     Write-Host "No target folder specified, using default: Documents" -ForegroundColor Yellow
 } elseif (-not [System.IO.Path]::IsPathRooted($TargetFolder)) {
-    # Convert relative path to absolute
+    # Convert relative path to absolute path for consistency
     $TargetFolder = Join-Path -Path $scriptRoot -ChildPath $TargetFolder
 }
 
+# Ensure we have a fully qualified path for reliable processing
 $TargetFolder = [System.IO.Path]::GetFullPath($TargetFolder)
+
+# Display configuration information for user verification
 Write-Host "Target Folder: $TargetFolder" -ForegroundColor Cyan
 Write-Host "Document Type: $DocumentType" -ForegroundColor Cyan
 if ($WhatIf) {
@@ -196,22 +209,40 @@ Write-Host "`n Environment validation completed successfully!" -ForegroundColor 
 
 # 
 # DOCUMENT TYPE PATTERNS & CONTENT ANALYSIS
+# Comprehensive pattern matching for universal document processing
+# Replaces medical-specific patterns with business, technical, and general patterns
 # 
 
 # Define content patterns for different document types
+# Each pattern includes regex for detection and corresponding naming convention
 $DocumentPatterns = @{
-    "medical" = @(
-        @{ Pattern = '(?i)(CBC|Complete Blood Count)'; Name = "CBC-Complete-Blood-Count" }
-        @{ Pattern = '(?i)(CMP|Comprehensive Metabolic Panel)'; Name = "CMP-Metabolic-Panel" }
-        @{ Pattern = '(?i)(Lipid Panel|Cholesterol)'; Name = "Lipid-Panel-Cholesterol" }
-        @{ Pattern = '(?i)(HbA1c|Hemoglobin A1c)'; Name = "HbA1c-Diabetes-Monitoring" }
-        @{ Pattern = '(?i)(Thyroid|TSH|T3|T4)'; Name = "Thyroid-Function-Tests" }
-        @{ Pattern = '(?i)(PSA|Prostate)'; Name = "PSA-Prostate-Screening" }
-        @{ Pattern = '(?i)(Urinalysis|Urine)'; Name = "Urinalysis" }
-        @{ Pattern = '(?i)(Visit Summary|Progress Note)'; Name = "Visit-Summary" }
-        @{ Pattern = '(?i)(Prescription|Medication)'; Name = "Prescription-Record" }
-        @{ Pattern = '(?i)(X-Ray|Imaging|Radiology)'; Name = "Imaging-Report" }
+    # Business document patterns - covers corporate reports, meetings, planning
+    "business" = @(
+        @{ Pattern = '(?i)(Annual Report|Quarterly Report)'; Name = "Business-Report" }
+        @{ Pattern = '(?i)(Meeting Minutes|Board Minutes)'; Name = "Meeting-Minutes" }
+        @{ Pattern = '(?i)(Business Plan|Strategic Plan)'; Name = "Business-Plan" }
+        @{ Pattern = '(?i)(Financial Statement|Balance Sheet)'; Name = "Financial-Statement" }
+        @{ Pattern = '(?i)(Audit Report|Compliance Report)'; Name = "Audit-Report" }
+        @{ Pattern = '(?i)(Performance Review|Employee Evaluation)'; Name = "Performance-Review" }
+        @{ Pattern = '(?i)(Proposal|RFP|Request for Proposal)'; Name = "Business-Proposal" }
+        @{ Pattern = '(?i)(Budget|Forecast)'; Name = "Budget-Document" }
+        @{ Pattern = '(?i)(Memo|Memorandum)'; Name = "Business-Memo" }
+        @{ Pattern = '(?i)(Policy|Procedure)'; Name = "Policy-Document" }
     )
+    # Technical documentation patterns - covers manuals, specifications, guides
+    "technical" = @(
+        @{ Pattern = '(?i)(User Manual|Installation Guide)'; Name = "User-Manual" }
+        @{ Pattern = '(?i)(Technical Specification|Design Spec)'; Name = "Technical-Specification" }
+        @{ Pattern = '(?i)(API Documentation|Developer Guide)'; Name = "API-Documentation" }
+        @{ Pattern = '(?i)(Test Report|Quality Assurance)'; Name = "Test-Report" }
+        @{ Pattern = '(?i)(System Requirements|Hardware Requirements)'; Name = "System-Requirements" }
+        @{ Pattern = '(?i)(Architecture Document|System Design)'; Name = "Architecture-Document" }
+        @{ Pattern = '(?i)(Configuration Guide|Setup Instructions)'; Name = "Configuration-Guide" }
+        @{ Pattern = '(?i)(Release Notes|Change Log)'; Name = "Release-Notes" }
+        @{ Pattern = '(?i)(Troubleshooting|FAQ)'; Name = "Troubleshooting-Guide" }
+        @{ Pattern = '(?i)(Datasheet|Product Specification)'; Name = "Product-Datasheet" }
+    )
+    # Invoice and financial document patterns - covers billing and payment documents
     "invoice" = @(
         @{ Pattern = '(?i)(Invoice|Bill)'; Name = "Invoice" }
         @{ Pattern = '(?i)(Receipt|Payment)'; Name = "Payment-Receipt" }
@@ -220,6 +251,7 @@ $DocumentPatterns = @{
         @{ Pattern = '(?i)(Credit Note|Refund)'; Name = "Credit-Note" }
         @{ Pattern = '(?i)(Statement|Account)'; Name = "Account-Statement" }
     )
+    # Legal document patterns - covers contracts, filings, and legal proceedings
     "legal" = @(
         @{ Pattern = '(?i)(Contract|Agreement)'; Name = "Contract-Agreement" }
         @{ Pattern = '(?i)(Motion|Brief)'; Name = "Legal-Motion" }
@@ -229,6 +261,7 @@ $DocumentPatterns = @{
         @{ Pattern = '(?i)(Affidavit|Sworn Statement)'; Name = "Affidavit" }
         @{ Pattern = '(?i)(Court Order|Judgment)'; Name = "Court-Order" }
     )
+    # General document patterns - fallback for documents that don't match specific types
     "general" = @(
         @{ Pattern = '(?i)(Report|Analysis)'; Name = "Report" }
         @{ Pattern = '(?i)(Manual|Guide)'; Name = "Manual-Guide" }
@@ -239,42 +272,51 @@ $DocumentPatterns = @{
     )
 }
 
-# Date patterns for intelligent date extraction
+# Date patterns for intelligent date extraction from document content
+# Supports multiple date formats commonly found in business documents
 $DatePatterns = @(
-    '(\d{4}-\d{2}-\d{2})',                        # YYYY-MM-DD
-    '(\d{1,2}/\d{1,2}/\d{4})',                    # M/D/YYYY or MM/DD/YYYY
-    '(\d{1,2}-\d{1,2}-\d{4})',                    # M-D-YYYY or MM-DD-YYYY
-    '([A-Za-z]+ \d{1,2}, \d{4})',                 # Month DD, YYYY
-    '(\d{1,2} [A-Za-z]+ \d{4})',                  # DD Month YYYY
+    '(\d{4}-\d{2}-\d{2})',                        # YYYY-MM-DD (ISO format)
+    '(\d{1,2}/\d{1,2}/\d{4})',                    # M/D/YYYY or MM/DD/YYYY (US format)
+    '(\d{1,2}-\d{1,2}-\d{4})',                    # M-D-YYYY or MM-DD-YYYY (dash format)
+    '([A-Za-z]+ \d{1,2}, \d{4})',                 # Month DD, YYYY (written format)
+    '(\d{1,2} [A-Za-z]+ \d{4})',                  # DD Month YYYY (European format)
     'Date.*?(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})'     # "Date: MM/DD/YYYY" variations
 )
 
 # 
 # UTILITY FUNCTIONS
+# Helper functions for date formatting, filename sanitization, and content detection
 # 
 
+# Convert various date formats to standardized YYYY-MM-DD format for filename consistency
 function Format-DateForFilename {
     param([string]$DateString)
     
     try {
+        # Attempt to parse the date string using .NET DateTime parsing
         $date = [DateTime]::Parse($DateString)
         return $date.ToString("yyyy-MM-dd")
     }
     catch {
+        # If parsing fails, default to current date to ensure valid filename
         return (Get-Date).ToString("yyyy-MM-dd")
     }
 }
 
+# Sanitize text for use in filenames by removing invalid characters and formatting
 function Get-SafeFilename {
     param([string]$Text)
     
-    # Remove invalid filename characters
+    # Remove characters that are invalid in Windows filenames
     $safe = $Text -replace '[<>:"/\\|?*]', '-'
+    # Replace multiple spaces with single hyphens for consistency
     $safe = $safe -replace '\s+', '-'
+    # Remove multiple consecutive hyphens
     $safe = $safe -replace '-+', '-'
+    # Trim leading and trailing hyphens
     $safe = $safe.Trim('-')
     
-    # Limit length
+    # Limit filename length to prevent filesystem issues (50 chars is reasonable)
     if ($safe.Length -gt 50) {
         $safe = $safe.Substring(0, 50).Trim('-')
     }
@@ -282,44 +324,51 @@ function Get-SafeFilename {
     return $safe
 }
 
+# Analyze document content to detect document type and extract key information
 function Detect-DocumentContent {
     param(
-        [string]$Content,
-        [string]$DocumentType
+        [string]$Content,           # OCR-extracted text content
+        [string]$DocumentType       # User-specified document type filter
     )
     
+    # Default values for when detection fails
     $detectedContent = "Document"
     $detectedDate = (Get-Date).ToString("yyyy-MM-dd")
     
-    # Extract date
+    # Extract date from document content using multiple pattern attempts
     foreach ($pattern in $DatePatterns) {
         if ($Content -match $pattern) {
             $detectedDate = Format-DateForFilename $matches[1]
-            break
+            break  # Use first date found
         }
     }
     
-    # Detect content type based on patterns
+    # Determine which patterns to check based on document type setting
     $patternsToCheck = @()
     
     if ($DocumentType -eq "auto") {
-        # Try all pattern types for auto-detection
-        $patternsToCheck = $DocumentPatterns["medical"] + $DocumentPatterns["invoice"] + $DocumentPatterns["legal"] + $DocumentPatterns["general"]
+        # Auto-detection: try all pattern types for comprehensive matching
+        # This enables universal document processing across all supported types
+        $patternsToCheck = $DocumentPatterns["business"] + $DocumentPatterns["technical"] + $DocumentPatterns["invoice"] + $DocumentPatterns["legal"] + $DocumentPatterns["general"]
     }
     elseif ($DocumentPatterns.ContainsKey($DocumentType)) {
+        # Use specific document type patterns when explicitly specified
         $patternsToCheck = $DocumentPatterns[$DocumentType]
     }
     else {
+        # Fallback to general patterns for unknown document types
         $patternsToCheck = $DocumentPatterns["general"]
     }
     
+    # Check content against selected patterns to identify document type
     foreach ($pattern in $patternsToCheck) {
         if ($Content -match $pattern.Pattern) {
             $detectedContent = $pattern.Name
-            break
+            break  # Use first match found
         }
     }
     
+    # Return hashtable with detected information for filename generation
     return @{
         Content = $detectedContent
         Date = $detectedDate
@@ -412,7 +461,8 @@ function Process-PDFWithOCR {
         
         # Generate new filename based on document type
         switch ($DocumentType) {
-            "medical" { $newFileName = "$($safeDatePart)_MedRecord_$($safeContentPart).pdf" }
+            "business" { $newFileName = "$($safeDatePart)_Business_$($safeContentPart).pdf" }
+            "technical" { $newFileName = "$($safeDatePart)_Technical_$($safeContentPart).pdf" }
             "invoice" { $newFileName = "$($safeDatePart)_Invoice_$($safeContentPart).pdf" }
             "legal" { $newFileName = "$($safeDatePart)_Legal_$($safeContentPart).pdf" }
             default { $newFileName = "$($safeDatePart)_Document_$($safeContentPart).pdf" }
@@ -526,6 +576,8 @@ else {
 
 Write-Host "`n Usage Examples:" -ForegroundColor Cyan
 Write-Host "Any Documents:    .\Universal-PDF-OCR-Processor.ps1 -TargetFolder `".\Documents`"" -ForegroundColor Gray
+Write-Host "Business Reports: .\Universal-PDF-OCR-Processor.ps1 -TargetFolder `".\Reports`" -DocumentType business" -ForegroundColor Gray
+Write-Host "Technical Docs:   .\Universal-PDF-OCR-Processor.ps1 -TargetFolder `".\Technical`" -DocumentType technical" -ForegroundColor Gray
 Write-Host "Invoices:         .\Universal-PDF-OCR-Processor.ps1 -TargetFolder `".\Invoices`" -DocumentType invoice" -ForegroundColor Gray
 Write-Host "Any Folder:       .\Universal-PDF-OCR-Processor.ps1 -TargetFolder `"C:\MyDocs\PDFs`"" -ForegroundColor Gray
 Write-Host "Preview Mode:     .\Universal-PDF-OCR-Processor.ps1 -TargetFolder `".\Documents`" -WhatIf" -ForegroundColor Gray

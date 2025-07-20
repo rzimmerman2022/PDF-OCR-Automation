@@ -1,5 +1,5 @@
 # Invoice PDF OCR and Renaming Script
-# Adapted from medical records script for invoice processing
+# Example script adapted from Universal PDF OCR Processor for invoice processing
 
 param([switch]$WhatIf)
 
@@ -50,4 +50,4 @@ if ($WhatIf) {
 # 5. Rename files like: "2025-07-19_Invoice_VendorName_INV123.pdf"
 
 Write-Host "Invoice processing script template created!" -ForegroundColor Green
-Write-Host "Add the full OCR logic from the medical script to make this functional." -ForegroundColor Yellow
+Write-Host "Add the full OCR logic from the Universal PDF OCR Processor script to make this functional." -ForegroundColor Yellow

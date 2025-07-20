@@ -3,15 +3,26 @@
 
 # Document Types and Patterns
 $DocumentTypes = @{
-    "Medical" = @{
-        FolderPattern = "02_LabResults"
-        FilePattern = "*_LabResults_TestDetails_*.pdf"
+    "Business" = @{
+        FolderPattern = "Reports"
+        FilePattern = "*.pdf"
         ContentPatterns = @(
-            @{ Pattern = '(?i)(CBC|Complete Blood Count)'; Name = "CBC-Complete-Blood-Count" }
-            @{ Pattern = '(?i)(Lipid Panel|Cholesterol)'; Name = "Lipid-Panel-Cholesterol" }
-            @{ Pattern = '(?i)(HbA1c|Hemoglobin A1c)'; Name = "HbA1c-Diabetes-Monitoring" }
+            @{ Pattern = '(?i)(Annual Report|Quarterly Report)'; Name = "Business-Report" }
+            @{ Pattern = '(?i)(Meeting Minutes|Board Minutes)'; Name = "Meeting-Minutes" }
+            @{ Pattern = '(?i)(Business Plan|Strategic Plan)'; Name = "Business-Plan" }
         )
-        NamingFormat = "{Date}_LabResults_{Content}.pdf"
+        NamingFormat = "{Date}_Business_{Content}.pdf"
+    }
+    
+    "Technical" = @{
+        FolderPattern = "Technical"
+        FilePattern = "*.pdf"
+        ContentPatterns = @(
+            @{ Pattern = '(?i)(User Manual|Installation Guide)'; Name = "User-Manual" }
+            @{ Pattern = '(?i)(Technical Specification|Design Spec)'; Name = "Technical-Specification" }
+            @{ Pattern = '(?i)(API Documentation|Developer Guide)'; Name = "API-Documentation" }
+        )
+        NamingFormat = "{Date}_Technical_{Content}.pdf"
     }
     
     "Invoice" = @{

@@ -21,7 +21,7 @@ if (-not $acroExe) {
 }
 
 # Create default folders
-$folders = @("02_LabResults", "Invoices", "Documents", "Processed")
+$folders = @("Reports", "Technical", "Invoices", "Documents", "Processed")
 foreach ($folder in $folders) {
     if (-not (Test-Path $folder)) {
         New-Item -ItemType Directory -Path $folder | Out-Null

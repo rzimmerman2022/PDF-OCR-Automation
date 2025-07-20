@@ -13,10 +13,10 @@ Transform any folder of PDF documents into intelligently named, searchable files
 ##  Universal Capabilities
 
 ###  Supported Document Types
-- **Medical Records** - Lab results, visit summaries, prescriptions, imaging reports
+- **Business Reports** - Annual reports, meeting minutes, financial statements, business plans
+- **Technical Documentation** - User manuals, specifications, API docs, system requirements  
 - **Invoices & Financial** - Bills, receipts, purchase orders, estimates, credit notes  
 - **Legal Documents** - Contracts, agreements, filings, patents, compliance docs
-- **Technical Reports** - Manuals, specifications, engineering docs, presentations
 - **General Business** - Any PDF document with automatic content detection
 
 ###  Key Features
@@ -32,7 +32,13 @@ Transform any folder of PDF documents into intelligently named, searchable files
 ### Basic Usage
 ```powershell
 # Process any documents
-.\Universal-PDF-OCR-Processor.ps1 -TargetFolder ".\Documents" -DocumentType medical
+.\Universal-PDF-OCR-Processor.ps1 -TargetFolder ".\Documents"
+
+# Process business reports  
+.\Universal-PDF-OCR-Processor.ps1 -TargetFolder ".\Reports" -DocumentType business
+
+# Process technical documentation
+.\Universal-PDF-OCR-Processor.ps1 -TargetFolder ".\Technical" -DocumentType technical
 
 # Process invoices  
 .\Universal-PDF-OCR-Processor.ps1 -TargetFolder ".\Invoices" -DocumentType invoice
@@ -46,8 +52,11 @@ Transform any folder of PDF documents into intelligently named, searchable files
 
 ### Advanced Examples
 ```powershell
-# Process legal documents with detailed output
-.\Universal-PDF-OCR-Processor.ps1 -TargetFolder "C:\Legal\Contracts" -DocumentType legal -DetailedOutput
+# Process business documents with detailed output
+.\Universal-PDF-OCR-Processor.ps1 -TargetFolder "C:\Business\Reports" -DocumentType business -DetailedOutput
+
+# Process technical manuals with auto-detection
+.\Universal-PDF-OCR-Processor.ps1 -TargetFolder ".\Technical-Docs" -DocumentType technical
 
 # Auto-detect document types in mixed folder
 .\Universal-PDF-OCR-Processor.ps1 -TargetFolder ".\Mixed-Documents" -DocumentType auto
@@ -74,9 +83,8 @@ PDF-OCR-Automation/
   Examples/                         # Working examples  
     Invoice-OCR-Example.ps1          # Invoice processing example
 
-  Documents/                    # Medical records folder
-  Invoices/                         # Invoice documents folder  
   Documents/                        # General documents folder
+  Invoices/                         # Invoice documents folder  
   Processed/                        # Output folder for results
 ```
 
@@ -99,14 +107,16 @@ PDF-OCR-Automation/
 | Parameter | Type | Description | Example |
 |-----------|------|-------------|---------|
 | `TargetFolder` | String | Folder containing PDFs to process | `".\Documents"` |
-| `DocumentType` | String | Type filter: auto, medical, invoice, legal, general | `medical` |
+| `DocumentType` | String | Type filter: auto, business, technical, invoice, legal, general | `business` |
 | `WhatIf` | Switch | Preview mode - no changes made | `-WhatIf` |
 | `DetailedOutput` | Switch | Verbose logging for troubleshooting | `-DetailedOutput` |
 
 ### Document Type Patterns
 The script automatically detects content using advanced pattern matching:
 
-**Medical**: CBC, CMP, Lipid Panel, HbA1c, Thyroid, PSA, Urinalysis, Visit Summary
+**Business**: Annual Report, Meeting Minutes, Business Plan, Financial Statement, Performance Review
+
+**Technical**: User Manual, Technical Specification, API Documentation, Test Report, System Requirements
 **Invoice**: Invoice, Bill, Receipt, Purchase Order, Estimate, Credit Note  
 **Legal**: Contract, Agreement, Patent, Compliance, Affidavit, Court Order
 **Technical**: Report, Manual, Specification, Presentation, Certificate
@@ -116,7 +126,10 @@ The script automatically detects content using advanced pattern matching:
 ### Before vs After Processing
 ```
 Before:  Scanned_Document_001.pdf
-After:   2025-07-19_MedRecord_CBC-Complete-Blood-Count.pdf
+After:   2025-07-19_Business_Annual-Report.pdf
+
+Before:  technical_manual_v2.pdf
+After:   2025-07-19_Technical_User-Manual.pdf
 
 Before:  IMG_20250715_invoice.pdf  
 After:   2025-07-15_Invoice_Payment-Receipt.pdf
@@ -127,9 +140,9 @@ After:   2025-07-19_Legal_Contract-Agreement.pdf
 
 ### Smart Duplicate Handling
 ```
-2025-07-19_MedRecord_CBC-Complete-Blood-Count.pdf
-2025-07-19_MedRecord_CBC-Complete-Blood-Count_2.pdf
-2025-07-19_MedRecord_CBC-Complete-Blood-Count_3.pdf
+2025-07-19_Business_Annual-Report.pdf
+2025-07-19_Business_Annual-Report_2.pdf
+2025-07-19_Business_Annual-Report_3.pdf
 ```
 
 ##  Customization & Extension
@@ -192,7 +205,8 @@ This repository demonstrates:
 - **User experience focus** with clear feedback and preview modes
 
 ### Practical Applications
-- **Medical Practice Management** - Organize patient records
+- **Business Document Management** - Organize company reports and documentation
+- **Technical Documentation Systems** - Maintain product manuals and specifications
 - **Legal Document Processing** - Systematize case files
 - **Invoice Management** - Streamline accounting workflows  
 - **Technical Documentation** - Organize engineering specs
