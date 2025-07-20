@@ -1,0 +1,3 @@
+This is a test file to verify the Documents folder is working.
+The script should detect PDF files in this folder.
+Since Adobe Acrobat Pro is not installed, we'll test the file discovery functionality.

@@ -18,10 +18,17 @@ Write-Host "`nPerforming environment checks..." -ForegroundColor Yellow
 
 $acroExe = (Get-Command acrobat.exe -ErrorAction SilentlyContinue).Source
 if (-not $acroExe) {
-    Write-Error "Adobe Acrobat Pro required. Please install Adobe Acrobat Pro."
-    exit
+    if ($WhatIf) {
+        Write-Host "   Adobe Acrobat Pro not found - continuing in preview mode" -ForegroundColor Yellow
+    }
+    else {
+        Write-Error "Adobe Acrobat Pro required. Please install Adobe Acrobat Pro."
+        exit
+    }
 }
-Write-Host "   Found Acrobat at: $acroExe" -ForegroundColor Green
+else {
+    Write-Host "   Found Acrobat at: $acroExe" -ForegroundColor Green
+}
 
 # Check target folder
 if (-not (Test-Path -Path $targetFolder)) {

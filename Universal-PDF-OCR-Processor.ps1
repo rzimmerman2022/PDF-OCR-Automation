@@ -82,7 +82,7 @@ Write-Host @"
 
                     UNIVERSAL PDF OCR AUTOMATION SUITE                        
                            Intelligent Document Processing                     
-+
+
 "@ -ForegroundColor Cyan
 
 Write-Host "Version 2.0 - Universal Standalone Edition" -ForegroundColor Yellow
@@ -117,14 +117,21 @@ Write-Host " Performing Environment Validation..." -ForegroundColor Yellow
 # Check for Adobe Acrobat executable
 $acroExe = (Get-Command acrobat.exe -ErrorAction SilentlyContinue).Source
 if (-not $acroExe) {
-    Write-Error " Adobe Acrobat executable not found on PATH. Please ensure Adobe Acrobat Pro is installed."
-    Write-Host "`nTroubleshooting:" -ForegroundColor Yellow
-    Write-Host "   Install Adobe Acrobat Pro (Reader will not work)" -ForegroundColor Gray
-    Write-Host "   Add Acrobat installation folder to system PATH" -ForegroundColor Gray
-    Write-Host "   Typical location: C:\Program Files\Adobe\Acrobat DC\Acrobat\" -ForegroundColor Gray
-    exit 1
+    if ($WhatIf) {
+        Write-Host " Adobe Acrobat Pro not found - continuing in preview mode" -ForegroundColor Yellow
+    }
+    else {
+        Write-Error " Adobe Acrobat executable not found on PATH. Please ensure Adobe Acrobat Pro is installed."
+        Write-Host "`nTroubleshooting:" -ForegroundColor Yellow
+        Write-Host "   Install Adobe Acrobat Pro (Reader will not work)" -ForegroundColor Gray
+        Write-Host "   Add Acrobat installation folder to system PATH" -ForegroundColor Gray
+        Write-Host "   Typical location: C:\Program Files\Adobe\Acrobat DC\Acrobat\" -ForegroundColor Gray
+        exit 1
+    }
 }
-Write-Host " Adobe Acrobat Pro found: $acroExe" -ForegroundColor Green
+else {
+    Write-Host " Adobe Acrobat Pro found: $acroExe" -ForegroundColor Green
+}
 
 # Check PowerShell architecture
 $psArchitecture = if ([Environment]::Is64BitProcess) { "64-bit" } else { "32-bit" }
@@ -186,8 +193,339 @@ if ($WhatIf) {
 }
 
 Write-Host "`n Environment validation completed successfully!" -ForegroundColor Green
+
+# 
+# DOCUMENT TYPE PATTERNS & CONTENT ANALYSIS
+# 
+
+# Define content patterns for different document types
+$DocumentPatterns = @{
+    "medical" = @(
+        @{ Pattern = '(?i)(CBC|Complete Blood Count)'; Name = "CBC-Complete-Blood-Count" }
+        @{ Pattern = '(?i)(CMP|Comprehensive Metabolic Panel)'; Name = "CMP-Metabolic-Panel" }
+        @{ Pattern = '(?i)(Lipid Panel|Cholesterol)'; Name = "Lipid-Panel-Cholesterol" }
+        @{ Pattern = '(?i)(HbA1c|Hemoglobin A1c)'; Name = "HbA1c-Diabetes-Monitoring" }
+        @{ Pattern = '(?i)(Thyroid|TSH|T3|T4)'; Name = "Thyroid-Function-Tests" }
+        @{ Pattern = '(?i)(PSA|Prostate)'; Name = "PSA-Prostate-Screening" }
+        @{ Pattern = '(?i)(Urinalysis|Urine)'; Name = "Urinalysis" }
+        @{ Pattern = '(?i)(Visit Summary|Progress Note)'; Name = "Visit-Summary" }
+        @{ Pattern = '(?i)(Prescription|Medication)'; Name = "Prescription-Record" }
+        @{ Pattern = '(?i)(X-Ray|Imaging|Radiology)'; Name = "Imaging-Report" }
+    )
+    "invoice" = @(
+        @{ Pattern = '(?i)(Invoice|Bill)'; Name = "Invoice" }
+        @{ Pattern = '(?i)(Receipt|Payment)'; Name = "Payment-Receipt" }
+        @{ Pattern = '(?i)(Purchase Order|PO)'; Name = "Purchase-Order" }
+        @{ Pattern = '(?i)(Estimate|Quote)'; Name = "Estimate-Quote" }
+        @{ Pattern = '(?i)(Credit Note|Refund)'; Name = "Credit-Note" }
+        @{ Pattern = '(?i)(Statement|Account)'; Name = "Account-Statement" }
+    )
+    "legal" = @(
+        @{ Pattern = '(?i)(Contract|Agreement)'; Name = "Contract-Agreement" }
+        @{ Pattern = '(?i)(Motion|Brief)'; Name = "Legal-Motion" }
+        @{ Pattern = '(?i)(Settlement|Resolution)'; Name = "Settlement-Agreement" }
+        @{ Pattern = '(?i)(Patent|Intellectual Property)'; Name = "Patent-Document" }
+        @{ Pattern = '(?i)(Compliance|Regulatory)'; Name = "Compliance-Document" }
+        @{ Pattern = '(?i)(Affidavit|Sworn Statement)'; Name = "Affidavit" }
+        @{ Pattern = '(?i)(Court Order|Judgment)'; Name = "Court-Order" }
+    )
+    "general" = @(
+        @{ Pattern = '(?i)(Report|Analysis)'; Name = "Report" }
+        @{ Pattern = '(?i)(Manual|Guide)'; Name = "Manual-Guide" }
+        @{ Pattern = '(?i)(Specification|Spec)'; Name = "Specification" }
+        @{ Pattern = '(?i)(Presentation|Slide)'; Name = "Presentation" }
+        @{ Pattern = '(?i)(Certificate|Certification)'; Name = "Certificate" }
+        @{ Pattern = '(?i)(Policy|Procedure)'; Name = "Policy-Document" }
+    )
+}
+
+# Date patterns for intelligent date extraction
+$DatePatterns = @(
+    '(\d{4}-\d{2}-\d{2})',                        # YYYY-MM-DD
+    '(\d{1,2}/\d{1,2}/\d{4})',                    # M/D/YYYY or MM/DD/YYYY
+    '(\d{1,2}-\d{1,2}-\d{4})',                    # M-D-YYYY or MM-DD-YYYY
+    '([A-Za-z]+ \d{1,2}, \d{4})',                 # Month DD, YYYY
+    '(\d{1,2} [A-Za-z]+ \d{4})',                  # DD Month YYYY
+    'Date.*?(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})'     # "Date: MM/DD/YYYY" variations
+)
+
+# 
+# UTILITY FUNCTIONS
+# 
+
+function Format-DateForFilename {
+    param([string]$DateString)
+    
+    try {
+        $date = [DateTime]::Parse($DateString)
+        return $date.ToString("yyyy-MM-dd")
+    }
+    catch {
+        return (Get-Date).ToString("yyyy-MM-dd")
+    }
+}
+
+function Get-SafeFilename {
+    param([string]$Text)
+    
+    # Remove invalid filename characters
+    $safe = $Text -replace '[<>:"/\\|?*]', '-'
+    $safe = $safe -replace '\s+', '-'
+    $safe = $safe -replace '-+', '-'
+    $safe = $safe.Trim('-')
+    
+    # Limit length
+    if ($safe.Length -gt 50) {
+        $safe = $safe.Substring(0, 50).Trim('-')
+    }
+    
+    return $safe
+}
+
+function Detect-DocumentContent {
+    param(
+        [string]$Content,
+        [string]$DocumentType
+    )
+    
+    $detectedContent = "Document"
+    $detectedDate = (Get-Date).ToString("yyyy-MM-dd")
+    
+    # Extract date
+    foreach ($pattern in $DatePatterns) {
+        if ($Content -match $pattern) {
+            $detectedDate = Format-DateForFilename $matches[1]
+            break
+        }
+    }
+    
+    # Detect content type based on patterns
+    $patternsToCheck = @()
+    
+    if ($DocumentType -eq "auto") {
+        # Try all pattern types for auto-detection
+        $patternsToCheck = $DocumentPatterns["medical"] + $DocumentPatterns["invoice"] + $DocumentPatterns["legal"] + $DocumentPatterns["general"]
+    }
+    elseif ($DocumentPatterns.ContainsKey($DocumentType)) {
+        $patternsToCheck = $DocumentPatterns[$DocumentType]
+    }
+    else {
+        $patternsToCheck = $DocumentPatterns["general"]
+    }
+    
+    foreach ($pattern in $patternsToCheck) {
+        if ($Content -match $pattern.Pattern) {
+            $detectedContent = $pattern.Name
+            break
+        }
+    }
+    
+    return @{
+        Content = $detectedContent
+        Date = $detectedDate
+    }
+}
+
+# 
+# OCR PROCESSING ENGINE
+# 
+
+function Process-PDFWithOCR {
+    param(
+        [string]$FilePath,
+        [string]$DocumentType,
+        [bool]$WhatIfMode = $false
+    )
+    
+    $success = $false
+    $extractedText = ""
+    $newFileName = ""
+    
+    try {
+        Write-Host "    Processing: $([System.IO.Path]::GetFileName($FilePath))" -ForegroundColor Cyan
+        
+        if ($WhatIfMode) {
+            # In WhatIf mode, simulate processing
+            $extractedText = "Sample extracted text for preview purposes. Invoice #INV-12345 dated 2025-07-19."
+            Write-Host "      [PREVIEW] Would perform OCR processing..." -ForegroundColor Yellow
+        }
+        else {
+            # Initialize Adobe Acrobat Application
+            Write-Host "      Initializing Adobe Acrobat..." -ForegroundColor Gray
+            $acroApp = New-Object -ComObject AcroExch.App
+            $acroApp.Show()
+            
+            # Create PDF Document object
+            $acroPDDoc = New-Object -ComObject AcroExch.PDDoc
+            
+            # Open the PDF
+            $openResult = $acroPDDoc.Open($FilePath)
+            if (-not $openResult) {
+                throw "Failed to open PDF: $FilePath"
+            }
+            
+            Write-Host "      Performing OCR..." -ForegroundColor Gray
+            
+            # Get the PDF's JavaScript object for OCR operations
+            $jsObject = $acroPDDoc.GetJSObject()
+            
+            # Perform OCR on the document
+            $jsObject.OCRPages(0, ($acroPDDoc.GetNumPages() - 1), 0, $true)
+            
+            # Save the OCRed document
+            $tempPath = $FilePath + ".temp.pdf"
+            $acroPDDoc.Save(1, $tempPath)  # 1 = PDSaveFull
+            
+            # Extract text
+            Write-Host "      Extracting text content..." -ForegroundColor Gray
+            for ($i = 0; $i -lt $acroPDDoc.GetNumPages(); $i++) {
+                $acroPage = $acroPDDoc.AcquirePage($i)
+                $pageText = $acroPage.CopyText()
+                $extractedText += $pageText + "`n"
+                $acroPage = $null
+            }
+            
+            # Close PDF and cleanup
+            $acroPDDoc.Close()
+            $acroApp.Exit()
+            
+            # Replace original with OCRed version
+            if (Test-Path $tempPath) {
+                Remove-Item $FilePath -Force
+                Rename-Item $tempPath $FilePath
+            }
+            
+            $acroPDDoc = $null
+            $acroApp = $null
+            [System.GC]::Collect()
+        }
+        
+        # Analyze content and generate new filename
+        Write-Host "      Analyzing content..." -ForegroundColor Gray
+        $analysis = Detect-DocumentContent -Content $extractedText -DocumentType $DocumentType
+        
+        $baseName = [System.IO.Path]::GetFileNameWithoutExtension($FilePath)
+        $directory = [System.IO.Path]::GetDirectoryName($FilePath)
+        
+        $safeDatePart = Get-SafeFilename $analysis.Date
+        $safeContentPart = Get-SafeFilename $analysis.Content
+        
+        # Generate new filename based on document type
+        switch ($DocumentType) {
+            "medical" { $newFileName = "$($safeDatePart)_MedRecord_$($safeContentPart).pdf" }
+            "invoice" { $newFileName = "$($safeDatePart)_Invoice_$($safeContentPart).pdf" }
+            "legal" { $newFileName = "$($safeDatePart)_Legal_$($safeContentPart).pdf" }
+            default { $newFileName = "$($safeDatePart)_Document_$($safeContentPart).pdf" }
+        }
+        
+        $newFilePath = Join-Path $directory $newFileName
+        
+        # Handle duplicate names
+        $counter = 1
+        $originalNewFilePath = $newFilePath
+        while ((Test-Path $newFilePath) -and ($newFilePath -ne $FilePath)) {
+            $counter++
+            $nameWithoutExt = [System.IO.Path]::GetFileNameWithoutExtension($originalNewFilePath)
+            $newFileName = "$($nameWithoutExt)_$counter.pdf"
+            $newFilePath = Join-Path $directory $newFileName
+        }
+        
+        if ($WhatIfMode) {
+            Write-Host "      [PREVIEW] Would rename to: $newFileName" -ForegroundColor Yellow
+        }
+        else {
+            # Rename the file
+            if ($newFilePath -ne $FilePath) {
+                Rename-Item $FilePath $newFilePath
+                Write-Host "      Renamed to: $newFileName" -ForegroundColor Green
+            }
+            else {
+                Write-Host "      Filename already optimal: $([System.IO.Path]::GetFileName($FilePath))" -ForegroundColor Green
+            }
+        }
+        
+        $success = $true
+        
+    }
+    catch {
+        Write-Host "      ERROR: $($_.Exception.Message)" -ForegroundColor Red
+        
+        # Cleanup on error
+        try {
+            if ($acroPDDoc) { $acroPDDoc.Close() }
+            if ($acroApp) { $acroApp.Exit() }
+        }
+        catch { }
+        
+        [System.GC]::Collect()
+    }
+    
+    return $success
+}
+
+# 
+# MAIN PROCESSING LOOP
+# 
+
+if ($WhatIf) {
+    Write-Host "`n Starting PREVIEW Processing..." -ForegroundColor Yellow
+    Write-Host "==================================" -ForegroundColor Yellow
+}
+else {
+    Write-Host "`n Starting PDF Processing..." -ForegroundColor Green
+    Write-Host "============================" -ForegroundColor Green
+}
+
+$processedCount = 0
+$successCount = 0
+$errorCount = 0
+
+foreach ($pdf in $pdfFiles) {
+    $processedCount++
+    Write-Host "`n[$processedCount/$($pdfFiles.Count)]" -ForegroundColor Cyan -NoNewline
+    
+    $success = Process-PDFWithOCR -FilePath $pdf.FullName -DocumentType $DocumentType -WhatIfMode:$WhatIf
+    
+    if ($success) {
+        $successCount++
+    }
+    else {
+        $errorCount++
+    }
+    
+    # Small delay between files
+    Start-Sleep -Milliseconds 500
+}
+
+# 
+# COMPLETION SUMMARY
+# 
+
+Write-Host "`n" + "="*50 -ForegroundColor Cyan
+if ($WhatIf) {
+    Write-Host " PREVIEW COMPLETED" -ForegroundColor Yellow
+}
+else {
+    Write-Host " PROCESSING COMPLETED" -ForegroundColor Green
+}
+Write-Host "="*50 -ForegroundColor Cyan
+
+Write-Host "`n Summary:" -ForegroundColor Cyan
+Write-Host "   Total Files: $processedCount" -ForegroundColor Gray
+Write-Host "   Successful: $successCount" -ForegroundColor Green
+Write-Host "   Errors: $errorCount" -ForegroundColor $(if ($errorCount -gt 0) { "Red" } else { "Gray" })
+
+if ($WhatIf) {
+    Write-Host "`n Ready for actual processing!" -ForegroundColor Green
+    Write-Host " Remove the -WhatIf parameter to process files for real." -ForegroundColor Yellow
+}
+else {
+    Write-Host "`n All files have been processed and intelligently renamed!" -ForegroundColor Green
+    Write-Host " Check the target folder for results." -ForegroundColor Gray
+}
+
 Write-Host "`n Usage Examples:" -ForegroundColor Cyan
-Write-Host "Any Documents:    .\Universal-PDF-OCR-Processor.ps1 -TargetFolder `".\Documents`"
+Write-Host "Any Documents:    .\Universal-PDF-OCR-Processor.ps1 -TargetFolder `".\Documents`"" -ForegroundColor Gray
 Write-Host "Invoices:         .\Universal-PDF-OCR-Processor.ps1 -TargetFolder `".\Invoices`" -DocumentType invoice" -ForegroundColor Gray
 Write-Host "Any Folder:       .\Universal-PDF-OCR-Processor.ps1 -TargetFolder `"C:\MyDocs\PDFs`"" -ForegroundColor Gray
 Write-Host "Preview Mode:     .\Universal-PDF-OCR-Processor.ps1 -TargetFolder `".\Documents`" -WhatIf" -ForegroundColor Gray

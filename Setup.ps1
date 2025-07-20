@@ -34,12 +34,12 @@ foreach ($folder in $folders) {
 # Test script syntax
 Write-Host "`nTesting script syntax..." -ForegroundColor Yellow
 try {
-    $null = [System.Management.Automation.PSParser]::Tokenize((Get-Content "PDF-OCR-Processor.ps1" -Raw), [ref]$null)
+    $null = [System.Management.Automation.PSParser]::Tokenize((Get-Content "Universal-PDF-OCR-Processor.ps1" -Raw), [ref]$null)
     Write-Host " Main script syntax is valid" -ForegroundColor Green
 } catch {
     Write-Error "Script syntax error: $_"
 }
 
 Write-Host "`nSetup complete!" -ForegroundColor Green
-Write-Host "To test: .\PDF-OCR-Processor.ps1 -WhatIf" -ForegroundColor Cyan
-Write-Host "To run:  .\PDF-OCR-Processor.ps1" -ForegroundColor Cyan
+Write-Host "To test: .\Universal-PDF-OCR-Processor.ps1 -WhatIf" -ForegroundColor Cyan
+Write-Host "To run:  .\Universal-PDF-OCR-Processor.ps1" -ForegroundColor Cyan

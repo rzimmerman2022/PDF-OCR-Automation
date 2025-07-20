@@ -1,6 +1,12 @@
 # Universal PDF OCR Automation Suite 
 
-**Intelligent Document Processing with Adobe Acrobat Pro Integration**
+**Intelligent Document Processing with Ado### Environment Setup
+1. **Install Adobe Acrobat Pro** and ensure it's licensed
+2. **Add Acrobat to PATH** (typically `C:\Program Files\Adobe\Acrobat DC\Acrobat\`)
+3. **Run Setup Script**: `.\Setup.ps1` to create required folders and validate environment
+4. **Test Environment**: `.\Universal-PDF-OCR-Processor.ps1 -WhatIf`
+
+> **Note**: Adobe Acrobat Pro (not Reader) is required for OCR functionality. The scripts will run in preview mode without it for testing purposes.robat Pro Integration**
 
 Transform any folder of PDF documents into intelligently named, searchable files with automatic content detection and OCR processing.
 
