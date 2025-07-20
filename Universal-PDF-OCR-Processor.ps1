@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
     Universal PDF OCR and Intelligent Renaming System
     Automates OCR processing and content-based renaming of PDF documents using Adobe Acrobat Pro.
@@ -37,8 +37,8 @@
     Preview processing of medical documents in a relative subfolder
 
 .EXAMPLE
-    .\Universal-PDF-OCR-Processor.ps1 -TargetFolder ".\02_LabResults" -WhatIf
-    Preview processing using medical records folder
+    .\Universal-PDF-OCR-Processor.ps1 -TargetFolder ".\Documents" -WhatIf
+    Preview processing using default Documents folder
 
 .NOTES
     Author: GitHub Copilot - Universal PDF OCR Automation Suite
@@ -82,7 +82,7 @@ Write-Host @"
 
                     UNIVERSAL PDF OCR AUTOMATION SUITE                        
                            Intelligent Document Processing                     
-╝
++
 "@ -ForegroundColor Cyan
 
 Write-Host "Version 2.0 - Universal Standalone Edition" -ForegroundColor Yellow
@@ -151,7 +151,7 @@ if (-not (Test-Path -Path $TargetFolder)) {
         Write-Host "   $($_.Name)" -ForegroundColor Gray
     }
     Write-Host "`nUsage examples:" -ForegroundColor Yellow
-    Write-Host "  .\Universal-PDF-OCR-Processor.ps1 -TargetFolder `".\02_LabResults`"" -ForegroundColor Gray
+    Write-Host "  .\Universal-PDF-OCR-Processor.ps1 -TargetFolder `".\Documents`"" -ForegroundColor Gray
     Write-Host "  .\Universal-PDF-OCR-Processor.ps1 -TargetFolder `".\Documents`"" -ForegroundColor Gray
     Write-Host "  .\Universal-PDF-OCR-Processor.ps1 -TargetFolder `"C:\Your\PDF\Folder`"" -ForegroundColor Gray
     exit 1
@@ -187,7 +187,7 @@ if ($WhatIf) {
 
 Write-Host "`n Environment validation completed successfully!" -ForegroundColor Green
 Write-Host "`n Usage Examples:" -ForegroundColor Cyan
-Write-Host "Medical Records:  .\Universal-PDF-OCR-Processor.ps1 -TargetFolder `".\02_LabResults`" -DocumentType medical" -ForegroundColor Gray
+Write-Host "Any Documents:    .\Universal-PDF-OCR-Processor.ps1 -TargetFolder `".\Documents`"
 Write-Host "Invoices:         .\Universal-PDF-OCR-Processor.ps1 -TargetFolder `".\Invoices`" -DocumentType invoice" -ForegroundColor Gray
 Write-Host "Any Folder:       .\Universal-PDF-OCR-Processor.ps1 -TargetFolder `"C:\MyDocs\PDFs`"" -ForegroundColor Gray
 Write-Host "Preview Mode:     .\Universal-PDF-OCR-Processor.ps1 -TargetFolder `".\Documents`" -WhatIf" -ForegroundColor Gray

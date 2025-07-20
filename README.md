@@ -1,4 +1,4 @@
-﻿# Universal PDF OCR Automation Suite 
+# Universal PDF OCR Automation Suite 
 
 **Intelligent Document Processing with Adobe Acrobat Pro Integration**
 
@@ -25,8 +25,8 @@ Transform any folder of PDF documents into intelligently named, searchable files
 
 ### Basic Usage
 ```powershell
-# Process medical records
-.\Universal-PDF-OCR-Processor.ps1 -TargetFolder ".\02_LabResults" -DocumentType medical
+# Process any documents
+.\Universal-PDF-OCR-Processor.ps1 -TargetFolder ".\Documents" -DocumentType medical
 
 # Process invoices  
 .\Universal-PDF-OCR-Processor.ps1 -TargetFolder ".\Invoices" -DocumentType invoice
@@ -68,7 +68,7 @@ PDF-OCR-Automation/
   Examples/                         # Working examples  
     Invoice-OCR-Example.ps1          # Invoice processing example
 
-  02_LabResults/                    # Medical records folder
+  Documents/                    # Medical records folder
   Invoices/                         # Invoice documents folder  
   Documents/                        # General documents folder
   Processed/                        # Output folder for results
@@ -92,7 +92,7 @@ PDF-OCR-Automation/
 ### Main Parameters
 | Parameter | Type | Description | Example |
 |-----------|------|-------------|---------|
-| `TargetFolder` | String | Folder containing PDFs to process | `".\02_LabResults"` |
+| `TargetFolder` | String | Folder containing PDFs to process | `".\Documents"` |
 | `DocumentType` | String | Type filter: auto, medical, invoice, legal, general | `medical` |
 | `WhatIf` | Switch | Preview mode - no changes made | `-WhatIf` |
 | `DetailedOutput` | Switch | Verbose logging for troubleshooting | `-DetailedOutput` |
