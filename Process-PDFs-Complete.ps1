@@ -2,7 +2,7 @@
 <#
 .SYNOPSIS
     Complete PDF Processing Engine with OCR and AI Renaming
-    Enhanced version incorporating improvements from Mike Orth repository
+    Core component of the PDF-OCR-Automation system
 
 .DESCRIPTION
     Comprehensive PDF processing pipeline that:
@@ -11,6 +11,11 @@
     3. Uses AI to analyze and rename files with descriptive names
     4. Tracks processing state and costs
     5. Provides detailed logging and error handling
+    
+    This script serves as the main processing engine, handling the complete
+    workflow from file discovery through OCR processing to AI-powered renaming.
+    It maintains state between runs, allowing for resumable processing and
+    preventing duplicate work.
 
 .PARAMETER TargetFolder
     Directory containing PDF files to process
@@ -51,12 +56,20 @@ param(
 )
 
 # Script initialization
+# Store the script's directory path for relative file references throughout execution
 $script:ScriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+
+# Create unique log file for this session with timestamp to prevent conflicts
+# Format: processing_log_20250121_143052.log for easy chronological sorting
 $script:LogFile = Join-Path $script:ScriptRoot "processing_log_$(Get-Date -Format 'yyyyMMdd_HHmmss').log"
+
+# State file tracks processing status of each PDF file across sessions
+# This enables resumable processing and prevents duplicate API calls
 $script:StateFile = Join-Path $script:ScriptRoot ".processing_status.json"
 $script:ProcessingState = @{}
 
-# Session statistics
+# Session statistics for comprehensive tracking and reporting
+# These metrics help monitor processing efficiency and API costs
 $script:SessionStats = @{
     TotalFiles = 0
     FilesNeedingOCR = 0

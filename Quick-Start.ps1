@@ -77,14 +77,28 @@ function Show-Help {
 }
 
 function Invoke-Setup {
+    <#
+    .SYNOPSIS
+        Interactive setup wizard for API key configuration
+    
+    .DESCRIPTION
+        Guides users through the process of obtaining and configuring a Gemini API key.
+        Checks for existing keys and provides secure input for new keys.
+        Creates or updates the .env file with proper formatting.
+    #>
+    
     Write-Host ""
     Write-Host "=== API KEY SETUP ===" -ForegroundColor Cyan
     Write-Host ""
     
+    # Define the .env file path in the script's directory
+    # This keeps API keys local to the project and portable
     $envFile = Join-Path $script:ScriptRoot ".env"
     $existingKey = $null
     
-    # Check for existing API key
+    # Check for existing API key in .env file
+    # Parse the file looking for GEMINI_API_KEY= pattern
+    # Handles quoted and unquoted values gracefully
     if (Test-Path $envFile) {
         Get-Content $envFile | ForEach-Object {
             if ($_ -match '^GEMINI_API_KEY=(.+)$') {

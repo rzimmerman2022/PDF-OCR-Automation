@@ -1,7 +1,17 @@
 #!/usr/bin/env python3
 """
 PDF AI Renaming Script - Uses Gemini AI to analyze and rename PDF files
-Part of the Universal PDF OCR Automation Suite
+Part of the PDF-OCR-Automation System
+
+This script serves as the AI-powered analysis component that:
+1. Extracts text content from PDF files
+2. Analyzes content using Google's Gemini AI
+3. Generates descriptive filenames based on document content
+4. Handles batch processing with cost tracking
+5. Provides both dry-run and live renaming modes
+
+Author: PDF-OCR-Automation System
+Version: 2.0
 """
 
 import os
@@ -16,7 +26,13 @@ import google.generativeai as genai
 from typing import List, Dict, Tuple, Optional
 
 def load_env():
-    """Load environment variables from .env file if it exists"""
+    """
+    Load environment variables from .env file if it exists
+    
+    This function automatically loads API keys and configuration from a .env file
+    in the script's directory, eliminating the need to set system environment variables.
+    Supports both quoted and unquoted values, and ignores comment lines.
+    """
     env_path = Path(__file__).parent / '.env'
     if env_path.exists():
         with open(env_path, 'r') as f:
