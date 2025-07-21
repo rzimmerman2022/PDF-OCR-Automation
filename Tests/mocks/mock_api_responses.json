@@ -1,0 +1,81 @@
+{
+  "mock_responses": {
+    "invoice_analysis": {
+      "filename": "Invoice_AcmeCorp_INV2024001_2024-01-15",
+      "document_type": "Invoice",
+      "key_info": "Invoice from Acme Corporation, number INV-2024-001, dated January 15, 2024",
+      "confidence": "high"
+    },
+    "report_analysis": {
+      "filename": "TechnicalReport_SystemPerformance_2024-01",
+      "document_type": "Technical Report",
+      "key_info": "System Performance Analysis report for January 2024",
+      "confidence": "high"
+    },
+    "contract_analysis": {
+      "filename": "ServiceAgreement_TechSolutions_SA2024042_2024-01-01",
+      "document_type": "Service Agreement",
+      "key_info": "Service agreement between TechSolutions Inc. and Business Enterprises LLC",
+      "confidence": "high"
+    },
+    "manual_analysis": {
+      "filename": "UserManual_SuperWidgetPro3000_v3.1.2",
+      "document_type": "User Manual",
+      "key_info": "User manual for SuperWidget Pro 3000 version 3.1.2",
+      "confidence": "medium"
+    },
+    "generic_document": {
+      "filename": "Document_Unknown_2024-01-15",
+      "document_type": "Unknown",
+      "key_info": "Could not determine document type from content",
+      "confidence": "low"
+    }
+  },
+  "error_responses": {
+    "api_error": {
+      "error": "API request failed",
+      "status_code": 429,
+      "message": "Rate limit exceeded"
+    },
+    "invalid_content": {
+      "error": "Content analysis failed",
+      "message": "No readable text found in document"
+    },
+    "network_error": {
+      "error": "Network connection failed",
+      "message": "Unable to reach API endpoint"
+    }
+  },
+  "test_scenarios": [
+    {
+      "name": "successful_invoice_processing",
+      "input_file": "document.pdf",
+      "expected_response": "invoice_analysis",
+      "expected_status": "success"
+    },
+    {
+      "name": "successful_report_processing", 
+      "input_file": "scan001.pdf",
+      "expected_response": "report_analysis",
+      "expected_status": "success"
+    },
+    {
+      "name": "already_named_file",
+      "input_file": "Invoice_AcmeCorp_INV2024002_2024-01-20.pdf",
+      "expected_response": null,
+      "expected_status": "skip"
+    },
+    {
+      "name": "api_failure_scenario",
+      "input_file": "document.pdf",
+      "expected_response": "api_error",
+      "expected_status": "error"
+    },
+    {
+      "name": "invalid_pdf_scenario",
+      "input_file": "corrupted.pdf",
+      "expected_response": "invalid_content", 
+      "expected_status": "error"
+    }
+  ]
+}

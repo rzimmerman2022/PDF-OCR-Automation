@@ -8,7 +8,10 @@
       "Bash(del cleanup-commit-message.txt)",
       "Bash(rm:*)",
       "Bash(git push:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(powershell:*)",
+      "Bash(pip install:*)",
+      "Bash(python:*)"
     ],
     "deny": []
   }
