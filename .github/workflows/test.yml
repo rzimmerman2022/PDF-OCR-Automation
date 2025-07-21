@@ -1,0 +1,162 @@
+name: Test PDF OCR Automation
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: windows-latest
+    
+    strategy:
+      matrix:
+        powershell: ['5.1', '7.x']
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    
+    - name: Setup PowerShell ${{ matrix.powershell }}
+      if: matrix.powershell != '5.1'
+      uses: PowerShell/setup-powershell@v1
+      with:
+        powershell-version: ${{ matrix.powershell }}
+    
+    - name: Display PowerShell version
+      run: $PSVersionTable
+      shell: pwsh
+    
+    - name: Run Setup Script
+      run: |
+        Set-Location $env:GITHUB_WORKSPACE
+        .\Setup.ps1
+      shell: pwsh
+    
+    - name: Validate Script Syntax
+      run: |
+        $errors = $null
+        $null = [System.Management.Automation.PSParser]::Tokenize(
+            (Get-Content ".\Universal-PDF-OCR-Processor.ps1" -Raw), 
+            [ref]$errors
+        )
+        if ($errors.Count -gt 0) {
+            Write-Error "Script has syntax errors"
+            $errors | Format-List
+            exit 1
+        }
+        Write-Host "✓ Script syntax is valid" -ForegroundColor Green
+      shell: pwsh
+    
+    - name: Run Unit Tests
+      run: |
+        Set-Location $env:GITHUB_WORKSPACE
+        .\Tests\Test-PDFOCRProcessor.ps1
+      shell: pwsh
+      continue-on-error: true
+    
+    - name: Run Performance Tests
+      run: |
+        Set-Location $env:GITHUB_WORKSPACE
+        .\Tests\Test-OCRPerformance.ps1
+      shell: pwsh
+      continue-on-error: true
+    
+    - name: Test Preview Mode
+      run: |
+        Set-Location $env:GITHUB_WORKSPACE
+        .\Universal-PDF-OCR-Processor.ps1 -TargetFolder ".\Documents" -WhatIf
+      shell: pwsh
+    
+    - name: Test Parameter Validation
+      run: |
+        # Test various parameter combinations
+        .\Universal-PDF-OCR-Processor.ps1 -TargetFolder ".\Documents" -DocumentType business -WhatIf
+        .\Universal-PDF-OCR-Processor.ps1 -TargetFolder ".\Reports" -OCRLanguage spa -WhatIf
+        .\Universal-PDF-OCR-Processor.ps1 -TargetFolder ".\Invoices" -DocumentType invoice -OCRLanguage multi -WhatIf
+      shell: pwsh
+    
+    - name: Generate Test Report
+      if: always()
+      run: |
+        $report = @"
+        Test Summary for PowerShell ${{ matrix.powershell }}
+        =============================================
+        Repository: ${{ github.repository }}
+        Branch: ${{ github.ref_name }}
+        Commit: ${{ github.sha }}
+        Runner: ${{ runner.os }} - ${{ runner.arch }}
+        
+        Tests completed at: $(Get-Date)
+        "@
+        
+        $report | Out-File "test-report-ps${{ matrix.powershell }}.txt"
+      shell: pwsh
+    
+    - name: Upload Test Results
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results-ps${{ matrix.powershell }}
+        path: |
+          test-report-*.txt
+          Reports/*.txt
+
+  lint:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    
+    - name: Install PSScriptAnalyzer
+      run: |
+        Install-Module -Name PSScriptAnalyzer -Force -SkipPublisherCheck
+      shell: pwsh
+    
+    - name: Run PSScriptAnalyzer
+      run: |
+        $results = Invoke-ScriptAnalyzer -Path . -Recurse -ReportSummary
+        if ($results) {
+            $results | Format-Table -AutoSize
+            Write-Warning "PSScriptAnalyzer found $($results.Count) issues"
+        } else {
+            Write-Host "✓ No issues found by PSScriptAnalyzer" -ForegroundColor Green
+        }
+      shell: pwsh
+      continue-on-error: true
+
+  security:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    
+    - name: Check for Sensitive Data
+      run: |
+        # Check for potential secrets or sensitive data
+        $patterns = @(
+            'password\s*=',
+            'apikey|api_key',
+            'secret',
+            'token\s*=',
+            'credential'
+        )
+        
+        $found = $false
+        foreach ($pattern in $patterns) {
+            $matches = Select-String -Path *.ps1 -Pattern $pattern -SimpleMatch
+            if ($matches) {
+                Write-Warning "Potential sensitive data found matching pattern: $pattern"
+                $matches | Select-Object Filename, LineNumber, Line
+                $found = $true
+            }
+        }
+        
+        if (-not $found) {
+            Write-Host "✓ No obvious sensitive data patterns found" -ForegroundColor Green
+        }
+      shell: pwsh

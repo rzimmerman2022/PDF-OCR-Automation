@@ -1,0 +1,16 @@
+﻿SCANNED DOCUMENT EXAMPLE
+=======================
+
+This text represents a scanned document.
+It may have some OCR challenges:
+
+1) Numbers: 1234567890
+2) Special chars: @#$%^&*()
+3) Mixed case: aBcDeFgHiJkLmNoP
+4) Dates: 01/15/2024, 2024-01-15
+5) Currency: ,234.56
+
+Common OCR errors to test:
+- l vs 1 (lowercase L vs one)
+- 0 vs O (zero vs letter O)
+- rn vs m

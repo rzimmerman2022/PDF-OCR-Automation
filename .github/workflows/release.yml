@@ -1,0 +1,153 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (e.g., v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+
+jobs:
+  create-release:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    
+    - name: Set version
+      id: version
+      run: |
+        if ("${{ github.event_name }}" -eq "push") {
+            $version = "${{ github.ref_name }}"
+        } else {
+            $version = "${{ github.event.inputs.version }}"
+        }
+        echo "VERSION=$version" >> $env:GITHUB_OUTPUT
+        Write-Host "Creating release for version: $version"
+      shell: pwsh
+    
+    - name: Create Release Package
+      run: |
+        $version = "${{ steps.version.outputs.VERSION }}"
+        $packageName = "PDF-OCR-Automation-$version"
+        
+        # Create package directory
+        New-Item -ItemType Directory -Path $packageName -Force
+        
+        # Copy main files
+        $files = @(
+            "Universal-PDF-OCR-Processor.ps1",
+            "Setup.ps1",
+            "Add-AdobeToPath.ps1",
+            "Install-PDFOCRAutomation.ps1",
+            "README.md",
+            "SUMMARY.md",
+            "LICENSE",
+            "TROUBLESHOOTING.md",
+            "OCR-OPTIMIZATION.md"
+        )
+        
+        foreach ($file in $files) {
+            if (Test-Path $file) {
+                Copy-Item $file $packageName -Force
+            }
+        }
+        
+        # Copy directories
+        Copy-Item -Path "Templates" -Destination $packageName -Recurse -Force
+        Copy-Item -Path "Examples" -Destination $packageName -Recurse -Force
+        Copy-Item -Path "Tests" -Destination $packageName -Recurse -Force
+        
+        # Create empty working directories
+        $dirs = @("Documents", "Reports", "Technical", "Invoices", "Processed")
+        foreach ($dir in $dirs) {
+            New-Item -ItemType Directory -Path "$packageName\$dir" -Force
+            # Add .gitkeep files
+            New-Item -ItemType File -Path "$packageName\$dir\.gitkeep" -Force
+        }
+        
+        # Create version file
+        @"
+        PDF OCR Automation Suite
+        Version: $version
+        Release Date: $(Get-Date -Format 'yyyy-MM-dd')
+        
+        Changelog:
+        - See README.md for features
+        - Check TROUBLESHOOTING.md for known issues
+        - Review OCR-OPTIMIZATION.md for performance tips
+        "@ | Out-File "$packageName\VERSION.txt"
+        
+        # Create ZIP archive
+        Compress-Archive -Path $packageName -DestinationPath "$packageName.zip" -Force
+        
+        Write-Host "✓ Created release package: $packageName.zip"
+      shell: pwsh
+    
+    - name: Run Tests
+      run: |
+        .\Tests\Test-PDFOCRProcessor.ps1
+      shell: pwsh
+      continue-on-error: true
+    
+    - name: Generate Release Notes
+      id: release_notes
+      run: |
+        $version = "${{ steps.version.outputs.VERSION }}"
+        $notes = @"
+        # PDF OCR Automation Suite $version
+        
+        ## 🚀 Features
+        - Universal PDF OCR processing with Adobe Acrobat Pro integration
+        - Intelligent document type detection and naming
+        - Multi-language OCR support (13+ languages)
+        - Batch processing with progress indicators
+        - OCR quality assessment
+        - Comprehensive error handling
+        
+        ## 📦 What's Included
+        - Main processing script (Universal-PDF-OCR-Processor.ps1)
+        - Setup and installation scripts
+        - Automated test suite
+        - Comprehensive documentation
+        - Example templates
+        
+        ## 🔧 Installation
+        1. Download and extract the ZIP file
+        2. Run \`Install-PDFOCRAutomation.ps1\` as Administrator
+        3. Or manually run \`Setup.ps1\` to validate environment
+        
+        ## 📋 Requirements
+        - Windows with PowerShell 5.1+
+        - Adobe Acrobat Pro (for OCR functionality)
+        
+        ## 📚 Documentation
+        - README.md - Getting started guide
+        - TROUBLESHOOTING.md - Common issues and solutions
+        - OCR-OPTIMIZATION.md - Performance optimization guide
+        
+        ## 🧪 Testing
+        Run \`Tests\Test-PDFOCRProcessor.ps1\` to validate your installation
+        "@
+        
+        # Write to file for upload
+        $notes | Out-File "release-notes.md"
+        
+        # Set output for GitHub
+        $notes -replace "`r`n", "%0A" | ForEach-Object { echo "NOTES=$_" >> $env:GITHUB_OUTPUT }
+      shell: pwsh
+    
+    - name: Create GitHub Release
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "*.zip"
+        bodyFile: "release-notes.md"
+        name: "PDF OCR Automation Suite ${{ steps.version.outputs.VERSION }}"
+        tag: ${{ steps.version.outputs.VERSION }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+        allowUpdates: true
