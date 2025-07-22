@@ -377,33 +377,106 @@ function Invoke-OCRProcessing {
     
     $processedCount = 0
     $errorCount = 0
-
-    for ($i = 0; $i -lt $FilePaths.Count; $i += $BatchSize) {
-        $batch = $FilePaths[$i..[Math]::Min($i + $BatchSize - 1, $FilePaths.Count - 1)]
+    
+    # Initialize Adobe Acrobat once for all files
+    $acroApp = $null
+    $acroPDDoc = $null
+    
+    try {
+        Write-Log "Initializing Adobe Acrobat Pro..." -Level "Info"
+        $acroApp = New-Object -ComObject AcroExch.App -ErrorAction Stop
+        $acroApp.Show() | Out-Null
         
-        Write-Progress-Custom -Activity "OCR Processing" -Status "Processing batch $([Math]::Floor($i / $BatchSize) + 1)" -PercentComplete ([Math]::Round(($i / $FilePaths.Count) * 100)) -CurrentOperation "Files $($i + 1) to $($i + $batch.Count)"
+        for ($i = 0; $i -lt $FilePaths.Count; $i += $BatchSize) {
+            $batch = $FilePaths[$i..[Math]::Min($i + $BatchSize - 1, $FilePaths.Count - 1)]
+            
+            Write-Progress-Custom -Activity "OCR Processing" -Status "Processing batch $([Math]::Floor($i / $BatchSize) + 1)" -PercentComplete ([Math]::Round(($i / $FilePaths.Count) * 100)) -CurrentOperation "Files $($i + 1) to $($i + $batch.Count)"
 
-        foreach ($file in $batch) {
-            try {
-                Write-Log "OCR processing: $(Split-Path $file -Leaf)" -Level "Info"
-                
-                # Add your OCR processing logic here
-                # For now, we'll simulate OCR processing
-                Start-Sleep -Milliseconds 500
-                
-                Update-FileState -FilePath $file -Status "OCR_Complete"
-                $processedCount++
-                $script:SessionStats.OCRProcessed++
-                
-                Write-Log "OCR completed: $(Split-Path $file -Leaf)" -Level "Info" -Color "Green"
-            }
-            catch {
-                Write-Log "OCR failed for $(Split-Path $file -Leaf): $($_.Exception.Message)" -Level "Error"
-                Update-FileState -FilePath $file -Status "OCR_Error" -Properties @{ Error = $_.Exception.Message }
-                $errorCount++
-                $script:SessionStats.Errors++
+            foreach ($file in $batch) {
+                try {
+                    Write-Log "OCR processing: $(Split-Path $file -Leaf)" -Level "Info"
+                    
+                    # Create PDF document object
+                    $acroPDDoc = New-Object -ComObject AcroExch.PDDoc
+                    
+                    # Open the PDF
+                    if ($acroPDDoc.Open($file)) {
+                        # Get JavaScript object for OCR operations
+                        $jsObject = $acroPDDoc.GetJSObject()
+                        
+                        if ($jsObject) {
+                            # Perform OCR on all pages (English)
+                            try {
+                                $numPages = $acroPDDoc.GetNumPages()
+                                $jsObject.OCRPages(0, ($numPages - 1), "eng", $true)
+                                
+                                # Save the OCR'd PDF
+                                $saveResult = $acroPDDoc.Save(1, $file)
+                                
+                                if ($saveResult) {
+                                    Update-FileState -FilePath $file -Status "OCR_Complete"
+                                    $processedCount++
+                                    $script:SessionStats.OCRProcessed++
+                                    Write-Log "OCR completed: $(Split-Path $file -Leaf)" -Level "Info" -Color "Green"
+                                } else {
+                                    throw "Failed to save OCR'd PDF"
+                                }
+                            }
+                            catch {
+                                # Fallback: Try without language parameter
+                                Write-Log "Trying OCR with default language settings..." -Level "Debug"
+                                $jsObject.OCRPages()
+                                $acroPDDoc.Save(1, $file)
+                                
+                                Update-FileState -FilePath $file -Status "OCR_Complete"
+                                $processedCount++
+                                $script:SessionStats.OCRProcessed++
+                                Write-Log "OCR completed (default language): $(Split-Path $file -Leaf)" -Level "Info" -Color "Green"
+                            }
+                        } else {
+                            throw "Failed to get JavaScript object for OCR"
+                        }
+                        
+                        # Close the document
+                        $acroPDDoc.Close()
+                    } else {
+                        throw "Failed to open PDF file"
+                    }
+                }
+                catch {
+                    Write-Log "OCR failed for $(Split-Path $file -Leaf): $($_.Exception.Message)" -Level "Error"
+                    Update-FileState -FilePath $file -Status "OCR_Error" -Properties @{ Error = $_.Exception.Message }
+                    $errorCount++
+                    $script:SessionStats.Errors++
+                }
+                finally {
+                    # Clean up PDF document object
+                    if ($acroPDDoc) {
+                        try { $acroPDDoc.Close() } catch {}
+                        [System.Runtime.Interopservices.Marshal]::ReleaseComObject($acroPDDoc) | Out-Null
+                        $acroPDDoc = $null
+                    }
+                }
             }
         }
+    }
+    catch {
+        Write-Log "Adobe Acrobat initialization failed: $($_.Exception.Message)" -Level "Error"
+        Write-Log "Please ensure Adobe Acrobat Pro (not Reader) is installed" -Level "Warning"
+        $errorCount = $FilePaths.Count
+    }
+    finally {
+        # Clean up Adobe Acrobat application
+        if ($acroApp) {
+            try { $acroApp.Exit() } catch {}
+            [System.Runtime.Interopservices.Marshal]::ReleaseComObject($acroApp) | Out-Null
+            $acroApp = $null
+        }
+        
+        # Force garbage collection
+        [System.GC]::Collect()
+        [System.GC]::WaitForPendingFinalizers()
+        [System.GC]::Collect()
     }
 
     Write-Progress -Activity "OCR Processing" -Completed

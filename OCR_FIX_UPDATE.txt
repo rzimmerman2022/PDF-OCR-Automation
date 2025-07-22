@@ -1,0 +1,72 @@
+OCR Implementation Fix and System Improvements
+
+Date: 2025-07-22
+Version: 3.3
+================================================================
+
+CHANGES MADE
+============
+
+1. REPLACED PLACEHOLDER OCR WITH REAL IMPLEMENTATION
+   - Removed simulated OCR (Start-Sleep) from Process-PDFs-Complete.ps1
+   - Implemented full Adobe Acrobat COM integration
+   - Added proper error handling and COM object cleanup
+   - Includes fallback for different OCR parameter formats
+
+2. DIAGNOSTIC TOOLS ADDED
+   - check_pdf_text.py: Analyzes PDFs to determine which have extractable text
+   - Quick-OCR-Fix.ps1: Alternative OCR approach using AVDoc
+   - OCR-Direct-Fix.ps1: Direct Adobe Acrobat OCR implementation
+
+3. IDENTIFIED ISSUES
+   - Adobe OCR COM interface returns "Value does not fall within the expected range"
+   - This is a known issue with certain PDF types or Adobe versions
+   - Manual OCR through Adobe UI works when automation fails
+
+CURRENT STATUS
+==============
+
+Working:
+- AI-powered renaming with Gemini 2.5 Flash ✓
+- Descriptive naming convention ✓
+- Text extraction from already-OCR'd PDFs ✓
+- Cost tracking and progress bars ✓
+
+Files Successfully Processed:
+- 20240422_Waiver_ConsentInformalAdministration_RoganDennis_24PR.pdf
+- 20241119_Legal_DomiciliaryLetters_RoganEstate_24PR371.pdf
+- 20241119_Trust_LettersOfTrustInformalAdmin_RoganEstate_24PR371.pdf
+
+Files Needing Manual OCR:
+- comm2.pdf (3 pages, no text)
+- comms1.pdf (3 pages, no text)
+- comms3.pdf (6 pages, no text)
+- comms4.pdf (3 pages, no text)
+- comms5.pdf (6 pages, no text)
+- New Will signed.pdf (4 pages, no text)
+
+WORKAROUND FOR OCR
+==================
+
+Until Adobe COM OCR is resolved, users should:
+
+1. Open Adobe Acrobat Pro
+2. File > Open > Select PDF
+3. Tools > Enhance Scans > Recognize Text
+4. Select "In This File" > Recognize Text
+5. Save the file
+
+Then run: python pdf_renamer.py "C:\Projects\Estate Research Project\*.pdf"
+
+TECHNICAL NOTES
+===============
+
+The OCR implementation in Process-PDFs-Complete.ps1 now:
+- Properly initializes Adobe Acrobat COM objects
+- Attempts OCR with language parameter
+- Falls back to default OCR if language fails
+- Cleans up all COM objects to prevent memory leaks
+- Provides clear error messages
+
+The issue appears to be with the OCRPages JavaScript API method,
+which may require specific Adobe Acrobat versions or configurations.

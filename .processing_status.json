@@ -1,0 +1,62 @@
+﻿{
+    "20240422_Waiver_ConsentInformalAdministration_RoganDennis_24PR.pdf":  {
+                                                                               "Status":  "OCR_Error",
+                                                                               "FilePath":  "C:\\Projects\\Estate Research Project\\20240422_Waiver_ConsentInformalAdministration_RoganDennis_24PR.pdf",
+                                                                               "Error":  "Value does not fall within the expected range.",
+                                                                               "LastProcessed":  "2025-07-22 14:02:41"
+                                                                           },
+    "20241119_Trust_LettersOfTrustInformalAdmin_RoganEstate_24PR371.pdf":  {
+                                                                               "Status":  "OCR_Error",
+                                                                               "FilePath":  "C:\\Projects\\Estate Research Project\\20241119_Trust_LettersOfTrustInformalAdmin_RoganEstate_24PR371.pdf",
+                                                                               "Error":  "Value does not fall within the expected range.",
+                                                                               "LastProcessed":  "2025-07-22 14:02:42"
+                                                                           },
+    "comms4.pdf":  {
+                       "Status":  "OCR_Error",
+                       "FilePath":  "C:\\Projects\\Estate Research Project\\comms4.pdf",
+                       "Error":  "Value does not fall within the expected range.",
+                       "LastProcessed":  "2025-07-22 14:02:42"
+                   },
+    "comms3.pdf":  {
+                       "Status":  "OCR_Error",
+                       "FilePath":  "C:\\Projects\\Estate Research Project\\comms3.pdf",
+                       "Error":  "Value does not fall within the expected range.",
+                       "LastProcessed":  "2025-07-22 14:02:42"
+                   },
+    "comm2.pdf":  {
+                      "Status":  "OCR_Error",
+                      "FilePath":  "C:\\Projects\\Estate Research Project\\comm2.pdf",
+                      "Error":  "Value does not fall within the expected range.",
+                      "LastProcessed":  "2025-07-22 14:02:42"
+                  },
+    "comms5.pdf":  {
+                       "Status":  "OCR_Error",
+                       "FilePath":  "C:\\Projects\\Estate Research Project\\comms5.pdf",
+                       "Error":  "Value does not fall within the expected range.",
+                       "LastProcessed":  "2025-07-22 14:02:42"
+                   },
+    "comms1.pdf":  {
+                       "Status":  "OCR_Error",
+                       "FilePath":  "C:\\Projects\\Estate Research Project\\comms1.pdf",
+                       "Error":  "Value does not fall within the expected range.",
+                       "LastProcessed":  "2025-07-22 14:02:42"
+                   },
+    "New Will signed.pdf":  {
+                                "Status":  "OCR_Error",
+                                "FilePath":  "C:\\Projects\\Estate Research Project\\New Will signed.pdf",
+                                "Error":  "Value does not fall within the expected range.",
+                                "LastProcessed":  "2025-07-22 14:02:42"
+                            },
+    "20241119_Legal_DomiciliaryLetters_RoganEstate_24PR371.pdf":  {
+                                                                      "Status":  "OCR_Error",
+                                                                      "FilePath":  "C:\\Projects\\Estate Research Project\\20241119_Legal_DomiciliaryLetters_RoganEstate_24PR371.pdf",
+                                                                      "Error":  "Value does not fall within the expected range.",
+                                                                      "LastProcessed":  "2025-07-22 14:02:42"
+                                                                  },
+    "20240422_Waiver_ConsentInformalAdmin_RoganDennis_24PR.pdf":  {
+                                                                      "Status":  "OCR_Error",
+                                                                      "FilePath":  "C:\\Projects\\Estate Research Project\\20240422_Waiver_ConsentInformalAdmin_RoganDennis_24PR.pdf",
+                                                                      "Error":  "Value does not fall within the expected range.",
+                                                                      "LastProcessed":  "2025-07-22 14:02:42"
+                                                                  }
+}
