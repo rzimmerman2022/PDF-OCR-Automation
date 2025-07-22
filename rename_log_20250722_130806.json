@@ -1,0 +1,29 @@
+{
+  "timestamp": "2025-07-22T13:08:06.807646",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\PDF-OCR-Automation\\Test-PDFs\\Test-Invoice.pdf",
+      "original_name": "Test-Invoice.pdf",
+      "status": "renamed",
+      "new_name": "Invoice_Test_Company_LLC_2024-001_2025-07-20.pdf",
+      "analysis": {
+        "filename": "Invoice_Test_Company_LLC_2024-001_2025-07-20",
+        "document_type": "Invoice",
+        "industry": "Financial",
+        "key_entities": [
+          "Test Company LLC"
+        ],
+        "key_identifiers": [
+          "2024-001"
+        ],
+        "date_info": "2025-07-20",
+        "key_info": "Financial invoice for goods and services rendered to Test Company LLC, identified by invoice number 2024-001.",
+        "confidence": "high",
+        "naming_rationale": "The filename follows the Financial/Business naming convention: [Type]_[Entity]_[Number]_[Date]. 'Invoice' clearly states the document type. 'Test_Company_LLC' identifies the customer/recipient. '2024-001' is the unique invoice number, a crucial identifier. '2025-07-20' is the document date in ISO format. Underscores are used for spaces, hyphens for the invoice number and date, adhering to technical requirements. The name is concise yet fully descriptive and scannable."
+      },
+      "error": null
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0006
+}

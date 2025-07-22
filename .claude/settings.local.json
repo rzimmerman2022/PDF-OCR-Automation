@@ -12,7 +12,8 @@
       "Bash(powershell:*)",
       "Bash(pip install:*)",
       "Bash(python:*)",
-      "Bash(del commit-message.txt)"
+      "Bash(del commit-message.txt)",
+      "Bash(dir:*)"
     ],
     "deny": []
   }

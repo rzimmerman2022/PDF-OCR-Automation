@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-07-22T13:06:42.965190",
+  "results": [
+    {
+      "original_path": "Test-PDFs\\Document_20250721_023454.pdf",
+      "original_name": "Document_20250721_023454.pdf",
+      "status": "renamed",
+      "new_name": "Document_20250722_130642.pdf",
+      "analysis": {
+        "document_type": "Unknown",
+        "key_info": "Analysis failed",
+        "confidence": "low"
+      },
+      "error": null
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0006
+}

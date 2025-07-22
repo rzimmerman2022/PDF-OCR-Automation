@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-07-21T02:34:51.749036",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\PDF-OCR-Automation\\Test-PDFs\\Test-LegalDocument.pdf",
+      "original_name": "Test-LegalDocument.pdf",
+      "status": "dry_run",
+      "new_name": "Document_20250721_023451.pdf",
+      "analysis": {
+        "document_type": "Unknown",
+        "key_info": "Analysis failed",
+        "confidence": "low"
+      },
+      "error": null
+    }
+  ],
+  "dry_run": true
+}

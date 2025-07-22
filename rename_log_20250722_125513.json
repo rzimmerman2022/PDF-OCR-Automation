@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-07-22T12:55:13.992787",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\Letters of Trust - Court Stamped.pdf",
+      "original_name": "Letters of Trust - Court Stamped.pdf",
+      "status": "renamed",
+      "new_name": "Document_20250722_125513.pdf",
+      "analysis": {
+        "document_type": "Unknown",
+        "key_info": "Analysis failed",
+        "confidence": "low"
+      },
+      "error": null
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0006
+}

@@ -1,0 +1,34 @@
+{
+  "timestamp": "2025-07-22T13:10:15.218986",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\Waiver and Consent - to be signed by 4 siblings.pdf",
+      "original_name": "Waiver and Consent - to be signed by 4 siblings.pdf",
+      "status": "renamed",
+      "new_name": "Waiver_Consent_Informal_Admin_Estate_Dennis_Rogan_24-PR_2024-04-22.pdf",
+      "analysis": {
+        "filename": "Waiver_Consent_Informal_Admin_Estate_Dennis_Rogan_24-PR_2024-04-22",
+        "document_type": "Waiver and Consent (Informal Administration)",
+        "industry": "Legal (Probate/Estate)",
+        "key_entities": [
+          "Dennis W. Rogan (Deceased)",
+          "Joan M. Zimmerman (Personal Representative)",
+          "Daniel Rogan",
+          "William Rogan"
+        ],
+        "key_identifiers": [
+          "24-PR- (Case Number)",
+          "PR-1803 (Form Number)",
+          "Racine County, Wisconsin (Jurisdiction)"
+        ],
+        "date_info": "Will dated 2024-04-22",
+        "key_info": "Waiver and consent by interested parties for informal administration of Dennis W. Rogan's estate, including consent to the will and Personal Representative appointment.",
+        "confidence": "high",
+        "naming_rationale": "Following the Legal industry standard `[DocumentType]_[Parties]_[Matter/CaseID]_[Date]`, the filename prioritizes the specific document type (Waiver and Consent for Informal Administration), identifies the primary party/matter (Estate of Dennis Rogan), includes the partial case number (24-PR), and incorporates the most relevant date from the document's content (the will date). This provides immediate clarity on the document's purpose and context within the legal system, aligning with best practices for court filings."
+      },
+      "error": null
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0006
+}

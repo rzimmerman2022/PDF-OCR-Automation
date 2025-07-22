@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-07-22T13:09:48.809867",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\Document_20250722_125513.pdf",
+      "original_name": "Document_20250722_125513.pdf",
+      "status": "renamed",
+      "new_name": "Estate_of_Rogan_Letters_of_Trust_24-PR-371_2024-11-19.pdf",
+      "analysis": {
+        "filename": "Estate_of_Rogan_Letters_of_Trust_24-PR-371_2024-11-19",
+        "document_type": "Letters of Trust (Informal Administration)",
+        "industry": "Legal / Probate",
+        "key_entities": [
+          "Dennis W. Rogan (Decedent)",
+          "Joan M. Zimmerman (Trustee)",
+          "Dennis W. Rogan Revocable Trust"
+        ],
+        "key_identifiers": [
+          "Case No. 24-PR-371",
+          "Racine County Circuit Court"
+        ],
+        "date_info": "2024-11-19 (Document Date)",
+        "key_info": "Official court document granting Letters of Trust for the Estate of Dennis W. Rogan under informal administration in Racine County, Wisconsin.",
+        "confidence": "high",
+        "naming_rationale": "The filename adheres to the legal naming convention: [Parties/Subject]_[DocumentType]_[Matter/CaseID]_[Date]. It prominently features the Estate of Rogan as the primary subject, followed by the specific document type ('Letters of Trust'), the critical case number ('24-PR-371'), and the document's filing/signing date. This makes the content immediately clear, scannable, and fits within the character limit while being industry-standard for probate documents."
+      },
+      "error": null
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0006
+}

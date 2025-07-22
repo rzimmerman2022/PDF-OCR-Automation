@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-07-22T13:09:58.835267",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\Domiciliary Letters - Court Stamped.pdf",
+      "original_name": "Domiciliary Letters - Court Stamped.pdf",
+      "status": "renamed",
+      "new_name": "Domiciliary_Letters_Rogan_Dennis_W_Estate_24-PR-371_2024-11-19.pdf",
+      "analysis": {
+        "filename": "Domiciliary_Letters_Rogan_Dennis_W_Estate_24-PR-371_2024-11-19",
+        "document_type": "Domiciliary Letters",
+        "industry": "Legal",
+        "key_entities": [
+          "Dennis W. Rogan (Deceased)",
+          "Joan M. Zimmerman (Personal Representative)",
+          "Racine County Circuit Court"
+        ],
+        "key_identifiers": [
+          "Case No. 24-PR-371",
+          "Case 2024PR000371"
+        ],
+        "date_info": "2024-11-19 (Date Issued/Filed)",
+        "key_info": "Official court document granting domiciliary letters for the informal or formal administration of the estate of Dennis W. Rogan.",
+        "confidence": "high",
+        "naming_rationale": "The filename adheres to the legal naming convention: [DocumentType]_[Parties]_[Matter/CaseID]_[Date]. 'Domiciliary_Letters' clearly states the document type. 'Rogan_Dennis_W_Estate' identifies the primary party and the nature of the matter. '24-PR-371' provides the specific case number, and '2024-11-19' indicates the date of issue/filing. This format is concise, descriptive, and immediately conveys the document's content and context, fulfilling all technical and clarity requirements."
+      },
+      "error": null
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0006
+}
