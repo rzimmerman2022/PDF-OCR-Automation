@@ -21,6 +21,14 @@ Transform any folder of PDF documents into intelligently named, searchable files
 - **Preview Mode** - Test processing without making changes
 - **Universal Application** - Works across industries and document types
 
+## ⚠️ SECURITY WARNING ⚠️
+
+**NEVER commit your API keys to GitHub!**
+1. Copy `.env.example` to `.env`
+2. Add your actual API key to `.env`
+3. NEVER commit `.env` to version control
+4. If your key is exposed, regenerate it immediately at [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+
 ##  Quick Start
 
 ### Installation
@@ -29,13 +37,17 @@ Transform any folder of PDF documents into intelligently named, searchable files
 git clone https://github.com/yourusername/PDF-OCR-Automation.git
 cd PDF-OCR-Automation
 
-# 2. Run setup script
+# 2. Set up your API key securely
+Copy-Item .env.example .env
+# Edit .env and add your Gemini API key
+
+# 3. Run setup script
 .\Setup.ps1
 
-# 3. Add Adobe to PATH (if needed)
+# 4. Add Adobe to PATH (if needed)
 .\Add-AdobeToPath.ps1
 
-# 4. Test the installation
+# 5. Test the installation
 .\Universal-PDF-OCR-Processor.ps1 -WhatIf
 ```
 

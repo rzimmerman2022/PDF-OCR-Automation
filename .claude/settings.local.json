@@ -13,7 +13,8 @@
       "Bash(pip install:*)",
       "Bash(python:*)",
       "Bash(del commit-message.txt)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(git rm:*)"
     ],
     "deny": []
   }

@@ -1,4 +1,12 @@
-﻿# Logs
+﻿# SECURITY - NEVER COMMIT THESE FILES!
+.env
+.env.*
+*.key
+*_api_key*
+credentials/
+secrets/
+
+# Logs
 *.log
 
 # Temporary files
