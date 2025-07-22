@@ -1,0 +1,26 @@
+{
+  "timestamp": "2025-07-22T13:25:54.406489",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\Amended_Waiver_Consent_Informal_Admin_Estate_Dennis_Rogan_24-PR_2024-04-22.pdf",
+      "original_name": "Amended_Waiver_Consent_Informal_Admin_Estate_Dennis_Rogan_24-PR_2024-04-22.pdf",
+      "status": "renamed",
+      "new_name": "20240422_LGL_RoganEstate_24PR_v01.pdf",
+      "analysis": {
+        "filename": "20240422_LGL_RoganEstate_24PR_v01",
+        "document_type": "LGL",
+        "document_type_full": "Legal Document",
+        "industry": "Legal / Estates",
+        "entity": "Rogan Estate",
+        "identifier": "24PR",
+        "date_used": "20240422",
+        "date_source": "document content (will date) and original filename",
+        "key_info": "Amended Waiver and Consent for Informal Administration of Dennis W. Rogan's Estate, Case No. 24-PR.",
+        "confidence": "high"
+      },
+      "error": null
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0006
+}

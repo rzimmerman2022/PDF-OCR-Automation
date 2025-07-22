@@ -1,0 +1,26 @@
+{
+  "timestamp": "2025-07-22T13:26:16.183368",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\Domiciliary_Letters_Rogan_Dennis_W_Estate_24-PR-371_2024-11-19.pdf",
+      "original_name": "Domiciliary_Letters_Rogan_Dennis_W_Estate_24-PR-371_2024-11-19.pdf",
+      "status": "renamed",
+      "new_name": "20241119_LGL_RoganEstate_24PR371_v01.pdf",
+      "analysis": {
+        "filename": "20241119_LGL_RoganEstate_24PR371_v01",
+        "document_type": "LGL",
+        "document_type_full": "Legal Document",
+        "industry": "Legal/Probate",
+        "entity": "Rogan Estate",
+        "identifier": "24PR371",
+        "date_used": "20241119",
+        "date_source": "document",
+        "key_info": "Domiciliary Letters for Dennis W. Rogan estate, Case 24-PR-371.",
+        "confidence": "high"
+      },
+      "error": null
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0006
+}

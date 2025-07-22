@@ -88,9 +88,9 @@ Current filename: {current_filename}
 Content excerpt:
 {text[:2000]}
 
-STRICT NAMING CONVENTION - ISO STANDARD FORMAT:
+ENHANCED NAMING CONVENTION - ISO STANDARD WITH DESCRIPTIVE CONTENT:
 The filename MUST follow this exact pattern:
-YYYYMMDD_DocType_Entity_Identifier_v01
+YYYYMMDD_DocType_Description_Entity_ID
 
 COMPONENTS (in order):
 1. DATE PREFIX (MANDATORY): YYYYMMDD format (ISO 8601)
@@ -98,63 +98,65 @@ COMPONENTS (in order):
    - Use today's date ({datetime.now().strftime('%Y%m%d')}) if no date found
    - ALWAYS start filename with date
 
-2. DOCUMENT TYPE (MANDATORY): Use standard abbreviations
-   - INV = Invoice
-   - CTR = Contract
-   - RPT = Report
-   - LTR = Letter
-   - POL = Policy
-   - AGR = Agreement
-   - MEM = Memo
-   - MIN = Minutes
-   - PRO = Proposal
-   - REQ = Request/Requisition
-   - CRT = Certificate
-   - LGL = Legal Document
-   - FIN = Financial Document
-   - MED = Medical Record
-   - GOV = Government Form
+2. DOCUMENT TYPE (MANDATORY): Use full descriptive names
+   - Invoice
+   - Contract
+   - Report
+   - Letter
+   - Will
+   - Trust
+   - Waiver
+   - Agreement
+   - Certificate
+   - Legal
+   - Financial
+   - Medical
+   - Correspondence
 
-3. ENTITY (MANDATORY): Primary organization/person
-   - Company name (abbreviated if needed)
-   - Person's last name
-   - Department code
-   - Max 15 characters
+3. DESCRIPTION (MANDATORY): Brief descriptive content
+   - What the document is about (3-5 words)
+   - Key subject matter
+   - Main purpose
+   - Use TitleCase
+   - Examples: "EstatePlanning", "PropertySale", "QuarterlyFinancials"
 
-4. IDENTIFIER (OPTIONAL): Reference numbers
+4. ENTITY (MANDATORY): Primary organization/person
+   - Full name or company (can abbreviate if too long)
+   - Person's full last name
+   - Use TitleCase
+
+5. IDENTIFIER (OPTIONAL): Reference numbers
+   - Case numbers (e.g., 24PR371)
    - Invoice numbers
-   - Case IDs
    - Account numbers
-   - Project codes
-   - Max 10 characters
-
-5. VERSION (MANDATORY): v01, v02, etc.
+   - Keep original format
 
 RULES:
-- Total length: Maximum 60 characters
-- Use ONLY underscores (_) as separators
-- NO spaces, NO special characters except underscore
-- Use ONLY uppercase for type codes
-- Use TitleCase for entity names
-- Numbers: Always pad with zeros (01, 02, not 1, 2)
+- Total length: Maximum 100 characters (increased for clarity)
+- Use underscores (_) between components
+- Use hyphens (-) within components if needed
+- NO spaces anywhere
+- TitleCase for all text components
+- Keep numbers as-is
 
 EXAMPLES:
-- 20240115_INV_AcmeCorp_2024001_v01
-- 20240220_CTR_SmithJohn_SALE2024_v01
-- 20240301_RPT_Finance_Q4Results_v01
-- 20240415_LGL_RoganEstate_24PR371_v01
+- 20241119_Trust_LettersOfAdministration_RoganEstate_24PR371
+- 20240422_Waiver_ConsentInformalAdmin_RoganDennis_24PR
+- 20240115_Invoice_ConsultingServices_AcmeCorp_2024-001
+- 20240301_Report_QuarterlyFinancialSummary_FinanceDept_Q1-2024
+- 20240720_Contract_RealEstatePurchase_SmithJohn_SALE2024
+- 20250722_Correspondence_EmailChain_ClientComms_Case123
 
 Return JSON with:
 {{
-    "filename": "standardized_filename_without_extension",
-    "document_type": "type code used (e.g., INV, CTR)",
-    "document_type_full": "full type name (e.g., Invoice, Contract)",
-    "industry": "identified industry/domain",
+    "filename": "complete_filename_without_extension",
+    "document_type": "full type name (e.g., Invoice, Contract, Trust)",
+    "description": "brief description used in filename",
     "entity": "primary entity name",
     "identifier": "reference number if any",
     "date_used": "YYYYMMDD date used in filename",
     "date_source": "where date came from (document/today)",
-    "key_info": "one-line summary",
+    "key_info": "one-line summary of document content",
     "confidence": "high/medium/low"
 }}"""
 
@@ -174,7 +176,7 @@ Return JSON with:
             # Sanitize filename
             filename = result.get('filename', 'Unknown_Document')
             filename = re.sub(r'[<>:"/\\|?*]', '_', filename)
-            filename = filename[:80]  # Increased limit to 80 chars
+            filename = filename[:100]  # Increased limit to 100 chars for descriptive names
             
             # Track token usage for accurate cost calculation
             self.total_input_tokens += len(prompt.split()) * 1.3  # Rough estimate
@@ -185,12 +187,11 @@ Return JSON with:
         except json.JSONDecodeError as e:
             print(f"[ERROR] Failed to parse AI response as JSON: {str(e)}")
             print(f"[DEBUG] Raw response: {response.text[:200]}...")
-            # Fallback naming - follows ISO standard format
+            # Fallback naming - follows enhanced format
             today = datetime.now().strftime("%Y%m%d")
-            return f"{today}_DOC_Unknown_v01", {
-                "document_type": "DOC",
-                "document_type_full": "Document",
-                "industry": "Unknown",
+            return f"{today}_Document_UnknownContent_Unknown", {
+                "document_type": "Document",
+                "description": "UnknownContent",
                 "entity": "Unknown",
                 "identifier": "",
                 "date_used": today,
@@ -200,12 +201,11 @@ Return JSON with:
             }
         except Exception as e:
             print(f"[ERROR] AI analysis failed: {str(e)}")
-            # Fallback naming - follows ISO standard format
+            # Fallback naming - follows enhanced format
             today = datetime.now().strftime("%Y%m%d")
-            return f"{today}_DOC_Unknown_v01", {
-                "document_type": "DOC",
-                "document_type_full": "Document",
-                "industry": "Unknown",
+            return f"{today}_Document_AnalysisFailed_Unknown", {
+                "document_type": "Document",
+                "description": "AnalysisFailed",
                 "entity": "Unknown",
                 "identifier": "",
                 "date_used": today,

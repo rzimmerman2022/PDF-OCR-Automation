@@ -1,0 +1,104 @@
+MAJOR UPDATE: Enhanced Descriptive File Naming Convention
+
+Date: 2025-07-22
+Version: 3.1
+================================================================
+
+OVERVIEW
+--------
+This update significantly improves file naming to be more intuitive and descriptive,
+making it easy to understand document contents at a glance while maintaining ISO 8601
+compliance and systematic organization.
+
+KEY IMPROVEMENTS
+================
+
+1. DESCRIPTIVE NAMING FORMAT
+----------------------------
+NEW FORMAT: YYYYMMDD_DocType_Description_Entity_ID
+
+Example transformations:
+- OLD: 20241119_LGL_RoganEstate_24PR371_v01
+- NEW: 20241119_Trust_LettersOfTrust_RoganEstate_24PR371
+
+- OLD: 20240422_LGL_RoganEstate_24PR_v01  
+- NEW: 20240422_Waiver_ConsentInformalAdmin_RoganDennis_24PR
+
+- OLD: 20250722_RPT_SysPerf_PerfQtr_v01
+- NEW: 20250722_Report_QuarterlySystemPerformance_ITDepartment_Q2-2025
+
+2. FULL DOCUMENT TYPE NAMES
+---------------------------
+Replaced cryptic 3-letter codes with full descriptive names:
+- INV → Invoice
+- CTR → Contract  
+- RPT → Report
+- LGL → Legal/Trust/Waiver (context-specific)
+- LTR → Letter
+- DOC → Document
+
+3. CONTENT DESCRIPTION FIELD
+----------------------------
+Added mandatory description component that explains:
+- What the document contains
+- Its purpose or subject matter
+- Key action or topic (3-5 words)
+- Uses TitleCase for readability
+
+Examples:
+- LettersOfTrust
+- ConsentInformalAdmin
+- QuarterlySystemPerformance
+- EmailChain
+- PropertySale
+
+4. ENHANCED AI PROMPTING
+------------------------
+Updated Gemini 2.5 Flash prompts to:
+- Prioritize descriptive, intuitive naming
+- Extract meaningful content descriptors
+- Use full words instead of abbreviations
+- Maintain consistency across document types
+
+5. INCREASED LENGTH LIMITS
+--------------------------
+- Maximum filename length: 100 characters (up from 60)
+- Allows for more descriptive content
+- Better balance between detail and usability
+- Compatible with all major file systems
+
+BENEFITS
+========
+1. **Instant Recognition**: Know what's in a file without opening it
+2. **Better Search**: Natural language searching works better
+3. **Professional Appearance**: Clear, organized file structure
+4. **Reduced Errors**: Less chance of working with wrong document
+5. **Team Collaboration**: Everyone understands the naming system
+
+TECHNICAL CHANGES
+=================
+Modified files:
+- pdf_renamer.py: 
+  * Enhanced prompt engineering (lines 91-161)
+  * Updated JSON response structure
+  * Increased character limit to 100
+  * Improved fallback naming
+
+REAL-WORLD RESULTS
+==================
+Estate Research Project files renamed:
+1. Waiver document: Clear indication of "ConsentInformalAdmin"
+2. Trust letters: Specified as "LettersOfTrust" not just "LGL"
+3. Domiciliary letters: Identified as actual letter type
+
+The system now creates filenames that are self-documenting and require
+no additional context to understand their contents.
+
+BACKWARD COMPATIBILITY
+======================
+- Existing files work without modification
+- Processing state maintained
+- API costs unchanged ($0.0006 per document)
+
+This update makes the PDF-OCR-Automation system more user-friendly while
+maintaining all the benefits of systematic, ISO-compliant naming.

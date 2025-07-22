@@ -1,47 +1,47 @@
 ﻿{
-    "New Will signed.pdf":  {
-                                "Status":  "OCR_Complete",
-                                "FilePath":  "C:\\Projects\\Estate Research Project\\New Will signed.pdf",
-                                "LastProcessed":  "2025-07-22 13:16:59"
-                            },
     "comms4.pdf":  {
                        "Status":  "OCR_Complete",
                        "FilePath":  "C:\\Projects\\Estate Research Project\\comms4.pdf",
-                       "LastProcessed":  "2025-07-22 13:16:57"
+                       "LastProcessed":  "2025-07-22 13:29:03"
                    },
+    "20241119_LGL_RoganEstate_24PR371_v01.pdf":  {
+                                                     "Status":  "OCR_Complete",
+                                                     "FilePath":  "C:\\Projects\\Estate Research Project\\20241119_LGL_RoganEstate_24PR371_v01.pdf",
+                                                     "LastProcessed":  "2025-07-22 13:29:01"
+                                                 },
+    "20240422_LGL_RoganEstate_24PR_v01.pdf":  {
+                                                  "Status":  "OCR_Complete",
+                                                  "FilePath":  "C:\\Projects\\Estate Research Project\\20240422_LGL_RoganEstate_24PR_v01.pdf",
+                                                  "LastProcessed":  "2025-07-22 13:29:00"
+                                              },
     "comms3.pdf":  {
                        "Status":  "OCR_Complete",
                        "FilePath":  "C:\\Projects\\Estate Research Project\\comms3.pdf",
-                       "LastProcessed":  "2025-07-22 13:16:57"
+                       "LastProcessed":  "2025-07-22 13:29:03"
                    },
     "comm2.pdf":  {
                       "Status":  "OCR_Complete",
                       "FilePath":  "C:\\Projects\\Estate Research Project\\comm2.pdf",
-                      "LastProcessed":  "2025-07-22 13:16:56"
+                      "LastProcessed":  "2025-07-22 13:29:02"
                   },
     "comms5.pdf":  {
                        "Status":  "OCR_Complete",
                        "FilePath":  "C:\\Projects\\Estate Research Project\\comms5.pdf",
-                       "LastProcessed":  "2025-07-22 13:16:58"
+                       "LastProcessed":  "2025-07-22 13:29:04"
                    },
     "comms1.pdf":  {
                        "Status":  "OCR_Complete",
                        "FilePath":  "C:\\Projects\\Estate Research Project\\comms1.pdf",
-                       "LastProcessed":  "2025-07-22 13:16:56"
+                       "LastProcessed":  "2025-07-22 13:29:02"
                    },
-    "Waiver_Consent_Informal_Admin_Estate_Dennis_Rogan_24-PR_2024-04-22.pdf":  {
-                                                                                   "Status":  "OCR_Complete",
-                                                                                   "FilePath":  "C:\\Projects\\Estate Research Project\\Waiver_Consent_Informal_Admin_Estate_Dennis_Rogan_24-PR_2024-04-22.pdf",
-                                                                                   "LastProcessed":  "2025-07-22 13:17:00"
-                                                                               },
-    "Domiciliary_Letters_Rogan_Dennis_W_Estate_24-PR-371_2024-11-19.pdf":  {
-                                                                               "Status":  "OCR_Complete",
-                                                                               "FilePath":  "C:\\Projects\\Estate Research Project\\Domiciliary_Letters_Rogan_Dennis_W_Estate_24-PR-371_2024-11-19.pdf",
-                                                                               "LastProcessed":  "2025-07-22 13:16:58"
-                                                                           },
-    "Estate_of_Rogan_Letters_of_Trust_24-PR-371_2024-11-19.pdf":  {
-                                                                      "Status":  "OCR_Complete",
-                                                                      "FilePath":  "C:\\Projects\\Estate Research Project\\Estate_of_Rogan_Letters_of_Trust_24-PR-371_2024-11-19.pdf",
-                                                                      "LastProcessed":  "2025-07-22 13:16:59"
-                                                                  }
+    "20241119_LGL_RoganEstate_24PR371_v01_1.pdf":  {
+                                                       "Status":  "OCR_Complete",
+                                                       "FilePath":  "C:\\Projects\\Estate Research Project\\20241119_LGL_RoganEstate_24PR371_v01_1.pdf",
+                                                       "LastProcessed":  "2025-07-22 13:29:01"
+                                                   },
+    "New Will signed.pdf":  {
+                                "Status":  "OCR_Complete",
+                                "FilePath":  "C:\\Projects\\Estate Research Project\\New Will signed.pdf",
+                                "LastProcessed":  "2025-07-22 13:29:04"
+                            }
 }

@@ -1,0 +1,25 @@
+{
+  "timestamp": "2025-07-22T13:29:23.642107",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\20241119_LGL_RoganEstate_24PR371_v01.pdf",
+      "original_name": "20241119_LGL_RoganEstate_24PR371_v01.pdf",
+      "status": "renamed",
+      "new_name": "20241119_Letter_DomiciliaryLetters_RoganEstate_24PR371.pdf",
+      "analysis": {
+        "filename": "20241119_Letter_DomiciliaryLetters_RoganEstate_24PR371",
+        "document_type": "Letter",
+        "description": "DomiciliaryLetters",
+        "entity": "RoganEstate",
+        "identifier": "24PR371",
+        "date_used": "20241119",
+        "date_source": "document",
+        "key_info": "Court-issued Domiciliary Letters for the informal administration of Dennis W. Rogan's estate, case number 24-PR-371.",
+        "confidence": "high"
+      },
+      "error": null
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0006
+}
