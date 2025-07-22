@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-07-22T13:17:41.898814",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\Estate_of_Rogan_Letters_of_Trust_24-PR-371_2024-11-19.pdf",
+      "original_name": "Estate_of_Rogan_Letters_of_Trust_24-PR-371_2024-11-19.pdf",
+      "status": "renamed",
+      "new_name": "Letters_of_Trust_Estate_of_Rogan_24-PR-371_2024-11-19.pdf",
+      "analysis": {
+        "filename": "Letters_of_Trust_Estate_of_Rogan_24-PR-371_2024-11-19",
+        "document_type": "Letters of Trust (Court Issued)",
+        "industry": "Legal (Probate & Estate Law)",
+        "key_entities": [
+          "Estate of Dennis W. Rogan",
+          "Dennis W. Rogan Revocable Trust",
+          "Joan M. Zimmerman (Trustee)",
+          "Racine County Circuit Court"
+        ],
+        "key_identifiers": [
+          "24-PR-371 (Probate Case No.)"
+        ],
+        "date_info": "2024-11-19 (Document Signed/Filed Date)",
+        "key_info": "Court-issued document granting authority to Joan M. Zimmerman as trustee for the administration of the Dennis W. Rogan Revocable Trust, associated with the Estate of Dennis W. Rogan.",
+        "confidence": "high",
+        "naming_rationale": "The filename adheres to the legal industry standard: `[DocumentType]_[Parties]_[Matter/CaseID]_[Date]`. It starts with the specific document type ('Letters of Trust') for immediate clarity, followed by the primary estate ('Estate of Rogan'), the official probate case number ('24-PR-371'), and concludes with the document's signed/filed date. This structure ensures conciseness, scannability, and clear identification of content, party, and context within a legal records system, while staying within character limits and technical requirements."
+      },
+      "error": null
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0006
+}

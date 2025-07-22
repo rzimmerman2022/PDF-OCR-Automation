@@ -1,0 +1,26 @@
+{
+  "timestamp": "2025-07-22T13:20:18.872662",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\PDF-OCR-Automation\\Test-PDFs\\Test-TechnicalReport.pdf",
+      "original_name": "Test-TechnicalReport.pdf",
+      "status": "renamed",
+      "new_name": "20250722_RPT_SysPerf_PerfQtr_v01.pdf",
+      "analysis": {
+        "filename": "20250722_RPT_SysPerf_PerfQtr_v01",
+        "document_type": "RPT",
+        "document_type_full": "Report",
+        "industry": "Information Technology",
+        "entity": "SysPerf",
+        "identifier": "PerfQtr",
+        "date_used": "20250722",
+        "date_source": "today",
+        "key_info": "Technical report analyzing system performance metrics over the past quarter, showing improved response times and reduced error rates.",
+        "confidence": "high"
+      },
+      "error": null
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0006
+}

@@ -52,7 +52,9 @@ param(
     [switch]$AutoConfirm,
     
     [ValidateSet("Debug", "Info", "Warning", "Error")]
-    [string]$LogLevel = "Info"
+    [string]$LogLevel = "Info",
+    
+    [switch]$ForceRenameAll
 )
 
 # Script initialization
@@ -67,6 +69,9 @@ $script:LogFile = Join-Path $script:ScriptRoot "processing_log_$(Get-Date -Forma
 # This enables resumable processing and prevents duplicate API calls
 $script:StateFile = Join-Path $script:ScriptRoot ".processing_status.json"
 $script:ProcessingState = @{}
+
+# Store ForceRenameAll flag at script level
+$script:ForceRenameAll = $ForceRenameAll
 
 # Session statistics for comprehensive tracking and reporting
 # These metrics help monitor processing efficiency and API costs
@@ -295,7 +300,7 @@ function Analyze-PDFFiles {
     foreach ($pdf in $FilePaths) {
         $fileName = (Get-Item $pdf).Name
         $needsOCR = Test-NeedsOCR -FilePath $pdf
-        $needsRename = Test-IsGenericFilename -FileName $fileName
+        $needsRename = if ($script:ForceRenameAll) { $true } else { Test-IsGenericFilename -FileName $fileName }
 
         # Check existing state
         $fileState = Get-FileState -FilePath $pdf

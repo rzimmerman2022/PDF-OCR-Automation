@@ -1,0 +1,26 @@
+{
+  "timestamp": "2025-07-22T13:20:36.203314",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\PDF-OCR-Automation\\Test-PDFs\\Invoice_Test_Company_LLC_2024-001_2025-07-20.pdf",
+      "original_name": "Invoice_Test_Company_LLC_2024-001_2025-07-20.pdf",
+      "status": "renamed",
+      "new_name": "20250720_INV_TestCompanyLLC_2024001_v01.pdf",
+      "analysis": {
+        "filename": "20250720_INV_TestCompanyLLC_2024001_v01",
+        "document_type": "INV",
+        "document_type_full": "Invoice",
+        "industry": "Financial",
+        "entity": "Test Company LLC",
+        "identifier": "2024-001",
+        "date_used": "20250720",
+        "date_source": "document",
+        "key_info": "Invoice #2024-001 issued to Test Company LLC on July 20, 2025.",
+        "confidence": "high"
+      },
+      "error": null
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0006
+}

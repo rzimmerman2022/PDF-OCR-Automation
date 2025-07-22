@@ -82,52 +82,80 @@ class PDFAnalyzer:
     
     def generate_filename(self, text: str, current_filename: str) -> Tuple[str, Dict]:
         """Generate new filename based on content analysis"""
-        prompt = f"""You are an expert document analyst. Analyze this document and create an intuitive, industry-standard filename that makes the content immediately clear.
+        prompt = f"""You are an expert document analyst. Create a standardized filename following ISO 8601 and industry best practices.
 
 Current filename: {current_filename}
 Content excerpt:
 {text[:2000]}
 
-NAMING CONVENTION RULES:
-1. Follow industry best practices for document naming:
-   - Legal: [DocumentType]_[Parties]_[Matter/CaseID]_[Date]
-   - Financial: [Type]_[Entity]_[Period/Number]_[Date]
-   - Real Estate: [PropertyAddress]_[DocumentType]_[TransactionID]_[Date]
-   - Medical: [PatientID/Name]_[DocumentType]_[Provider]_[Date]
-   - Business: [DocumentType]_[Company]_[Subject]_[Version/Date]
-   - Government: [Agency]_[FormNumber/Type]_[Subject]_[Date]
+STRICT NAMING CONVENTION - ISO STANDARD FORMAT:
+The filename MUST follow this exact pattern:
+YYYYMMDD_DocType_Entity_Identifier_v01
 
-2. Technical Requirements:
-   - Maximum 80 characters (be concise but descriptive)
-   - Use underscores for spaces
-   - Use hyphens for date ranges or compound identifiers
-   - Dates in ISO format: YYYY-MM-DD
-   - No special characters except underscore and hyphen
+COMPONENTS (in order):
+1. DATE PREFIX (MANDATORY): YYYYMMDD format (ISO 8601)
+   - Use document date if found in content
+   - Use today's date ({datetime.now().strftime('%Y%m%d')}) if no date found
+   - ALWAYS start filename with date
 
-3. Context-Aware Naming:
-   - Identify the industry/domain first
-   - Extract key entities (names, companies, addresses, IDs)
-   - Include version numbers or revision dates if present
-   - For multi-party documents, include all relevant parties
-   - For property documents, prioritize address/location
+2. DOCUMENT TYPE (MANDATORY): Use standard abbreviations
+   - INV = Invoice
+   - CTR = Contract
+   - RPT = Report
+   - LTR = Letter
+   - POL = Policy
+   - AGR = Agreement
+   - MEM = Memo
+   - MIN = Minutes
+   - PRO = Proposal
+   - REQ = Request/Requisition
+   - CRT = Certificate
+   - LGL = Legal Document
+   - FIN = Financial Document
+   - MED = Medical Record
+   - GOV = Government Form
 
-4. Clarity Rules:
-   - Lead with most important identifier
-   - Avoid abbreviations unless industry-standard
-   - Include transaction/reference numbers when present
-   - Make it scannable - someone should understand content at a glance
+3. ENTITY (MANDATORY): Primary organization/person
+   - Company name (abbreviated if needed)
+   - Person's last name
+   - Department code
+   - Max 15 characters
+
+4. IDENTIFIER (OPTIONAL): Reference numbers
+   - Invoice numbers
+   - Case IDs
+   - Account numbers
+   - Project codes
+   - Max 10 characters
+
+5. VERSION (MANDATORY): v01, v02, etc.
+
+RULES:
+- Total length: Maximum 60 characters
+- Use ONLY underscores (_) as separators
+- NO spaces, NO special characters except underscore
+- Use ONLY uppercase for type codes
+- Use TitleCase for entity names
+- Numbers: Always pad with zeros (01, 02, not 1, 2)
+
+EXAMPLES:
+- 20240115_INV_AcmeCorp_2024001_v01
+- 20240220_CTR_SmithJohn_SALE2024_v01
+- 20240301_RPT_Finance_Q4Results_v01
+- 20240415_LGL_RoganEstate_24PR371_v01
 
 Return JSON with:
 {{
-    "filename": "suggested_filename_without_extension",
-    "document_type": "specific type (e.g., Purchase Agreement, Tax Return, Medical Record)",
+    "filename": "standardized_filename_without_extension",
+    "document_type": "type code used (e.g., INV, CTR)",
+    "document_type_full": "full type name (e.g., Invoice, Contract)",
     "industry": "identified industry/domain",
-    "key_entities": ["list of important names/companies/addresses"],
-    "key_identifiers": ["reference numbers, case IDs, property addresses"],
-    "date_info": "extracted date or period",
-    "key_info": "one-line summary of document purpose",
-    "confidence": "high/medium/low",
-    "naming_rationale": "brief explanation of naming choice"
+    "entity": "primary entity name",
+    "identifier": "reference number if any",
+    "date_used": "YYYYMMDD date used in filename",
+    "date_source": "where date came from (document/today)",
+    "key_info": "one-line summary",
+    "confidence": "high/medium/low"
 }}"""
 
         try:
@@ -157,31 +185,33 @@ Return JSON with:
         except json.JSONDecodeError as e:
             print(f"[ERROR] Failed to parse AI response as JSON: {str(e)}")
             print(f"[DEBUG] Raw response: {response.text[:200]}...")
-            # Fallback naming
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            return f"Document_{timestamp}", {
-                "document_type": "Unknown",
+            # Fallback naming - follows ISO standard format
+            today = datetime.now().strftime("%Y%m%d")
+            return f"{today}_DOC_Unknown_v01", {
+                "document_type": "DOC",
+                "document_type_full": "Document",
                 "industry": "Unknown",
-                "key_entities": [],
-                "key_identifiers": [],
-                "date_info": "Not found",
+                "entity": "Unknown",
+                "identifier": "",
+                "date_used": today,
+                "date_source": "today",
                 "key_info": "JSON parsing failed",
-                "confidence": "low",
-                "naming_rationale": "Fallback due to response parsing error"
+                "confidence": "low"
             }
         except Exception as e:
             print(f"[ERROR] AI analysis failed: {str(e)}")
-            # Fallback naming
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            return f"Document_{timestamp}", {
-                "document_type": "Unknown",
+            # Fallback naming - follows ISO standard format
+            today = datetime.now().strftime("%Y%m%d")
+            return f"{today}_DOC_Unknown_v01", {
+                "document_type": "DOC",
+                "document_type_full": "Document",
                 "industry": "Unknown",
-                "key_entities": [],
-                "key_identifiers": [],
-                "date_info": "Not found",
-                "key_info": "Analysis failed",
-                "confidence": "low",
-                "naming_rationale": f"Fallback due to error: {str(e)}"
+                "entity": "Unknown",
+                "identifier": "",
+                "date_used": today,
+                "date_source": "today",
+                "key_info": f"Analysis failed: {str(e)}",
+                "confidence": "low"
             }
     
     def process_pdf(self, pdf_path: str) -> Dict:
