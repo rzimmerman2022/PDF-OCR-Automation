@@ -1,0 +1,25 @@
+{
+  "timestamp": "2025-07-22T13:58:02.124022",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\20241119_Letter_DomiciliaryLetters_RoganEstate_24PR371.pdf",
+      "original_name": "20241119_Letter_DomiciliaryLetters_RoganEstate_24PR371.pdf",
+      "status": "renamed",
+      "new_name": "20241119_Legal_DomiciliaryLetters_RoganEstate_24PR371.pdf",
+      "analysis": {
+        "filename": "20241119_Legal_DomiciliaryLetters_RoganEstate_24PR371",
+        "document_type": "Legal",
+        "description": "DomiciliaryLetters",
+        "entity": "RoganEstate",
+        "identifier": "24PR371",
+        "date_used": "20241119",
+        "date_source": "document",
+        "key_info": "Official court document (PR-1810) granting Domiciliary Letters for the administration of the Dennis W. Rogan estate, issued by Racine County Circuit Court.",
+        "confidence": "high"
+      },
+      "error": null
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0006
+}

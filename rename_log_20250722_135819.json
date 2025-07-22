@@ -1,0 +1,25 @@
+{
+  "timestamp": "2025-07-22T13:58:19.403207",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\Binder1.pdf",
+      "original_name": "Binder1.pdf",
+      "status": "renamed",
+      "new_name": "20240422_Waiver_ConsentInformalAdmin_RoganDennis_24PR.pdf",
+      "analysis": {
+        "filename": "20240422_Waiver_ConsentInformalAdmin_RoganDennis_24PR",
+        "document_type": "Waiver",
+        "description": "ConsentInformalAdmin",
+        "entity": "RoganDennis",
+        "identifier": "24PR",
+        "date_used": "20240422",
+        "date_source": "document",
+        "key_info": "Waiver and Consent for informal administration of the estate of Dennis W. Rogan, referencing a will dated 04/22/2024.",
+        "confidence": "high"
+      },
+      "error": null
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0006
+}

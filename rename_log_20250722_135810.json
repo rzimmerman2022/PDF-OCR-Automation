@@ -1,0 +1,25 @@
+{
+  "timestamp": "2025-07-22T13:58:10.234237",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\20241119_Trust_LettersOfTrust_RoganEstate_24PR371.pdf",
+      "original_name": "20241119_Trust_LettersOfTrust_RoganEstate_24PR371.pdf",
+      "status": "renamed",
+      "new_name": "20241119_Trust_LettersOfTrustInformalAdmin_RoganEstate_24PR371.pdf",
+      "analysis": {
+        "filename": "20241119_Trust_LettersOfTrustInformalAdmin_RoganEstate_24PR371",
+        "document_type": "Trust",
+        "description": "LettersOfTrustInformalAdmin",
+        "entity": "RoganEstate",
+        "identifier": "24PR371",
+        "date_used": "20241119",
+        "date_source": "document",
+        "key_info": "Letters of Trust granted for the informal administration of the Dennis W. Rogan Revocable Trust, related to the Estate of Dennis W. Rogan in Racine County, Wisconsin, Case No. 24-PR-371.",
+        "confidence": "high"
+      },
+      "error": null
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0006
+}
