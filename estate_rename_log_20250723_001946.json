@@ -1,0 +1,42 @@
+{
+  "timestamp": "2025-07-23T00:19:46.365577",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\20240422_24_PR_1_Rogan_Dennis_W_REI_Waiver_Consent_InformalAdministration_A1_R_Waiver_Consent_InformalAdministration_Estate_DennisRogan.pdf",
+      "original_name": "20240422_24_PR_1_Rogan_Dennis_W_REI_Waiver_Consent_InformalAdministration_A1_R_Waiver_Consent_InformalAdministration_Estate_DennisRogan.pdf",
+      "status": "renamed",
+      "new_name": "20240422_24_PR_1_Rogan_Dennis_W_REI_Waiver_Consent_InformalAdministration_A1_R_Waiver_Consent_InformalAdministration_Estate_DennisRogan-02.pdf",
+      "analysis": {
+        "date": "20240422",
+        "matter_id": "24_PR_1",
+        "last_name": "Rogan",
+        "first_name": "Dennis",
+        "middle_name": "W",
+        "dept_code": "REI",
+        "doc_type": "Waiver",
+        "subtype": "Consent_InformalAdministration",
+        "lifecycle": "A1",
+        "has_derivative": false,
+        "derivative_code": "",
+        "security_tag": "R",
+        "legal_description": "Waiver_Consent_InformalAdministration_Estate_DennisRogan",
+        "confidence": "high",
+        "reasoning": "The 'date' is extracted from the 'will dated 04/22/2024' mentioned in the content. The 'matter_id' (24_PR_1) is retained from the existing filename as it aligns with the 'Dennis Rogan Real Estate Research Project' context, given the partial case number in the document. 'LastName', 'FirstName', and 'MiddleName' are derived from 'DENNIS W. ROGAN' in the document. The 'dept_code' is 'REI' as the project is real estate research. 'DocType' is identified as 'Waiver' and 'Subtype' as 'Consent_InformalAdministration' directly from the document's title and structure, retaining the underscore format consistent with the original filename for this compound field. 'Lifecycle' (A1) is retained from the original filename as a common active status. 'Security_tag' is set to 'R' (Restricted) due to the presence of personal and legal estate information. The 'legal_description' is adopted from the existing filename, as it adheres to the 'TitleCase, no spaces, max 50 chars' rule (using underscores instead of spaces). 'Is_compilation' is false as specified.",
+        "is_compilation": false,
+        "compilation_contents": ""
+      },
+      "error": null,
+      "file_type": "documents",
+      "checksum": "3d8b5fd23f3a2ff726ac2f770c7e2e3bc5cb061b8866f83b9b1a3116092c6294"
+    }
+  ],
+  "naming_convention": "Estate Research Project SOP v2.1",
+  "collision_log": [
+    {
+      "timestamp": "2025-07-23T00:19:46.362179",
+      "original_attempt": "20240422_24_PR_1_Rogan_Dennis_W_REI_Waiver_Consent_InformalAdministration_A1_R_Waiver_Consent_InformalAdministration_Estate_DennisRogan.pdf",
+      "final_name": "20240422_24_PR_1_Rogan_Dennis_W_REI_Waiver_Consent_InformalAdministration_A1_R_Waiver_Consent_InformalAdministration_Estate_DennisRogan-02.pdf",
+      "directory": "C:\\Projects\\Estate Research Project"
+    }
+  ]
+}

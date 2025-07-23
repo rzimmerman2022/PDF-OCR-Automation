@@ -1,0 +1,35 @@
+{
+  "timestamp": "2025-07-23T00:19:26.201121",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\20170707_RoganTrust_Rogan_Dennis_W_LEG_Amendment_Trust_S1_C_Rogan_Revocable_Trust_Amendment.pdf",
+      "original_name": "20170707_RoganTrust_Rogan_Dennis_W_LEG_Amendment_Trust_S1_C_Rogan_Revocable_Trust_Amendment.pdf",
+      "status": "renamed",
+      "new_name": "20170707_RoganTrust_Rogan_Dennis_W_LEG_Amendment_Trust_S1_C_RoganRevocableTrustAmendment.pdf",
+      "analysis": {
+        "date": "20170707",
+        "matter_id": "RoganTrust",
+        "last_name": "Rogan",
+        "first_name": "Dennis",
+        "middle_name": "W",
+        "dept_code": "LEG",
+        "doc_type": "Amendment",
+        "subtype": "Trust",
+        "lifecycle": "S1",
+        "has_derivative": false,
+        "derivative_code": "",
+        "security_tag": "C",
+        "legal_description": "RoganRevocableTrustAmendment",
+        "confidence": "high",
+        "reasoning": "Date (20170707) and MatterID (RoganTrust) are derived from the current filename and confirmed by content (date). Last name (Rogan), first name (Dennis), and middle name (W) are identified from the primary individual mentioned in the trust document. Dept code (LEG) is chosen as the content is a legal trust document. DocType (Amendment) and Subtype (Trust) are clearly stated in the content ('FIRST AMENDMENT TO THE DENNIS W. ROGAN REVOCABLE TRUST'). Lifecycle (S1) is retained from the current filename as a valid stage. Security tag (C - Confidential) is appropriate for a personal trust document containing sensitive information. Legal description 'RoganRevocableTrustAmendment' is a concise and accurate TitleCase description of the document, adhering to the character limit and no-spaces rule.",
+        "is_compilation": false,
+        "compilation_contents": ""
+      },
+      "error": null,
+      "file_type": "documents",
+      "checksum": null
+    }
+  ],
+  "naming_convention": "Estate Research Project SOP v2.1",
+  "collision_log": []
+}

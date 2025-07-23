@@ -1,0 +1,35 @@
+{
+  "timestamp": "2025-07-23T00:20:00.953245",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\20240422_24_PR_1803_Rogan_Dennis_W_LEG_Waiver_ConsentInformalAdministration_A1_I_RoganEstate_WaiverAndConsent.pdf",
+      "original_name": "20240422_24_PR_1803_Rogan_Dennis_W_LEG_Waiver_ConsentInformalAdministration_A1_I_RoganEstate_WaiverAndConsent.pdf",
+      "status": "renamed",
+      "new_name": "20240422_24_PR_1803_Rogan_Dennis_W_REI_Waiver_ConsentInformalAdministration_A1_I_WaiverAndConsentInformalAdministration.pdf",
+      "analysis": {
+        "date": "20240422",
+        "matter_id": "24_PR_1803",
+        "last_name": "Rogan",
+        "first_name": "Dennis",
+        "middle_name": "W",
+        "dept_code": "REI",
+        "doc_type": "Waiver",
+        "subtype": "ConsentInformalAdministration",
+        "lifecycle": "A1",
+        "has_derivative": false,
+        "derivative_code": "",
+        "security_tag": "I",
+        "legal_description": "WaiverAndConsentInformalAdministration",
+        "confidence": "high",
+        "reasoning": "Date (20240422) and MatterID (24_PR_1803) are consistent with the current filename and content. Name (Rogan, Dennis, W) is directly from the document. The Dept code is set to 'REI' based on the project context 'Dennis Rogan Real Estate Research Project', aligning with the provided department codes. DocType ('Waiver') and Subtype ('ConsentInformalAdministration') are derived from the document's title 'Waiver and Consent (Informal Administration)'. Lifecycle 'A1' and Security Tag 'I' are adopted from the current filename as reasonable defaults given the document's nature. LegalDescription 'WaiverAndConsentInformalAdministration' directly reflects the document's content, adheres to TitleCase, no spaces, and max 50 chars rules. No compilation implied.",
+        "is_compilation": false,
+        "compilation_contents": ""
+      },
+      "error": null,
+      "file_type": "documents",
+      "checksum": null
+    }
+  ],
+  "naming_convention": "Estate Research Project SOP v2.1",
+  "collision_log": []
+}

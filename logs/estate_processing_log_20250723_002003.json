@@ -1,0 +1,181 @@
+{
+    "SOPVersion":  "2.1",
+    "Timestamp":  "2025-07-23 00:20:03",
+    "ProcessingResults":  [
+                              {
+                                  "original_path":  "C:\\Projects\\Estate Research Project\\_archive\\_archive\\1st Amendment.docx",
+                                  "original_name":  "1st Amendment.docx",
+                                  "status":  "renamed",
+                                  "new_name":  "00000000_RE_Dennis_Rogan_Research_Rogan_Dennis_NA_REI_Amendment_Contract_D1_I_FirstAmendment.docx",
+                                  "analysis":  {
+                                                   "date":  "00000000",
+                                                   "matter_id":  "RE_Dennis_Rogan_Research",
+                                                   "last_name":  "Rogan",
+                                                   "first_name":  "Dennis",
+                                                   "middle_name":  "NA",
+                                                   "dept_code":  "REI",
+                                                   "doc_type":  "Amendment",
+                                                   "subtype":  "Contract",
+                                                   "lifecycle":  "D1",
+                                                   "has_derivative":  false,
+                                                   "derivative_code":  "",
+                                                   "security_tag":  "I",
+                                                   "legal_description":  "FirstAmendment",
+                                                   "confidence":  "medium",
+                                                   "reasoning":  "The MatterID is derived from the project name \u0027Dennis Rogan Real Estate Research Project\u0027 as no specific ID was provided. Date is \u002700000000\u0027 as the file is undated. Last Name and First Name are from \u0027Dennis Rogan\u0027. Middle Name is \u0027NA\u0027 as not provided. Department Code is \u0027REI\u0027 for Real Estate. DocType is \u0027Amendment\u0027 and Subtype is \u0027Contract\u0027 based on \u00271st Amendment.docx\u0027 and real estate context. Lifecycle \u0027D1\u0027 (Draft 1) and Security Tag \u0027I\u0027 (Internal) are common defaults when no specific information is given. Legal Description is \u0027FirstAmendment\u0027 (TitleCase, no spaces). Is compilation is explicitly false.",
+                                                   "is_compilation":  false,
+                                                   "compilation_contents":  ""
+                                               },
+                                  "error":  null,
+                                  "file_type":  "documents",
+                                  "checksum":  null
+                              },
+                              {
+                                  "original_path":  "C:\\Projects\\Estate Research Project\\_archive\\20170104_Trust20140423_Rogan_Dennis_William_LEG_Amendment_Trust_A1_C_AmendsTrusteeSuccession.pdf",
+                                  "original_name":  "20170104_Trust20140423_Rogan_Dennis_William_LEG_Amendment_Trust_A1_C_AmendsTrusteeSuccession.pdf",
+                                  "status":  "renamed",
+                                  "new_name":  "20170104_Trust20140423_Rogan_Dennis_William_LEG_Amendment_Trust_A1_C_AmendsTrusteeSuccession-02.pdf",
+                                  "analysis":  {
+                                                   "date":  "20170104",
+                                                   "matter_id":  "Trust20140423",
+                                                   "last_name":  "Rogan",
+                                                   "first_name":  "Dennis",
+                                                   "middle_name":  "William",
+                                                   "dept_code":  "LEG",
+                                                   "doc_type":  "Amendment",
+                                                   "subtype":  "Trust",
+                                                   "lifecycle":  "A1",
+                                                   "has_derivative":  false,
+                                                   "derivative_code":  "",
+                                                   "security_tag":  "C",
+                                                   "legal_description":  "AmendsTrusteeSuccession",
+                                                   "confidence":  "high",
+                                                   "reasoning":  "The analysis of the file content and the current filename indicates that the file is an \u0027Amendment\u0027 to the \u0027Dennis W. Rogan Revocable Trust\u0027 established on April 23, 2014. The primary subject is Dennis Rogan, with William Rogan identified as his middle name from the existing filename and consistent with the content mentioning \u0027WILLIAM ROGAN\u0027 as a successor trustee. The document is related to \u0027Trustee Succession\u0027 changes. The current filename\u0027s fields (date, matter ID, names, department, doc type, subtype, lifecycle, security tag, and legal description) already conform precisely to all specified SOP v2.1 naming structure and field requirements. The date \u002720170104\u0027 from the current filename is used as the primary file date, although the document is signed on \u00271/17\u0027 (likely 2017). The MatterID \u0027Trust20140423\u0027 is used as the most specific identifier for the document\u0027s context. The document type \u0027Amendment\u0027 and subtype \u0027Trust\u0027 are derived from the content. Security tag \u0027C\u0027 (Confidential) is appropriate for trust documents.",
+                                                   "is_compilation":  false,
+                                                   "compilation_contents":  [
+
+                                                                            ]
+                                               },
+                                  "error":  null,
+                                  "file_type":  "documents",
+                                  "checksum":  null
+                              },
+                              {
+                                  "original_path":  "C:\\Projects\\Estate Research Project\\20170707_RoganTrust_Rogan_Dennis_W_LEG_Amendment_Trust_S1_C_Rogan_Revocable_Trust_Amendment.pdf",
+                                  "original_name":  "20170707_RoganTrust_Rogan_Dennis_W_LEG_Amendment_Trust_S1_C_Rogan_Revocable_Trust_Amendment.pdf",
+                                  "status":  "renamed",
+                                  "new_name":  "20170707_RoganTrust_Rogan_Dennis_W_LEG_Amendment_Trust_S1_C_RoganRevocableTrustAmendment.pdf",
+                                  "analysis":  {
+                                                   "date":  "20170707",
+                                                   "matter_id":  "RoganTrust",
+                                                   "last_name":  "Rogan",
+                                                   "first_name":  "Dennis",
+                                                   "middle_name":  "W",
+                                                   "dept_code":  "LEG",
+                                                   "doc_type":  "Amendment",
+                                                   "subtype":  "Trust",
+                                                   "lifecycle":  "S1",
+                                                   "has_derivative":  false,
+                                                   "derivative_code":  "",
+                                                   "security_tag":  "C",
+                                                   "legal_description":  "RoganRevocableTrustAmendment",
+                                                   "confidence":  "high",
+                                                   "reasoning":  "Date (20170707) and MatterID (RoganTrust) are derived from the current filename and confirmed by content (date). Last name (Rogan), first name (Dennis), and middle name (W) are identified from the primary individual mentioned in the trust document. Dept code (LEG) is chosen as the content is a legal trust document. DocType (Amendment) and Subtype (Trust) are clearly stated in the content (\u0027FIRST AMENDMENT TO THE DENNIS W. ROGAN REVOCABLE TRUST\u0027). Lifecycle (S1) is retained from the current filename as a valid stage. Security tag (C - Confidential) is appropriate for a personal trust document containing sensitive information. Legal description \u0027RoganRevocableTrustAmendment\u0027 is a concise and accurate TitleCase description of the document, adhering to the character limit and no-spaces rule.",
+                                                   "is_compilation":  false,
+                                                   "compilation_contents":  ""
+                                               },
+                                  "error":  null,
+                                  "file_type":  "documents",
+                                  "checksum":  null
+                              },
+                              {
+                                  "original_path":  "C:\\Projects\\Estate Research Project\\20240422_24_PR_1_Rogan_Dennis_W_REI_Waiver_Consent_InformalAdministration_A1_R_Waiver_Consent_InformalAdministration_Estate_DennisRogan.pdf",
+                                  "original_name":  "20240422_24_PR_1_Rogan_Dennis_W_REI_Waiver_Consent_InformalAdministration_A1_R_Waiver_Consent_InformalAdministration_Estate_DennisRogan.pdf",
+                                  "status":  "renamed",
+                                  "new_name":  "20240422_24_PR_1_Rogan_Dennis_W_REI_Waiver_Consent_InformalAdministration_A1_R_Waiver_Consent_InformalAdministration_Estate_DennisRogan-02.pdf",
+                                  "analysis":  {
+                                                   "date":  "20240422",
+                                                   "matter_id":  "24_PR_1",
+                                                   "last_name":  "Rogan",
+                                                   "first_name":  "Dennis",
+                                                   "middle_name":  "W",
+                                                   "dept_code":  "REI",
+                                                   "doc_type":  "Waiver",
+                                                   "subtype":  "Consent_InformalAdministration",
+                                                   "lifecycle":  "A1",
+                                                   "has_derivative":  false,
+                                                   "derivative_code":  "",
+                                                   "security_tag":  "R",
+                                                   "legal_description":  "Waiver_Consent_InformalAdministration_Estate_DennisRogan",
+                                                   "confidence":  "high",
+                                                   "reasoning":  "The \u0027date\u0027 is extracted from the \u0027will dated 04/22/2024\u0027 mentioned in the content. The \u0027matter_id\u0027 (24_PR_1) is retained from the existing filename as it aligns with the \u0027Dennis Rogan Real Estate Research Project\u0027 context, given the partial case number in the document. \u0027LastName\u0027, \u0027FirstName\u0027, and \u0027MiddleName\u0027 are derived from \u0027DENNIS W. ROGAN\u0027 in the document. The \u0027dept_code\u0027 is \u0027REI\u0027 as the project is real estate research. \u0027DocType\u0027 is identified as \u0027Waiver\u0027 and \u0027Subtype\u0027 as \u0027Consent_InformalAdministration\u0027 directly from the document\u0027s title and structure, retaining the underscore format consistent with the original filename for this compound field. \u0027Lifecycle\u0027 (A1) is retained from the original filename as a common active status. \u0027Security_tag\u0027 is set to \u0027R\u0027 (Restricted) due to the presence of personal and legal estate information. The \u0027legal_description\u0027 is adopted from the existing filename, as it adheres to the \u0027TitleCase, no spaces, max 50 chars\u0027 rule (using underscores instead of spaces). \u0027Is_compilation\u0027 is false as specified.",
+                                                   "is_compilation":  false,
+                                                   "compilation_contents":  ""
+                                               },
+                                  "error":  null,
+                                  "file_type":  "documents",
+                                  "checksum":  "3d8b5fd23f3a2ff726ac2f770c7e2e3bc5cb061b8866f83b9b1a3116092c6294"
+                              },
+                              {
+                                  "original_path":  "C:\\Projects\\Estate Research Project\\20240422_24_PR_1803_Rogan_Dennis_W_LEG_Waiver_ConsentInformalAdministration_A1_I_RoganEstate_WaiverAndConsent.pdf",
+                                  "original_name":  "20240422_24_PR_1803_Rogan_Dennis_W_LEG_Waiver_ConsentInformalAdministration_A1_I_RoganEstate_WaiverAndConsent.pdf",
+                                  "status":  "renamed",
+                                  "new_name":  "20240422_24_PR_1803_Rogan_Dennis_W_REI_Waiver_ConsentInformalAdministration_A1_I_WaiverAndConsentInformalAdministration.pdf",
+                                  "analysis":  {
+                                                   "date":  "20240422",
+                                                   "matter_id":  "24_PR_1803",
+                                                   "last_name":  "Rogan",
+                                                   "first_name":  "Dennis",
+                                                   "middle_name":  "W",
+                                                   "dept_code":  "REI",
+                                                   "doc_type":  "Waiver",
+                                                   "subtype":  "ConsentInformalAdministration",
+                                                   "lifecycle":  "A1",
+                                                   "has_derivative":  false,
+                                                   "derivative_code":  "",
+                                                   "security_tag":  "I",
+                                                   "legal_description":  "WaiverAndConsentInformalAdministration",
+                                                   "confidence":  "high",
+                                                   "reasoning":  "Date (20240422) and MatterID (24_PR_1803) are consistent with the current filename and content. Name (Rogan, Dennis, W) is directly from the document. The Dept code is set to \u0027REI\u0027 based on the project context \u0027Dennis Rogan Real Estate Research Project\u0027, aligning with the provided department codes. DocType (\u0027Waiver\u0027) and Subtype (\u0027ConsentInformalAdministration\u0027) are derived from the document\u0027s title \u0027Waiver and Consent (Informal Administration)\u0027. Lifecycle \u0027A1\u0027 and Security Tag \u0027I\u0027 are adopted from the current filename as reasonable defaults given the document\u0027s nature. LegalDescription \u0027WaiverAndConsentInformalAdministration\u0027 directly reflects the document\u0027s content, adheres to TitleCase, no spaces, and max 50 chars rules. No compilation implied.",
+                                                   "is_compilation":  false,
+                                                   "compilation_contents":  ""
+                                               },
+                                  "error":  null,
+                                  "file_type":  "documents",
+                                  "checksum":  null
+                              }
+                          ],
+    "Summary":  {
+                    "TotalProcessed":  5,
+                    "OCRPerformed":  0,
+                    "Renamed":  5,
+                    "CompilationFiles":  0,
+                    "Errors":  0,
+                    "AlreadyNamed":  0,
+                    "EstimatedCost":  0.003,
+                    "FileTypes":  "1 .docx, 4 .pdf",
+                    "CollisionsResolved":  2
+                },
+    "SecurityClassification":  [
+                                   {
+                                       "Count":  2,
+                                       "Tag":  "I"
+                                   },
+                                   {
+                                       "Count":  2,
+                                       "Tag":  "C"
+                                   },
+                                   {
+                                       "Count":  1,
+                                       "Tag":  "R"
+                                   }
+                               ],
+    "ChecksumFiles":  [
+                          {
+                              "Security":  "R",
+                              "Name":  "20240422_24_PR_1_Rogan_Dennis_W_REI_Waiver_Consent_InformalAdministration_A1_R_Waiver_Consent_InformalAdministration_Estate_DennisRogan-02.pdf",
+                              "Checksum":  "3d8b5fd23f3a2ff726ac2f770c7e2e3bc5cb061b8866f83b9b1a3116092c6294"
+                          }
+                      ],
+    "ComplianceRate":  43.88
+}

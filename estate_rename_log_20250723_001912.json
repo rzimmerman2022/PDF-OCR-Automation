@@ -1,0 +1,42 @@
+{
+  "timestamp": "2025-07-23T00:19:12.408867",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\_archive\\20170104_Trust20140423_Rogan_Dennis_William_LEG_Amendment_Trust_A1_C_AmendsTrusteeSuccession.pdf",
+      "original_name": "20170104_Trust20140423_Rogan_Dennis_William_LEG_Amendment_Trust_A1_C_AmendsTrusteeSuccession.pdf",
+      "status": "renamed",
+      "new_name": "20170104_Trust20140423_Rogan_Dennis_William_LEG_Amendment_Trust_A1_C_AmendsTrusteeSuccession-02.pdf",
+      "analysis": {
+        "date": "20170104",
+        "matter_id": "Trust20140423",
+        "last_name": "Rogan",
+        "first_name": "Dennis",
+        "middle_name": "William",
+        "dept_code": "LEG",
+        "doc_type": "Amendment",
+        "subtype": "Trust",
+        "lifecycle": "A1",
+        "has_derivative": false,
+        "derivative_code": "",
+        "security_tag": "C",
+        "legal_description": "AmendsTrusteeSuccession",
+        "confidence": "high",
+        "reasoning": "The analysis of the file content and the current filename indicates that the file is an 'Amendment' to the 'Dennis W. Rogan Revocable Trust' established on April 23, 2014. The primary subject is Dennis Rogan, with William Rogan identified as his middle name from the existing filename and consistent with the content mentioning 'WILLIAM ROGAN' as a successor trustee. The document is related to 'Trustee Succession' changes. The current filename's fields (date, matter ID, names, department, doc type, subtype, lifecycle, security tag, and legal description) already conform precisely to all specified SOP v2.1 naming structure and field requirements. The date '20170104' from the current filename is used as the primary file date, although the document is signed on '1/17' (likely 2017). The MatterID 'Trust20140423' is used as the most specific identifier for the document's context. The document type 'Amendment' and subtype 'Trust' are derived from the content. Security tag 'C' (Confidential) is appropriate for trust documents.",
+        "is_compilation": false,
+        "compilation_contents": []
+      },
+      "error": null,
+      "file_type": "documents",
+      "checksum": null
+    }
+  ],
+  "naming_convention": "Estate Research Project SOP v2.1",
+  "collision_log": [
+    {
+      "timestamp": "2025-07-23T00:19:12.408262",
+      "original_attempt": "20170104_Trust20140423_Rogan_Dennis_William_LEG_Amendment_Trust_A1_C_AmendsTrusteeSuccession.pdf",
+      "final_name": "20170104_Trust20140423_Rogan_Dennis_William_LEG_Amendment_Trust_A1_C_AmendsTrusteeSuccession-02.pdf",
+      "directory": "C:\\Projects\\Estate Research Project\\_archive"
+    }
+  ]
+}
