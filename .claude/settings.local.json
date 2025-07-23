@@ -14,7 +14,11 @@
       "Bash(python:*)",
       "Bash(del commit-message.txt)",
       "Bash(dir:*)",
-      "Bash(git rm:*)"
+      "Bash(git rm:*)",
+      "Bash(tesseract:*)",
+      "Bash(cmd /c:*)",
+      "Bash(winget install:*)",
+      "Bash(del *.backup)"
     ],
     "deny": []
   }

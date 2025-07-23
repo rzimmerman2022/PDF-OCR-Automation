@@ -1,0 +1,25 @@
+{
+  "timestamp": "2025-07-22T22:57:18.185773",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\20250722_Will_EstatePlanning_RoganDennis.pdf",
+      "original_name": "20250722_Will_EstatePlanning_RoganDennis.pdf",
+      "status": "skip",
+      "new_name": "20250722_Will_EstatePlanning_RoganDennis.pdf",
+      "analysis": {
+        "filename": "20250722_Will_EstatePlanning_RoganDennis",
+        "document_type": "Will",
+        "description": "EstatePlanning",
+        "entity": "RoganDennis",
+        "identifier": null,
+        "date_used": "20250722",
+        "date_source": "today",
+        "key_info": "Last Will and Testament of Dennis William Rogan, outlining asset distribution and personal representative instructions.",
+        "confidence": "high"
+      },
+      "error": null
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0006
+}

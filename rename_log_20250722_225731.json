@@ -1,0 +1,25 @@
+{
+  "timestamp": "2025-07-22T22:57:31.235881",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\Binder2.pdf",
+      "original_name": "Binder2.pdf",
+      "status": "renamed",
+      "new_name": "20170707_Trust_TrustAmendment_RoganDennis.pdf",
+      "analysis": {
+        "filename": "20170707_Trust_TrustAmendment_RoganDennis",
+        "document_type": "Trust",
+        "description": "TrustAmendment",
+        "entity": "RoganDennis",
+        "identifier": "",
+        "date_used": "20170707",
+        "date_source": "document",
+        "key_info": "First and Second Amendments to the Dennis W. Rogan Revocable Trust, with the first amendment detailing changes to trustee succession.",
+        "confidence": "high"
+      },
+      "error": null
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0006
+}

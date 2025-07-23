@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-07-22T22:56:13.156756",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\20241024_Correspondence_JudyRoganMeetingLink_RoganJudy.pdf",
+      "original_name": "20241024_Correspondence_JudyRoganMeetingLink_RoganJudy.pdf",
+      "status": "error",
+      "new_name": null,
+      "analysis": {},
+      "error": "No text extracted - may need OCR"
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0
+}

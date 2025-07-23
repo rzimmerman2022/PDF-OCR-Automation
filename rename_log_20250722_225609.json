@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-07-22T22:56:09.901339",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\20241021_Correspondence_AffidavitOfHeirshipReview_RosenbergAndrew.pdf",
+      "original_name": "20241021_Correspondence_AffidavitOfHeirshipReview_RosenbergAndrew.pdf",
+      "status": "error",
+      "new_name": null,
+      "analysis": {},
+      "error": "No text extracted - may need OCR"
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0
+}

@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-07-22T22:57:36.117974",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\cmms34.pdf",
+      "original_name": "cmms34.pdf",
+      "status": "error",
+      "new_name": null,
+      "analysis": {},
+      "error": "No text extracted - may need OCR"
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0
+}

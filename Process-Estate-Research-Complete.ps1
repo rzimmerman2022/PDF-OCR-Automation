@@ -105,7 +105,7 @@ Write-Host "="*60 -ForegroundColor Cyan
 Write-Host "Total PDFs processed: $($allPDFs.Count)"
 Write-Host "Successfully renamed: $successCount" -ForegroundColor Green
 Write-Host "Errors: $errorCount" -ForegroundColor $(if ($errorCount -gt 0) { "Red" } else { "Gray" })
-Write-Host "Total AI cost: `$$([math]::Round($successCount * 0.0006, 4))" -ForegroundColor Yellow
+Write-Host "Total AI cost: `$$('{0:F4}' -f ($successCount * 0.0006))" -ForegroundColor Yellow
 
 # Show renamed files
 if ($successCount -gt 0) {

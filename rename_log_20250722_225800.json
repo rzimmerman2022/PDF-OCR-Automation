@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-07-22T22:58:00.855614",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\comms35.pdf",
+      "original_name": "comms35.pdf",
+      "status": "error",
+      "new_name": null,
+      "analysis": {},
+      "error": "No text extracted - may need OCR"
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0
+}

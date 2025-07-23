@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-07-22T22:56:50.002663",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\20240823_Certificate_FactOfDeath_Rogan_2024035511.pdf",
+      "original_name": "20240823_Certificate_FactOfDeath_Rogan_2024035511.pdf",
+      "status": "error",
+      "new_name": null,
+      "analysis": {},
+      "error": "No text extracted - may need OCR"
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0
+}

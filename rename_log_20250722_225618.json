@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-07-22T22:56:18.804972",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\20241027_Correspondence_CareConcerns_ZimmermanJudy.pdf",
+      "original_name": "20241027_Correspondence_CareConcerns_ZimmermanJudy.pdf",
+      "status": "error",
+      "new_name": null,
+      "analysis": {},
+      "error": "No text extracted - may need OCR"
+    }
+  ],
+  "model": "gemini-2.5-flash",
+  "total_cost": 0.0
+}
