@@ -1,0 +1,29 @@
+{
+  "timestamp": "2025-07-22T23:23:30.793194",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\20240422_Waiver_ConsentInformalAdmin_RoganDennis_24PR.pdf",
+      "original_name": "20240422_Waiver_ConsentInformalAdmin_RoganDennis_24PR.pdf",
+      "status": "renamed",
+      "new_name": "20240422_24_PR_1803_Rogan_Dennis_W_LEG_Waiver_ConsentInformalAdministration_A1_I_RoganEstate_WaiverAndConsent.pdf",
+      "analysis": {
+        "date": "20240422",
+        "matter_id": "24_PR_1803",
+        "last_name": "Rogan",
+        "first_name": "Dennis",
+        "middle_name": "W",
+        "dept_code": "LEG",
+        "doc_type": "Waiver",
+        "subtype": "ConsentInformalAdministration",
+        "lifecycle": "A1",
+        "security_tag": "I",
+        "legal_description": "RoganEstate_WaiverAndConsent",
+        "filename": "20240422_24_PR_1803_Rogan_Dennis_W_LEG_Waiver_ConsentInformalAdministration_A1_I_RoganEstate_WaiverAndConsent",
+        "confidence": "high",
+        "reasoning": "The document date is extracted from the 'will dated 04/22/2024'. The MatterID '24-PR-1803' is explicitly stated (combining '24-PR-' from header and 'PR-1803' from text). The primary person is 'Dennis W. Rogan' as it's 'IN THE MATTER OF THE ESTATE OF'. The document is a 'Waiver and Consent (Informal Administration)', with 'Amended' indicating 'A1' lifecycle. As a court document for an estate, the department is 'LEG' (Legal). The security tag is 'I' (Internal) given it's for a 'Real Estate Research Project'. The legal description is a concise summary combining the subject and document type."
+      },
+      "error": null
+    }
+  ],
+  "naming_convention": "Estate Research Project SOP v1.2"
+}

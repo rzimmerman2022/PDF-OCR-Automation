@@ -1,0 +1,112 @@
+MAJOR UPDATE: Estate Research Project Naming Convention Implementation
+
+## Overview
+This update implements the Dennis Rogan Real Estate Research Project Standard Operating Procedure (SOP) v1.2 for file naming conventions. The system now provides industry-specific, deterministic naming that ensures clarity, chronological organization, and compatibility with automated systems.
+
+## Key Changes
+
+### 1. Estate Research Naming Convention Implementation
+- **New Script**: estate_research_renamer.py - Dedicated AI renamer following SOP v1.2
+- **Naming Structure**: YYYYMMDD_MatterID_LastName_FirstName_MiddleName_Dept_DocType_Subtype_Lifecycle_SecTag_LegalDescription.ext
+- **Field Validation**: Enforces controlled vocabularies for departments, lifecycle states, and security tags
+
+### 2. Department Classification System
+Implemented 6 department codes (estate_research_renamer.py:37-44):
+- LEG: Legal documents, court filings, attorney correspondence
+- FIN: Financial - bank statements, investment forms
+- ADM: Administrative - project management, vendor quotes
+- TAX: Tax-related filings and documents
+- INS: Insurance policies, claims, correspondence
+- REI: Real Estate investment analysis, deeds, property records
+
+### 3. Document Lifecycle Management
+Implemented lifecycle states (estate_research_renamer.py:138):
+- D1, D2...: Draft versions (unsigned, working documents)
+- S1, S2...: Signed final master copies
+- A1, A2...: Official amendments to parent documents
+- F1, F2...: Final records of non-versioned items
+- OCR: OCR-processed derivatives
+- BK: Bookmarked copies for usability
+
+### 4. Security Classification
+Implemented 5-tier security tagging system (estate_research_renamer.py:47-53):
+- P: Public - cleared for public access
+- I: Internal - project team use only
+- C: Confidential - sensitive information (default)
+- S: Strictly Confidential - highly sensitive data
+- R: Regulated - contains regulated data (HIPAA/PHI)
+
+### 5. Comprehensive OCR and Rename Workflow
+- **New Script**: Process-Estate-OCR-And-Rename.ps1
+- **OCR Detection**: Automatically checks which PDFs need OCR
+- **Searchable PDF Creation**: Uses adobe_style_ocr.py (NOT text extraction)
+- **Progress Monitoring**: Step-by-step reporting with color-coded output
+- **Cost Tracking**: Real-time AI processing cost calculation
+
+### 6. File Organization
+- **Created _backup folder**: Proper segregation of backup files
+- **Moved backup files**: .txt and .pdfbackup files moved to _backup (NOT PDFs)
+- **Restored comm*.pdf files**: Corrected initial mistake, PDFs remain in main folder
+
+### 7. Testing and Validation
+- **Test Mode**: Process-Estate-OCR-And-Rename.ps1 -TestMode for safe testing
+- **Successful Renaming Examples**:
+  - 20170707_RoganTrust_Rogan_Dennis_W_LEG_Amendment_Trust_S1_C_Rogan_Revocable_Trust_Amendment.pdf
+  - 20240422_24_PR_1803_Rogan_Dennis_W_LEG_Waiver_ConsentInformalAdministration_A1_I_RoganEstate_WaiverAndConsent.pdf
+- **Verified**: OCR creates searchable PDFs, not .txt files
+
+## Technical Implementation Details
+
+### AI Integration
+- Uses Gemini 2.5 Flash for content analysis
+- Custom prompt engineering for SOP v1.2 compliance
+- JSON-structured responses for reliable parsing
+- Fallback mechanisms for error handling
+
+### Naming Convention Parser
+- Matter ID conversion: Hyphens to underscores (24-PR-371 → 24_PR_371)
+- Special handling for Matter IDs with underscores (prefix with MID)
+- Maximum 140 characters to reserve path length
+- ASCII-only characters for compatibility
+
+### Quality Assurance
+- Pre-flight checks for text extraction
+- OCR quality verification
+- Duplicate name handling with counter suffixes
+- Comprehensive error reporting and logging
+
+## Usage Instructions
+
+1. **For Test Run (3 files)**:
+   ```powershell
+   .\Process-Estate-OCR-And-Rename.ps1 -TestMode
+   ```
+
+2. **For Full Processing**:
+   ```powershell
+   .\Process-Estate-OCR-And-Rename.ps1
+   ```
+
+3. **For Individual Files**:
+   ```bash
+   python estate_research_renamer.py "path/to/file.pdf"
+   ```
+
+## Benefits
+- **Deterministic Naming**: Any team member or AI can identify document context from filename
+- **Chronological Organization**: Date-first format ensures proper sorting
+- **Security Compliance**: Built-in security classification for sensitive data
+- **Version Control**: Clear lifecycle states for document versions
+- **Industry Standards**: Follows legal/financial document management best practices
+
+## Files Added/Modified
+- estate_research_renamer.py (NEW)
+- Process-Estate-OCR-And-Rename.ps1 (NEW)
+- Move-BackupFiles.ps1 (NEW)
+- Restore-CommPDFs.ps1 (NEW)
+- Multiple estate_rename_log_*.json files (generated during testing)
+
+This implementation provides a robust, scalable solution for the Dennis Rogan Real Estate Research Project document management needs, ensuring all files follow a consistent, meaningful naming convention that supports both human understanding and automated processing.
+
+🤖 Generated with Claude Code
+Co-Authored-By: Claude <noreply@anthropic.com>

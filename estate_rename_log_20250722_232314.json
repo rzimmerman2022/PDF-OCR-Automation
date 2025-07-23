@@ -1,0 +1,29 @@
+{
+  "timestamp": "2025-07-22T23:23:14.006878",
+  "results": [
+    {
+      "original_path": "C:\\Projects\\Estate Research Project\\20170707_Trust_TrustAmendment_RoganDennis.pdf",
+      "original_name": "20170707_Trust_TrustAmendment_RoganDennis.pdf",
+      "status": "renamed",
+      "new_name": "20170707_RoganTrust_Rogan_Dennis_W_LEG_Amendment_Trust_S1_C_Rogan_Revocable_Trust_Amendment.pdf",
+      "analysis": {
+        "date": "20170707",
+        "matter_id": "RoganTrust",
+        "last_name": "Rogan",
+        "first_name": "Dennis",
+        "middle_name": "W",
+        "dept_code": "LEG",
+        "doc_type": "Amendment",
+        "subtype": "Trust",
+        "lifecycle": "S1",
+        "security_tag": "C",
+        "legal_description": "Rogan_Revocable_Trust_Amendment",
+        "filename": "20170707_RoganTrust_Rogan_Dennis_W_LEG_Amendment_Trust_S1_C_Rogan_Revocable_Trust_Amendment",
+        "confidence": "high",
+        "reasoning": "The document date (20170707) is derived from the signing date mentioned in the document and confirmed by the original filename. The MatterID 'RoganTrust' is assigned as a descriptive ID for the Dennis Rogan Real Estate Research Project, specifically for documents related to his trust. Dennis W. Rogan is clearly identified as the primary person. The department 'LEG' (Legal) is appropriate for a trust amendment. The document is titled 'First Amendment to the Dennis W. Rogan Revocable Trust', making 'Amendment' the DocType and 'Trust' the Subtype. The presence of signatures and notary acknowledgment indicates a 'S1' (Signed) lifecycle. Trust documents containing personal and familial details are considered 'C' (Confidential). The LegalDescription 'Rogan_Revocable_Trust_Amendment' concisely describes the document's content, following the specified TitleCase with underscores format."
+      },
+      "error": null
+    }
+  ],
+  "naming_convention": "Estate Research Project SOP v1.2"
+}
