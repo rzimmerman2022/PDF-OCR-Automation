@@ -1,166 +1,302 @@
 # PDF-OCR-Automation
 
-🚀 **Transform non-searchable PDFs into AI-readable documents with advanced OCR technology**
+🚀 **Enterprise-grade OCR automation for converting scanned PDFs into searchable, AI-readable documents**
 
-This project provides enterprise-grade OCR capabilities using OCRmyPDF and Tesseract, implementing best practices for reliable text extraction from scanned documents and image-based PDFs.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![PowerShell 5.1+](https://img.shields.io/badge/PowerShell-5.1+-blue.svg)](https://docs.microsoft.com/en-us/powershell/)
 
-## 🎯 What This Does
+## 📋 Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Testing](#testing)
+- [Contributing](#contributing)
+- [License](#license)
+
+## 🎯 Overview
+
+PDF-OCR-Automation transforms non-searchable PDFs (scanned documents, images) into fully searchable PDFs with embedded text layers that AI models can read and process. Built on industry-standard OCR engines (OCRmyPDF, Tesseract), it implements best practices for maximum accuracy and reliability.
+
+### Before & After
 
 - **Before OCR**: Your scanned PDFs are just images - AI models can't read them
 - **After OCR**: Full searchable text layer added - AI can now extract, analyze, and process the content
 
-## ✨ Key Features
+## ✨ Features
 
 - 📄 **Searchable PDFs**: Creates PDFs with invisible text layers (like Adobe Acrobat Pro)
 - 🎯 **Best Practices**: 300 DPI, grayscale conversion, noise removal for 5-10% better accuracy
-- 📦 **Optimization**: Reduces file size with --optimize 3 flag
+- 📦 **Optimization**: Reduces file size with `--optimize 3` flag
 - 🌍 **Multi-language**: Supports 100+ languages with explicit specification
 - 🔍 **Error Handling**: Comprehensive stderr capture with helpful diagnostics
 - 🚀 **Batch Processing**: Process entire folders efficiently
 - 🤖 **AI-Ready Output**: Ensures PDFs are readable by AI models and automation tools
-
-## 📋 Prerequisites
-
-- Windows OS with PowerShell 5.1+
-- Python 3.x
-- Administrator privileges (for installation)
-
-## 🔧 Installation
-
-### Quick Install (Recommended)
-
-Run this in an **Administrator PowerShell**:
-
-```powershell
-# 1. Install Chocolatey (if not already installed)
-Set-ExecutionPolicy Bypass -Scope Process -Force
-[System.Net.ServicePointManager]::SecurityProtocol = 3072
-iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-
-# 2. Install complete OCR toolchain
-choco install python3 -y
-choco install --pre tesseract -y
-choco install ghostscript -y
-choco install pngquant -y
-choco install unpaper -y
-pip install --upgrade ocrmypdf
-```
-
-### Verify Installation
-
-```powershell
-# Run the installation checker
-.\Installation\install_ocr_tools.ps1
-```
-
-## 🚀 Quick Start
-
-### 1. Basic OCR Command
-
-```powershell
-# Add Tesseract to PATH (required for each session)
-$env:PATH = $env:PATH + ";C:\Program Files\Tesseract-OCR"
-
-# Simple OCR
-ocrmypdf input.pdf output.pdf --language eng
-
-# With best practices
-ocrmypdf input.pdf output.pdf --language eng --optimize 3 --deskew --clean --oversample 300
-```
-
-### 2. PowerShell Script (Recommended)
-
-```powershell
-# Process single file
-.\OCR-Scripts\PowerShell\Enhanced-OCRmyPDF-Processor.ps1 -InputPath "scan.pdf" -Language eng -Optimize 3
-
-# Process entire folder
-.\OCR-Scripts\PowerShell\Enhanced-OCRmyPDF-Processor.ps1 -InputPath "C:\Scans" -Language eng -Optimize 3
-
-# Preview mode (no changes)
-.\OCR-Scripts\PowerShell\Enhanced-OCRmyPDF-Processor.ps1 -InputPath "C:\Scans" -WhatIf
-```
-
-### 3. Python Script
-
-```powershell
-# Process folder with automatic detection
-python .\OCR-Scripts\Python\adobe_style_ocr.py "C:\Documents\Scans"
-```
+- ⚡ **Performance**: Parallel processing with configurable worker threads
 
 ## 📁 Project Structure
 
 ```
 PDF-OCR-Automation/
-├── OCR-Scripts/           # Main OCR processing scripts
-│   ├── PowerShell/        # Enhanced-OCRmyPDF-Processor.ps1
-│   └── Python/            # adobe_style_ocr.py, verify-ai-readable.py
-├── Installation/          # Installation and setup scripts
-├── Documentation/         # Detailed guides and best practices
-├── Test-PDFs/            # Sample PDFs for testing
-├── Examples/             # Example scripts and use cases
-└── Archive/              # Old scripts and logs
+├── 📄 README.md                    # This file - start here
+├── 📄 LICENSE                      # MIT License
+├── 📄 .gitignore                   # Git ignore rules
+├── 📄 .editorconfig               # Editor configuration
+├── 📄 requirements.txt            # Python dependencies
+├── 📄 pyproject.toml             # Python project metadata
+├── 📄 Makefile                    # Build automation
+│
+├── 📂 src/                        # Source code
+│   ├── 📂 core/                   # Core functionality
+│   ├── 📂 processors/             # OCR processors
+│   │   ├── OCRmyPDF-Processor.ps1
+│   │   └── ocr_processor.py
+│   ├── 📂 utils/                  # Utility functions
+│   └── 📂 validators/             # Validation tools
+│       └── verify_ai_readable.py
+│
+├── 📂 scripts/                    # Executable scripts
+│   ├── 📂 install/               # Installation scripts
+│   │   ├── install_ocr_tools.ps1
+│   │   └── install_tesseract.ps1
+│   └── 📂 examples/              # Example scripts
+│       └── Invoice-OCR-Example.ps1
+│
+├── 📂 config/                     # Configuration files
+│   ├── default.json              # Default settings
+│   └── env.example               # Environment template
+│
+├── 📂 tests/                      # Test suite
+│   ├── 📂 unit/                  # Unit tests
+│   ├── 📂 integration/           # Integration tests
+│   └── 📂 fixtures/              # Test data
+│
+├── 📂 docs/                       # Documentation
+│   ├── OCR-BEST-PRACTICES.md
+│   ├── QUICK-START-GUIDE.md
+│   └── TROUBLESHOOTING.md
+│
+├── 📂 samples/                    # Sample PDFs
+│   ├── scanned_document.pdf
+│   └── scanned_document_OCR.pdf
+│
+├── 📂 output/                     # Output directory
+│   ├── 📂 logs/                  # Process logs
+│   ├── 📂 processed/             # Processed files
+│   └── 📂 reports/               # Reports
+│
+├── 📂 tools/                      # Additional tools
+└── 📂 archive/                    # Archived/deprecated files
 ```
 
-## 🎓 Common Use Cases
+## 🔧 Installation
 
-### Invoice Processing
+### Prerequisites
+
+- Windows OS with PowerShell 5.1+
+- Python 3.8+
+- Administrator privileges (for installation)
+
+### Quick Install (Recommended)
+
+Run in **Administrator PowerShell**:
+
 ```powershell
-.\OCR-Scripts\PowerShell\Enhanced-OCRmyPDF-Processor.ps1 -InputPath ".\Invoices" -Language eng -Optimize 3
+# Clone the repository
+git clone https://github.com/yourusername/PDF-OCR-Automation.git
+cd PDF-OCR-Automation
+
+# Run installation script
+.\scripts\install\install_ocr_tools.ps1
 ```
 
-### Multi-language Documents
+### Manual Installation
+
+1. **Install Chocolatey** (if not installed):
 ```powershell
-# English and Spanish
-.\OCR-Scripts\PowerShell\Enhanced-OCRmyPDF-Processor.ps1 -InputPath "doc.pdf" -Language "eng+spa"
-
-# Asian languages
-.\OCR-Scripts\PowerShell\Enhanced-OCRmyPDF-Processor.ps1 -InputPath "doc.pdf" -Language "eng+jpn+chi_sim"
+Set-ExecutionPolicy Bypass -Scope Process -Force
+[System.Net.ServicePointManager]::SecurityProtocol = 3072
+iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 ```
 
-### Large Color Scans
+2. **Install OCR toolchain**:
 ```powershell
-# Maximum compression without quality loss
-.\OCR-Scripts\PowerShell\Enhanced-OCRmyPDF-Processor.ps1 -InputPath "large_scan.pdf" -Optimize 3 -Grayscale
+choco install python3 tesseract ghostscript pngquant unpaper -y
 ```
 
-## 📊 Performance & Results
-
-- **Accuracy**: 5-10% improvement with pre-clean settings
-- **File Size**: 30-75% reduction with optimization
-- **Speed**: ~2-10 seconds per page (depends on complexity)
-- **Success Rate**: 95%+ on quality scans
-
-## 🔍 Troubleshooting
-
-### "Tesseract not found"
+3. **Install Python dependencies**:
 ```powershell
-# Add to PATH temporarily
-$env:PATH = $env:PATH + ";C:\Program Files\Tesseract-OCR"
-
-# Or reinstall
-choco install --pre tesseract -y
+pip install -r requirements.txt
 ```
 
-### "pngquant not found" (for --optimize 2,3)
+### Verify Installation
+
 ```powershell
-choco install pngquant -y
+# Check installations
+ocrmypdf --version
+tesseract --version
+python --version
 ```
 
-### Low OCR Quality
-- Enable pre-clean: `-Grayscale -CleanPages`
-- Increase DPI: `-DPI 300` or higher
-- Check scan quality (avoid JPEG compression)
+## 🚀 Quick Start
 
-## 📚 Documentation
+### PowerShell (Recommended)
 
-- **[OCR Best Practices](./Documentation/OCR-BEST-PRACTICES.md)** - Detailed implementation guide
-- **[Test Results](./Documentation/OCR-FUNCTIONALITY-TEST-RESULTS.md)** - Proof of concept
-- **[Troubleshooting Guide](./TROUBLESHOOTING.md)** - Common issues and solutions
+```powershell
+# Process a single PDF
+.\src\processors\OCRmyPDF-Processor.ps1 -InputPath "C:\path\to\input.pdf" -Language eng
+
+# Process entire folder
+.\src\processors\OCRmyPDF-Processor.ps1 -InputPath "C:\path\to\pdfs" -Language eng
+```
+
+### Python
+
+```bash
+# Process a single PDF
+python src/processors/ocr_processor.py "C:\path\to\input.pdf"
+
+# Process entire folder
+python src/processors/ocr_processor.py "C:\path\to\pdfs" --language eng
+```
+
+### Direct OCRmyPDF
+
+```bash
+ocrmypdf input.pdf output.pdf --language eng --optimize 3 --deskew --clean --clean-final
+```
+
+## 📖 Usage
+
+### Basic Processing
+
+```powershell
+# Simple OCR with default settings
+.\src\processors\OCRmyPDF-Processor.ps1 -InputPath "document.pdf"
+
+# Specify language (e.g., German)
+.\src\processors\OCRmyPDF-Processor.ps1 -InputPath "document.pdf" -Language deu
+
+# Process folder with Spanish
+.\src\processors\OCRmyPDF-Processor.ps1 -InputPath "C:\Documents" -Language spa
+```
+
+### Advanced Options
+
+```powershell
+# Custom output directory
+.\src\processors\OCRmyPDF-Processor.ps1 -InputPath "input.pdf" -OutputPath "C:\Processed"
+
+# Force re-OCR existing text
+.\src\processors\OCRmyPDF-Processor.ps1 -InputPath "input.pdf" -ForceOCR
+
+# Custom DPI and optimization
+.\src\processors\OCRmyPDF-Processor.ps1 -InputPath "input.pdf" -DPI 600 -OptimizeLevel 2
+```
+
+### Verify AI Readability
+
+```python
+# Check if PDF is AI-readable
+python src/validators/verify_ai_readable.py "processed_document.pdf"
+```
+
+## ⚙️ Configuration
+
+### Environment Variables
+
+Copy `config/env.example` to `.env` and customize:
+
+```env
+# OCR Settings
+OCR_LANGUAGE=eng
+OCR_DPI=300
+OCR_OPTIMIZE_LEVEL=3
+
+# Processing
+PARALLEL_JOBS=4
+BATCH_SIZE=10
+
+# Paths
+TESSERACT_PATH=C:\Program Files\Tesseract-OCR
+OUTPUT_PATH=./output/processed
+```
+
+### Configuration File
+
+Edit `config/default.json` for global settings:
+
+```json
+{
+  "ocr": {
+    "language": "eng",
+    "dpi": 300,
+    "optimize": 3
+  },
+  "processing": {
+    "parallelJobs": 4,
+    "batchSize": 10
+  }
+}
+```
+
+## 🧪 Testing
+
+### Run All Tests
+
+```bash
+# Using Make
+make test
+
+# Using pytest directly
+pytest tests/ -v
+
+# With coverage report
+pytest tests/ -v --cov=src --cov-report=html
+```
+
+### Run Specific Tests
+
+```bash
+# Unit tests only
+pytest tests/unit/
+
+# Integration tests
+pytest tests/integration/
+
+# Specific test file
+pytest tests/unit/test_ocr_processor.py
+```
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit issues or pull requests.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Development Setup
+
+```bash
+# Install development dependencies
+pip install -r requirements.txt
+pip install -e .
+
+# Set up pre-commit hooks
+pre-commit install
+
+# Run linting
+make lint
+
+# Format code
+make format
+```
 
 ## 📄 License
 
@@ -168,10 +304,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- **OCRmyPDF** - The powerful OCR engine
-- **Tesseract OCR** - Google's OCR engine
-- **Ghostscript** - PDF rendering
+- [OCRmyPDF](https://github.com/ocrmypdf/OCRmyPDF) - The core OCR engine
+- [Tesseract](https://github.com/tesseract-ocr/tesseract) - Open source OCR engine
+- [Ghostscript](https://www.ghostscript.com/) - PDF processing
+- All contributors who have helped improve this project
 
 ---
 
-**Note**: This tool is designed for legitimate document processing. Please ensure you have the right to process any PDFs you use with this tool.
+**Need help?** Check out our [documentation](docs/) or [open an issue](https://github.com/yourusername/PDF-OCR-Automation/issues).

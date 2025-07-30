@@ -1,0 +1,31 @@
+{
+  "ocr": {
+    "language": "eng",
+    "dpi": 300,
+    "optimize": 3,
+    "clean": true,
+    "cleanFinal": true,
+    "removeBackground": true,
+    "forceOcr": true,
+    "skipText": false,
+    "outputType": "pdf"
+  },
+  "processing": {
+    "batchSize": 10,
+    "maxRetries": 3,
+    "timeout": 300,
+    "parallelJobs": 4
+  },
+  "paths": {
+    "tesseractData": "C:\\Program Files\\Tesseract-OCR\\tessdata",
+    "tempDirectory": "./output/temp",
+    "logsDirectory": "./output/logs",
+    "processedDirectory": "./output/processed"
+  },
+  "logging": {
+    "level": "INFO",
+    "format": "json",
+    "maxFileSize": "10MB",
+    "maxFiles": 5
+  }
+}
