@@ -67,13 +67,22 @@ def has_text(pdf_path):
     except:
         return False
 
-def ocr_pdf_like_adobe(pdf_path, output_path=None, backup=True):
+def ocr_pdf_like_adobe(pdf_path, output_path=None, backup=True, language='eng'):
     """
     OCR a PDF just like Adobe Acrobat Pro
     Creates a searchable PDF with invisible text layer
+    
+    Args:
+        pdf_path: Path to input PDF
+        output_path: Optional output path (defaults to overwriting input)
+        backup: Create backup before processing
+        language: OCR language(s) - e.g., 'eng', 'spa', 'eng+spa' for multiple
     """
     try:
         import ocrmypdf
+        import tempfile
+        import sys
+        from io import StringIO
         
         # Configure Tesseract path if needed
         if 'TESSERACT_PATH' in os.environ:
@@ -90,27 +99,48 @@ def ocr_pdf_like_adobe(pdf_path, output_path=None, backup=True):
             shutil.copy2(pdf_path, backup_path)
             print(f"  [BACKUP] Created backup: {backup_path.name}")
         
-        print(f"  [OCR] Processing with Adobe-style OCR...")
+        print(f"  [OCR] Processing with Adobe-style OCR (language: {language})...")
         
-        # Run OCR with settings similar to Adobe Pro
-        result = ocrmypdf.ocr(
-            str(pdf_path),
-            str(output_path),
-            # Adobe-like settings
-            rotate_pages=True,           # Auto-rotate pages
-            deskew=True,                 # Straighten scanned pages
-            clean=False,                 # Don't use unpaper (not installed)
-            force_ocr=True,              # OCR even if text exists
-            skip_text=False,             # Process all pages
-            optimize=1,                  # Optimize PDF size
-            language='eng',              # English OCR
-            # Quality settings
-            jpg_quality=95,              # High quality for images
-            png_quality=95,
-            jbig2_lossy=False,          # Lossless compression
-            # Text settings
-            oversample=300,              # 300 DPI for OCR accuracy
-        )
+        # Capture stderr for diagnostics
+        stderr_capture = StringIO()
+        old_stderr = sys.stderr
+        
+        try:
+            # Redirect stderr to capture diagnostics
+            sys.stderr = stderr_capture
+            
+            # Run OCR with settings similar to Adobe Pro
+            # Following best practices for reliable results
+            result = ocrmypdf.ocr(
+                str(pdf_path),
+                str(output_path),
+                # Adobe-like settings with enhanced reliability
+                rotate_pages=True,           # Auto-rotate pages
+                deskew=True,                 # Straighten scanned pages
+                clean=True,                  # Apply noise removal for better accuracy
+                force_ocr=True,              # OCR even if text exists
+                skip_text=False,             # Process all pages
+                optimize=3,                  # Maximum optimization for large color scans
+                language=language,           # Explicit language specification for better accuracy
+                # Quality settings
+                jpg_quality=85,              # Balanced quality/size ratio
+                png_quality=85,
+                jbig2_lossy=False,          # Lossless compression
+                # Text settings
+                oversample=300,              # 300 DPI for best OCR accuracy
+                # remove_background=True,    # Not implemented in current version
+            )
+        finally:
+            # Restore stderr
+            sys.stderr = old_stderr
+            stderr_output = stderr_capture.getvalue()
+        
+        # Display stderr output if any (contains helpful diagnostics)
+        if stderr_output.strip():
+            print(f"  [DIAGNOSTICS] OCRmyPDF output:")
+            for line in stderr_output.strip().split('\n'):
+                if line.strip():
+                    print(f"    {line}")
         
         if result == ocrmypdf.ExitCode.ok:
             print(f"  [SUCCESS] Created searchable PDF like Adobe Pro!")
@@ -129,6 +159,24 @@ def ocr_pdf_like_adobe(pdf_path, output_path=None, backup=True):
             return True
         else:
             print(f"  [ERROR] OCR failed with code: {result}")
+            
+            # Interpret exit codes for better diagnostics
+            exit_codes = {
+                1: "Bad arguments",
+                2: "Input file error",
+                3: "Output file error", 
+                4: "Input PDF is encrypted",
+                5: "Invalid output PDF",
+                6: "File already has text",
+                7: "Engine error during OCR",
+                8: "Invalid configuration",
+                9: "DPI too low",
+                10: "Timeout",
+                15: "Some pages already had text"
+            }
+            
+            if result in exit_codes:
+                print(f"  [ERROR DETAIL] {exit_codes[result]}")
             
             # Restore backup if failed
             if backup and output_path == pdf_path and backup_path.exists():

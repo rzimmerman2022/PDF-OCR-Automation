@@ -18,7 +18,14 @@
       "Bash(tesseract:*)",
       "Bash(cmd /c:*)",
       "Bash(winget install:*)",
-      "Bash(del *.backup)"
+      "Bash(del *.backup)",
+      "Bash(mv:*)",
+      "Bash(choco:*)",
+      "Bash(where:*)",
+      "Bash(\"C:\\Program Files\\Tesseract-OCR\\tesseract.exe\" --version)",
+      "Bash(pngquant:*)",
+      "Bash(Move-Item README.md ArchiveREADME-OLD.md -Force)",
+      "Bash(Move-Item README-NEW.md README.md -Force)"
     ],
     "deny": []
   }
