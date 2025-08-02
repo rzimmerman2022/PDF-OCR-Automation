@@ -38,6 +38,7 @@ PDF-OCR-Automation transforms non-searchable PDFs (scanned documents, images) in
 - 🚀 **Batch Processing**: Process entire folders efficiently
 - 🤖 **AI-Ready Output**: Ensures PDFs are readable by AI models and automation tools
 - ⚡ **Performance**: Parallel processing with configurable worker threads
+- 🎪 **Quick OCR Utility**: New `ocr_pdfs.py` for instant OCR on any folder
 
 ## 📁 Project Structure
 
@@ -66,6 +67,8 @@ PDF-OCR-Automation/
 │   │   └── install_tesseract.ps1
 │   └── 📂 examples/              # Example scripts
 │       └── Invoice-OCR-Example.ps1
+│
+├── 📄 ocr_pdfs.py                # Quick OCR utility for any folder
 │
 ├── 📂 config/                     # Configuration files
 │   ├── default.json              # Default settings
@@ -163,6 +166,9 @@ python src/processors/ocr_processor.py "C:\path\to\input.pdf"
 
 # Process entire folder
 python src/processors/ocr_processor.py "C:\path\to\pdfs" --language eng
+
+# Quick OCR any folder - NEW!
+python ocr_pdfs.py "C:\path\to\any\folder"
 ```
 
 ### Direct OCRmyPDF

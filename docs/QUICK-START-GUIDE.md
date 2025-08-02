@@ -45,6 +45,9 @@ python --version
 # Process a single PDF (Python)
 python src\processors\ocr_processor.py "input.pdf"
 
+# Quick OCR any folder - NEW!
+python ocr_pdfs.py "C:\path\to\any\folder"
+
 # Run OCR on a PDF
 ocrmypdf "scanned.pdf" "searchable.pdf" --language eng --optimize 3
 ```
@@ -52,8 +55,11 @@ ocrmypdf "scanned.pdf" "searchable.pdf" --language eng --optimize 3
 ## 🔥 Process Multiple PDFs
 
 ```powershell
-# Use the PowerShell script
-.\OCR-Scripts\PowerShell\Enhanced-OCRmyPDF-Processor.ps1 -InputPath "C:\MyPDFs" -Language eng -Optimize 3
+# PowerShell script (full control)
+.\src\processors\OCRmyPDF-Processor.ps1 -InputPath "C:\MyPDFs" -Language eng
+
+# Quick Python utility (simple & fast) - NEW!
+python ocr_pdfs.py "C:\MyPDFs"
 ```
 
 ## 📝 Common Tasks
@@ -65,7 +71,11 @@ ocrmypdf scan.pdf output.pdf --language eng --force-ocr
 
 ### Process invoices in a folder:
 ```powershell
-.\OCR-Scripts\PowerShell\Enhanced-OCRmyPDF-Processor.ps1 -InputPath ".\Invoices" -Language eng
+# PowerShell approach
+.\src\processors\OCRmyPDF-Processor.ps1 -InputPath ".\Invoices" -Language eng
+
+# Quick Python approach - NEW!
+python ocr_pdfs.py ".\Invoices"
 ```
 
 ### Multi-language document:
