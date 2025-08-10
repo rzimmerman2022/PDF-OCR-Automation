@@ -1,5 +1,9 @@
 # Quick Start Guide - PDF OCR Automation
 
+**Last Updated:** 2025-08-10  
+**Version:** 2.0.0  
+**Description:** Get up and running with PDF OCR automation in 5 minutes
+
 Get up and running in 5 minutes!
 
 ## 🚀 Quick Installation
@@ -91,9 +95,9 @@ ocrmypdf doc.pdf output.pdf --language "eng+spa+fra"
 
 ## 🆘 Need Help?
 
-- Check [README.md](README.md) for detailed instructions
-- See [Documentation/OCR-BEST-PRACTICES.md](Documentation/OCR-BEST-PRACTICES.md) for optimization tips
-- Run test script: `python .\OCR-Scripts\Python\verify-ai-readable.py`
+- Check [README.md](../README.md) for detailed instructions
+- See [OCR-BEST-PRACTICES.md](OCR-BEST-PRACTICES.md) for optimization tips
+- Run test script: `python src\validators\verify_ai_readable.py`
 
 ---
 

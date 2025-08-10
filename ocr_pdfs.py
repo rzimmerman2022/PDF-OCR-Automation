@@ -1,11 +1,41 @@
 #!/usr/bin/env python3
 """
-OCR all PDFs in a specified folder
-Creates searchable PDFs with invisible text layers
+PDF-OCR-Automation - Main Entry Point
+
+Universal OCR utility for batch processing PDF files. Creates searchable PDFs with 
+invisible text layers using industry-standard OCR engines (OCRmyPDF + Tesseract).
+
+Features:
+    - Adobe Acrobat Pro-style OCR processing
+    - Automatic detection of PDFs that need OCR
+    - Batch processing with progress tracking
+    - Multiple language support (100+ languages)
+    - Backup and recovery capabilities
+    - AI-readable output validation
 
 Usage:
     python ocr_pdfs.py <folder_path>
-    python ocr_pdfs.py "C:\Path\To\Your\Folder"
+    
+Examples:
+    python ocr_pdfs.py "C:\\Documents\\PDFs"
+    python ocr_pdfs.py "/home/user/scanned-docs"
+    python ocr_pdfs.py "."  # Current directory
+
+Output:
+    - Original PDFs are backed up with .backup extension
+    - Processed PDFs replace originals with searchable versions
+    - Processing summary shows success/failure counts
+    - Failed files are reported for manual review
+
+Requirements:
+    - Python 3.8+
+    - OCRmyPDF >= 16.0.0 
+    - Tesseract OCR >= 4.1.0
+    - Sufficient disk space for backups
+
+Author: PDF-OCR-Automation Team
+Version: 2.0.0
+License: MIT
 """
 
 import sys

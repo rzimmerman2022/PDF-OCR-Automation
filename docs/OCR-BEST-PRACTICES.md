@@ -1,5 +1,9 @@
 # OCR Best Practices Implementation Guide
 
+**Last Updated:** 2025-08-10  
+**Version:** 2.0.0  
+**Description:** Implementation guide for reliable OCR results using OCRmyPDF
+
 ## Overview
 
 This guide documents the implementation of OCR best practices for reliable results using OCRmyPDF in the PDF-OCR-Automation project.

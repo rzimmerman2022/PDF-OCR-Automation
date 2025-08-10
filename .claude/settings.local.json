@@ -30,7 +30,11 @@
       "Bash(del PROJECT-STRUCTURE.md)",
       "Bash(del ai_commit_notes.txt)",
       "Bash(find:*)",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "Bash(git checkout:*)",
+      "Bash(Move-Item \"C:\\Projects\\PDF-OCR-Automation\\Archive\\Old-Scripts\\*\" \"C:\\Projects\\PDF-OCR-Automation\\archive\\deprecated\"\" -Force)",
+      "Bash(Move-Item \"C:\\Projects\\PDF-OCR-Automation\\Archive\\Test-Scripts\\*\" \"C:\\Projects\\PDF-OCR-Automation\\archive\\deprecated\"\" -Force)",
+      "Bash(Move-Item \"C:\\Projects\\PDF-OCR-Automation\\Archive\\Estate-Scripts\\*\" \"C:\\Projects\\PDF-OCR-Automation\\archive\\experimental\"\" -Force)"
     ],
     "deny": []
   }

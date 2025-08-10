@@ -1,7 +1,34 @@
 #!/usr/bin/env python3
 """
-Create searchable PDFs like Adobe Pro using ocrmypdf
-This creates PDFs with invisible text layers, just like Adobe Acrobat Pro's OCR
+OCR Processor - Core OCR Processing Engine
+
+This module provides Adobe Acrobat Pro-style OCR processing using OCRmyPDF and Tesseract.
+Creates searchable PDFs with invisible text layers that are fully AI-readable.
+
+Main Functions:
+    - check_requirements(): Validate OCR toolchain availability
+    - has_text(): Check if PDF already contains searchable text
+    - ocr_pdf_like_adobe(): Main OCR processing function
+    - process_directory(): Batch processing for multiple files
+
+Usage:
+    # As a module
+    from processors.ocr_processor import ocr_pdf_like_adobe
+    success = ocr_pdf_like_adobe("input.pdf", language="eng")
+    
+    # Command line
+    python ocr_processor.py "input.pdf"
+    python ocr_processor.py "C:\\path\\to\\pdfs\\"
+
+Requirements:
+    - OCRmyPDF >= 16.0.0
+    - Tesseract OCR >= 4.1.0
+    - PyPDF2 >= 3.0.0
+    - Python >= 3.8
+
+Author: PDF-OCR-Automation Team
+Version: 2.0.0
+Last Updated: 2025-08-10
 """
 
 import os

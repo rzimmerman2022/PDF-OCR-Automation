@@ -1,5 +1,9 @@
 # Troubleshooting Guide - PDF OCR Automation Suite
 
+**Last Updated:** 2025-08-10  
+**Version:** 2.0.0  
+**Description:** Common issues and solutions for PDF OCR automation
+
 This guide covers common issues and their solutions when using the Universal PDF OCR Processor.
 
 ## Table of Contents
