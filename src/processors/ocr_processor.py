@@ -37,6 +37,7 @@ import subprocess
 from pathlib import Path
 import PyPDF2
 import shutil
+import importlib.util as importlib_util
 
 def check_requirements():
     """Check if Tesseract and ocrmypdf are available"""
@@ -72,9 +73,11 @@ def check_requirements():
     
     # Check for ocrmypdf
     try:
-        import ocrmypdf
-        print("[OK] ocrmypdf is installed")
-        return True
+        if importlib_util.find_spec('ocrmypdf') is not None:
+            print("[OK] ocrmypdf is installed")
+            return True
+        else:
+            raise ImportError
     except ImportError:
         print("[ERROR] ocrmypdf not installed. Installing...")
         subprocess.run([sys.executable, '-m', 'pip', 'install', 'ocrmypdf'])
@@ -91,7 +94,7 @@ def has_text(pdf_path):
                     break
                 text += page.extract_text()
             return len(text.strip()) > 10
-    except:
+    except Exception:
         return False
 
 def ocr_pdf_like_adobe(pdf_path, output_path=None, backup=True, language='eng'):
@@ -107,7 +110,6 @@ def ocr_pdf_like_adobe(pdf_path, output_path=None, backup=True, language='eng'):
     """
     try:
         import ocrmypdf
-        import tempfile
         import sys
         from io import StringIO
         
@@ -164,24 +166,24 @@ def ocr_pdf_like_adobe(pdf_path, output_path=None, backup=True, language='eng'):
         
         # Display stderr output if any (contains helpful diagnostics)
         if stderr_output.strip():
-            print(f"  [DIAGNOSTICS] OCRmyPDF output:")
+            print("  [DIAGNOSTICS] OCRmyPDF output:")
             for line in stderr_output.strip().split('\n'):
                 if line.strip():
                     print(f"    {line}")
         
         if result == ocrmypdf.ExitCode.ok:
-            print(f"  [SUCCESS] Created searchable PDF like Adobe Pro!")
+            print("  [SUCCESS] Created searchable PDF like Adobe Pro!")
             
             # Verify it worked
             if has_text(output_path):
-                print(f"  [VERIFIED] PDF is now searchable")
+                print("  [VERIFIED] PDF is now searchable")
                 
                 # Remove backup if successful
                 if backup and output_path == pdf_path and backup_path.exists():
                     backup_path.unlink()
-                    print(f"  [CLEANUP] Removed backup")
+                    print("  [CLEANUP] Removed backup")
             else:
-                print(f"  [WARNING] PDF may not be searchable")
+                print("  [WARNING] PDF may not be searchable")
                 
             return True
         else:
@@ -209,7 +211,7 @@ def ocr_pdf_like_adobe(pdf_path, output_path=None, backup=True, language='eng'):
             if backup and output_path == pdf_path and backup_path.exists():
                 shutil.copy2(backup_path, pdf_path)
                 backup_path.unlink()
-                print(f"  [RESTORED] Restored from backup")
+                print("  [RESTORED] Restored from backup")
                 
             return False
             
@@ -290,8 +292,8 @@ def main():
             # Directory
             process_directory(sys.argv[1])
     else:
-        # Default directory
-        process_directory(r"C:\Projects\Estate Research Project")
+        # Default to current working directory for universal usage
+        process_directory(Path.cwd())
 
 if __name__ == "__main__":
     main()

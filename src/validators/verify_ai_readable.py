@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 """
-Verify that AI models can read OCR'd PDFs
-Compare before and after OCR
+Verify that AI models can read OCR'd PDFs by comparing before/after.
+
+Usage:
+    python -m src.validators.verify_ai_readable --original <path> --ocr <path> [--out results.json]
+
+If paths aren't provided, exits with usage info.
 """
 
 import PyPDF2
 import json
+import argparse
+from datetime import datetime
 
 def extract_text_from_pdf(pdf_path):
     """Extract all text from a PDF"""
@@ -79,14 +85,19 @@ def analyze_content(text):
     }
 
 def main():
+    parser = argparse.ArgumentParser(description="Verify AI readability of PDFs (before vs after OCR)")
+    parser.add_argument('--original', required=True, help='Path to original (pre-OCR) PDF')
+    parser.add_argument('--ocr', required=True, help="Path to OCR'd (post-OCR) PDF")
+    parser.add_argument('--out', default='ai_readability_test_results.json', help='Path to write JSON results')
+    args = parser.parse_args()
+
+    original_pdf = args.original
+    ocr_pdf = args.ocr
+
     print("\n" + "="*60)
     print("AI READABILITY VERIFICATION TEST")
     print("="*60)
-    
-    # Test files
-    original_pdf = "C:/Projects/PDF-OCR-Automation/Test-PDFs/scanned_document.pdf"
-    ocr_pdf = "C:/Projects/PDF-OCR-Automation/Test-PDFs/scanned_document_OCR.pdf"
-    
+
     print("\n1. TESTING ORIGINAL SCANNED PDF (Before OCR)")
     print("-" * 50)
     original_text = extract_text_from_pdf(original_pdf)
@@ -156,7 +167,7 @@ def main():
     
     # Save results
     results = {
-        "test_date": "2025-07-30",
+        "test_date": datetime.utcnow().isoformat() + 'Z',
         "original_pdf": {
             "readable": original_analysis['readable'],
             "text_found": bool(original_text)
@@ -171,10 +182,10 @@ def main():
         "conclusion": "OCR successfully converts non-readable PDFs to AI-readable format"
     }
     
-    with open("C:/Projects/PDF-OCR-Automation/ai_readability_test_results.json", 'w') as f:
+    with open(args.out, 'w') as f:
         json.dump(results, f, indent=2)
     
-    print("\nResults saved to: ai_readability_test_results.json")
+    print(f"\nResults saved to: {args.out}")
 
 if __name__ == "__main__":
     main()
