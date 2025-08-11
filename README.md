@@ -151,24 +151,24 @@ python --version
 ### PowerShell (Recommended)
 
 ```powershell
-# Process a single PDF
-.\src\processors\OCRmyPDF-Processor.ps1 -InputPath "C:\path\to\input.pdf" -Language eng
+# Process a single PDF (wrapper forwards to enhanced processor)
+.\Universal-PDF-OCR-Processor.ps1 -InputPath "C:\path\to\input.pdf" -Language eng -Optimize 3 -DPI 300
 
-# Process entire folder
-.\src\processors\OCRmyPDF-Processor.ps1 -InputPath "C:\path\to\pdfs" -Language eng
+# Process an entire folder
+.\Universal-PDF-OCR-Processor.ps1 -InputPath "C:\path\to\pdfs" -Language eng -Optimize 3 -DPI 300
+
+# Direct enhanced processor (advanced)
+.\src\processors\OCRmyPDF-Processor.ps1 -InputPath "C:\path\to\pdfs" -Language eng -Optimize 3 -DPI 300
 ```
 
 ### Python
 
-```bash
-# Process a single PDF
-python src/processors/ocr_processor.py "C:\path\to\input.pdf"
+```powershell
+# Quick OCR any folder (recommended Python entry)
+python .\ocr_pdfs.py "C:\path\to\any\folder"
 
-# Process entire folder
-python src/processors/ocr_processor.py "C:\path\to\pdfs" --language eng
-
-# Quick OCR any folder - NEW!
-python ocr_pdfs.py "C:\path\to\any\folder"
+# Process a single PDF via module entry
+python .\src\processors\ocr_processor.py "C:\path\to\input.pdf"
 ```
 
 ### Direct OCRmyPDF
@@ -205,11 +205,18 @@ ocrmypdf input.pdf output.pdf --language eng --optimize 3 --deskew --clean --cle
 .\src\processors\OCRmyPDF-Processor.ps1 -InputPath "input.pdf" -DPI 600 -OptimizeLevel 2
 ```
 
-### Verify AI Readability
+### Verify AI Readability (before vs after)
 
-```python
-# Check if PDF is AI-readable
-python src/validators/verify_ai_readable.py "processed_document.pdf"
+```powershell
+# Compare a pre-OCR PDF and its OCR'd result; writes JSON report
+python -m src.validators.verify_ai_readable --original "C:\path\before.pdf" --ocr "C:\path\after.pdf" --out ".\ai_readability_test_results.json"
+```
+
+### Quick Smoke Test (end-to-end)
+
+```powershell
+# Runs OCR on a copy of one PDF and validates AI readability
+.\Tests\smoke\Run-OCR-SmokeTest.ps1 -InputPdf "C:\path\to\scan.pdf"
 ```
 
 ## ⚙️ Configuration

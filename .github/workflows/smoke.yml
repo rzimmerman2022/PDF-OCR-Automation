@@ -1,0 +1,61 @@
+name: OCR Smoke Test
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  smoke:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install OCRmyPDF
+        run: |
+          python -m pip install --upgrade pip
+          pip install ocrmypdf
+
+      - name: Install Ghostscript
+        shell: pwsh
+        run: |
+          choco install ghostscript -y
+
+      - name: Verify tools
+        shell: pwsh
+        run: |
+          ocrmypdf --version
+          python --version
+
+      - name: Generate simple PDF fixture
+        shell: pwsh
+        run: |
+          $dir = "${{ github.workspace }}\_smoke"
+          New-Item -ItemType Directory -Path $dir -Force | Out-Null
+          python -c "from reportlab.pdfgen import canvas; from reportlab.lib.pagesizes import letter; import os; p=os.path.join(r'$env:GITHUB_WORKSPACE','_smoke','orig.pdf'); c=canvas.Canvas(p,pagesize=letter); c.drawString(72,720,'SMOKE TEST - PDF'); c.showPage(); c.save()"
+
+      - name: Run Python OCR on folder
+        shell: pwsh
+        run: |
+          python .\ocr_pdfs.py "${{ github.workspace }}\_smoke"
+
+      - name: Validate AI readability
+        shell: pwsh
+        run: |
+          $dir = "${{ github.workspace }}\_smoke"
+          $pdf = Join-Path $dir 'orig.pdf'
+          $before = "$pdf.backup"; if (-not (Test-Path $before)) { $before = $pdf }
+          python -m src.validators.verify_ai_readable --original "$before" --ocr "$pdf" --out (Join-Path $dir 'result.json')
+          Get-Content (Join-Path $dir 'result.json')
+
+      - name: Assert success
+        shell: pwsh
+        run: |
+          $data = Get-Content "${{ github.workspace }}\_smoke\result.json" | ConvertFrom-Json
+          if (-not $data.ocr_pdf.readable) { throw 'OCR did not produce an AI-readable PDF.' }
